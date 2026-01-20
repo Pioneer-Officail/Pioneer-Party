@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pioneer Party - พรรคไพโอเนียร์ เบอร์ 0</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        partyBlue: '#1e3a8a', 
+                        partyDarkBlue: '#172554',
+                        partyYellow: '#facc15',
+                        offWhite: '#fdfbf7' 
+                    },
+                    fontFamily: { 
+                        sans: ['Anakotmai', 'Sarabun', 'sans-serif'], 
+                        display: ['Anakotmai', 'Prompt', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'pop': '6px 6px 0px 0px rgba(30, 58, 138, 1)',
+                        'pop-hover': '3px 3px 0px 0px rgba(30, 58, 138, 1)',
+                        'pop-yellow': '6px 6px 0px 0px rgba(250, 204, 21, 1)',
+                        'pop-white': '4px 4px 0px 0px #ffffff',
+                    },
+                    animation: {
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { transform: 'translateY(50px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    },
+                    backgroundImage: {
+                        'dot-pattern': 'radial-gradient(#1e3a8a 1px, transparent 1px)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700;900&family=Sarabun:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #fdfbf7;
+        }
+        
+        h1, h2, h3, .font-display {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        /* Scroll Animation Classes */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; }
+        ::-webkit-scrollbar-thumb:hover { background: #facc15; }
+
+        .bg-stripes {
+            background-image: repeating-linear-gradient(45deg, #facc15, #facc15 10px, #1e3a8a 10px, #1e3a8a 20px);
+        }
+    </style>
+</head>
+<body class="bg-offWhite text-gray-900 overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b-4 border-partyBlue shadow-pop transition-transform duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="rounded-none p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
+                    <img src="images/Pioneer logo 2.png" alt="Pioneer Logo" class="h-10 w-10 object-contain bg-white">
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-2xl font-black text-partyBlue uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Pioneer</span>
+                    <span class="text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max">PARTY</span>
+                </div>
+            </a>
+
+            <ul class="hidden md:flex space-x-6 items-center">
+                <li><a href="#" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors">หน้าหลัก</a></li>
+                <li><a href="#candidates" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors">ผู้สมัคร</a></li>
+                <li>
+                    <a href="policy.html" class="bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                        อ่านนโยบาย
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="pt-32 pb-20 md:pt-48 md:pb-32 relative overflow-hidden bg-white">
+        <div class="absolute right-0 top-0 w-1/3 h-full bg-partyBlue skew-x-[-12deg] origin-top translate-x-20 z-0 hidden md:block"></div>
+        <div class="absolute left-[-10%] bottom-[-10%] w-64 h-64 bg-partyYellow rounded-full opacity-20 blur-3xl"></div>
+
+        <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center">
+            
+            <div class="w-full md:w-3/5 text-center md:text-left mb-12 md:mb-0">
+                <div class="inline-block bg-partyYellow text-partyBlue px-4 py-1 font-black text-xl mb-4 transform -rotate-2 border-2 border-partyBlue shadow-pop reveal-on-scroll">
+                    #VOTE เบอร์ 0
+                </div>
+                
+                <h1 class="text-7xl md:text-[8rem] font-black text-partyBlue leading-[0.85] tracking-tighter mb-6 drop-shadow-sm reveal-on-scroll" style="transition-delay: 100ms;">
+                    The <br>
+                    <span class="text-transparent" style="-webkit-text-stroke: 3px #1e3a8a;">Pioneer</span><br>
+                    Party
+                </h1>
+                
+                <p class="text-xl md:text-2xl font-medium text-gray-600 max-w-lg mx-auto md:mx-0 mb-10 reveal-on-scroll" style="transition-delay: 200ms;">
+                    "ผู้บุกเบิกพัฒนา รับฟังทุกปัญหา<br>พร้อมแก้ไขไปด้วยกัน"
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start reveal-on-scroll" style="transition-delay: 300ms;">
+                    <a href="#candidates" class="bg-partyBlue text-white px-8 py-4 font-black text-xl shadow-pop-yellow hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all border-2 border-partyBlue">
+                        รู้จักทีมผู้สมัคร
+                    </a>
+                    <a href="policy.html" class="bg-white text-partyBlue px-8 py-4 font-black text-xl border-2 border-partyBlue hover:bg-gray-100 transition-colors">
+                        ดูนโยบายทั้งหมด
+                    </a>
+                </div>
+            </div>
+
+            <div class="w-full md:w-2/5 relative reveal-on-scroll" style="transition-delay: 400ms;">
+                <div class="relative w-64 h-80 md:w-80 md:h-[500px] mx-auto">
+                    <div class="absolute inset-0 bg-partyYellow border-2 border-black translate-x-4 translate-y-4 z-0"></div>
+                    <div class="absolute inset-0 bg-partyBlue border-2 border-black translate-x-2 translate-y-2 z-10"></div>
+                    <div class="absolute inset-0 bg-gray-200 border-2 border-black z-20 overflow-hidden group">
+                         <img src="images/รูปสภานักเรียน/ผู้ลงสมัครประธานสภานักเรียน.PNG" class="w-full h-full object-cover  group-hover:grayscale-0 transition-all duration-500 cursor-pointer">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 z-30 bg-white text-partyBlue border-2 border-partyBlue px-4 py-2 font-black text-2xl rotate-[-12deg] shadow-md">
+                        PIONEER!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-20 bg-partyBlue relative clip-diagonal">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/3 bg-white p-8 border-4 border-partyYellow shadow-pop-white reveal-on-scroll">
+                    <span class="bg-partyBlue text-white px-3 py-1 text-xs font-bold uppercase inline-block mb-4">Random Policy</span>
+                    <h2 id="policy-display" class="text-3xl font-black text-partyBlue min-h-[140px] flex items-center justify-center text-center leading-tight">
+                        "กดสุ่ม... เพื่อดูวิสัยทัศน์"
+                    </h2>
+                    <button id="generate-btn" class="w-full bg-partyYellow text-partyBlue border-2 border-partyBlue py-3 font-black text-xl hover:bg-white transition-all active:scale-95 mt-4">
+                        🎲 สุ่มนโยบาย
+                    </button>
+                </div>
+
+                <div class="lg:w-2/3 border-4 border-white bg-black p-2 relative shadow-2xl reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="absolute top-4 left-4 w-3 h-3 bg-red-500 rounded-full z-20 animate-pulse"></div>
+                    <div class="absolute top-4 right-4 text-white text-xs font-mono z-20">REC ●</div>
+                    
+                    <div class="relative w-full h-[300px] md:h-[400px] bg-gray-800 overflow-hidden group">
+                        <div id="banner-track" class="flex h-full transition-transform duration-500 ease-out">
+                            <div class="min-w-full h-full"><img src="images/สไลด์รูปภาพประกาศ/447206552_858965182942924_7901456108634153403_n.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition"></div>
+                            <div class="min-w-full h-full"><img src="images/สไลด์รูปภาพประกาศ/FB_IMG_1729340198018.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition"></div>
+                            <div class="min-w-full h-full"><img src="images/สไลด์รูปภาพประกาศ/PotaePotato.png" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition"></div>
+                        </div>
+                        <button class="absolute left-4 top-1/2 -translate-y-1/2 bg-white text-partyBlue w-10 h-10 flex items-center justify-center font-bold hover:bg-partyYellow transition" onclick="prevSlide()">❮</button>
+                        <button class="absolute right-4 top-1/2 -translate-y-1/2 bg-white text-partyBlue w-10 h-10 flex items-center justify-center font-bold hover:bg-partyYellow transition" onclick="nextSlide()">❯</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 border-y-2 border-white py-4 overflow-hidden">
+                <div id="typing-text" class="text-2xl md:text-4xl font-black text-white text-center font-display uppercase tracking-wider"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="candidates" class="py-24 max-w-7xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-end gap-6 mb-16 reveal-on-scroll">
+            <h2 class="text-6xl md:text-8xl font-black text-partyBlue uppercase leading-[0.8]">
+                Meet<br>The Team
+            </h2>
+            <p class="pb-4 text-xl text-gray-500 font-medium max-w-md">
+                ทีมงานคุณภาพ พร้อมรับฟังและทำงานเพื่อทุกคน
+                <span class="block w-full h-2 bg-partyYellow mt-2"></span>
+            </p>
+        </div>
+
+        <div id="candidate-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12">
+            </div>
+    </section>
+
+    <section class="py-24 bg-partyDarkBlue text-white relative">
+        <div class="absolute inset-0 bg-dot-pattern opacity-10"></div>
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <span class="bg-partyYellow text-partyBlue px-3 py-1 text-sm font-black uppercase inline-block mb-4 rotate-2">Q & A</span>
+                <h2 class="text-4xl md:text-5xl font-black">คำถามที่พบบ่อย</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="group bg-white/5 border border-white/20 hover:bg-white hover:text-partyBlue transition-all duration-300 cursor-pointer overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl flex justify-between items-center">
+                            <span>Q : ทำไมต้องเลือก Pioneer ทั้งที่หลายพรรคก็ดูน่าสนใจ?</span>
+                            <span class="text-partyYellow group-hover:text-partyBlue text-2xl">➔</span>
+                        </h3>
+                        <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
+                            <p class="mt-4 pt-4 border-t border-dashed border-gray-400 opacity-90">
+                                A : เพราะ Pioneer ไม่ได้เริ่มจากสิ่งที่อยากได้ แต่เริ่มจากสิ่งที่นักเรียนเจอจริง เราไม่สัญญาเกินอำนาจของพวกเรา แต่เราสัญญาว่าจะฟังทุกเสียงและผลักดันทุกเรื่องในขอบเขตที่ทำได้จริงค่ะ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-white/5 border border-white/20 hover:bg-white hover:text-partyBlue transition-all duration-300 cursor-pointer overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl flex justify-between items-center">
+                            <span>Q : Pioneer จะทำได้จริงแค่ไหน?</span>
+                            <span class="text-partyYellow group-hover:text-partyBlue text-2xl">➔</span>
+                        </h3>
+                        <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
+                            <p class="mt-4 pt-4 border-t border-dashed border-gray-400 opacity-90">
+                                A : นโยบายทุกข้อต้องผ่านการอนุมัติจากคุณครูและท่านผู้อำนวยการสิ่งที่ Pioneer ทำได้แน่นอน คือไม่ขายฝันและไม่ทิ้งนโยบายกลางทางและจะทำให้เต็มที่ที่สุดค่ะ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-white/5 border border-white/20 hover:bg-white hover:text-partyBlue transition-all duration-300 cursor-pointer overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl flex justify-between items-center">
+                            <span>Q : Pioneer แตกต่างจากพรรคอื่นยังไง?</span>
+                            <span class="text-partyYellow group-hover:text-partyBlue text-2xl">➔</span>
+                        </h3>
+                        <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
+                            <p class="mt-4 pt-4 border-t border-dashed border-gray-400 opacity-90">
+                                A : เราไม่ได้อยากเป็นพรรคที่ฮอตที่สุดแต่อยากเป็นพรรคที่นักเรียนกล้าเข้ามาหามากที่สุดเพราะสำหรับเราเสียงที่เบาก็สำคัญไม่แพ้เสียงที่ดังค่ะ
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-white/5 border border-white/20 hover:bg-white hover:text-partyBlue transition-all duration-300 cursor-pointer overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl flex justify-between items-center">
+                            <span>Q : ถ้าเลือก Pioneer นักเรียนจะได้อะไร?</span>
+                            <span class="text-partyYellow group-hover:text-partyBlue text-2xl">➔</span>
+                        </h3>
+                        <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
+                            <p class="mt-4 pt-4 border-t border-dashed border-gray-400 opacity-90">
+                                A : ได้ประธานที่เข้าถึงได้จริง กล้าพูดแทนทุกคนและกล้ารับผิดชอบกับสิ่งที่พูดค่ะ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-white/5 border border-white/20 hover:bg-white hover:text-partyBlue transition-all duration-300 cursor-pointer overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl flex justify-between items-center">
+                            <span>Q : Pioneer อยากบอกอะไรกับคนที่ยังลังเล?</span>
+                            <span class="text-partyYellow group-hover:text-partyBlue text-2xl">➔</span>
+                        </h3>
+                        <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
+                            <p class="mt-4 pt-4 border-t border-dashed border-gray-400 opacity-90">
+                                A : เราไม่ได้ขอให้คุณเลือกเราเพราะคำพูดสวยๆ แต่อยากให้คุณเลือกจากความตั้งใจที่คุณมองเห็นและให้ Pioneer ได้พิสูจน์ตัวเองด้วยการลงมือทำค่ะ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50 relative flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-dot-pattern opacity-5"></div>
+        <div class="absolute top-10 left-0 w-32 h-32 bg-partyYellow opacity-20 -rotate-12 z-0"></div>
+        <div class="absolute bottom-10 right-0 w-48 h-48 bg-partyBlue opacity-5 rounded-full z-0"></div>
+
+        <div class="container mx-auto px-4 relative z-10 reveal-on-scroll">
+            <div class="max-w-5xl mx-auto bg-partyBlue text-white border-4 border-partyBlue shadow-pop relative">
+                <div class="bg-partyYellow text-partyBlue font-bold px-6 py-3 text-xl md:text-3xl uppercase tracking-tighter border-b-4 border-white flex justify-between items-center">
+                    <span>Message from the Candidate</span>
+                    <i class="opacity-50 text-sm md:text-base font-medium tracking-normal">#VOTE 1</i>
+                </div>
+
+                <div class="p-8 md:p-16 flex flex-col md:flex-row gap-12 items-start">
+                    <div class="w-full md:w-1/3 flex flex-col items-center text-center md:items-start md:text-left">
+                        <div class="bg-partyYellow text-partyBlue w-32 h-32 md:w-40 md:h-40 flex items-center justify-center font-black text-6xl md:text-7xl mb-6 shadow-pop-yellow border-2 border-black rotate-3 overflow-hidden">
+                             <img src="images/รูปสภานักเรียน/ผู้ลงสมัครประธานสภานักเรียน.PNG" alt="รูปผู้สมัคร" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-partyYellow font-bold text-2xl uppercase leading-none mb-2">พาขวัญ นวลสำลี</h3>
+                        <p class="text-white opacity-80 font-light text-sm tracking-widest">ผู้ลงสมัครประธานสภานักเรียน</p>
+                        <div class="w-12 h-2 bg-partyYellow my-6"></div>
+                    </div>
+
+                    <div class="w-full md:w-2/3 relative">
+                        <span class="absolute -top-10 -left-6 text-9xl text-white opacity-10 font-serif leading-none">“</span>
+                        <h4 class="text-2xl font-bold text-partyYellow mb-6">เรียน เพื่อนนักเรียนทุกคน</h4>
+                        <div class="space-y-4 text-lg font-light leading-relaxed text-blue-50 text-justify">
+                            <p>การลงสมัครประธานสภานักเรียนในครั้งนี้ไม่ได้เกิดจากความอยากได้ตำแหน่ง แต่เกิดจากความตั้งใจที่จะทำให้โรงเรียนของเรา <span class="text-white font-bold underline decoration-partyYellow decoration-2 underline-offset-4">เป็นพื้นที่ที่ทุกคนรู้สึกว่าเสียงของตัวเองมีความหมาย</span></p>
+                            <p>ดิฉันเชื่อว่าไม่ใช่ทุกคนที่กล้าพูด หน้าที่ของพวกเราจึงไม่ใช่แค่การเสนอไอเดีย แต่คือการรับฟังและเป็นพื้นที่ตรงกลางที่ทุกคนเข้ามาได้อย่างสบายใจ</p>
+                            <p>ดิฉันขอพูดตามความจริงว่า <span class="bg-partyYellow text-partyBlue px-1 font-bold">ไม่ใช่ทุกนโยบายจะเกิดขึ้นได้ทันที</span> เพราะต้องผ่านการพิจารณาจากคุณครูและผู้บริหาร แต่สิ่งที่ดิฉันสัญญาได้คือการเสนอสิ่งที่เป็นไปได้และพยายามผลักดันทุกเรื่องอย่างเต็มที่</p>
+                            <p>หากคุณกำลังมองหาประธานนักเรียนที่เข้าถึงได้ จริงใจ และพร้อมรับผิดชอบ ดิฉันขอฝากความไว้วางใจให้ <span class="font-black text-partyYellow">Pioneer</span> ได้ทำหน้าที่แทนคุณค่ะ</p>
+                        </div>
+                        <div class="mt-12 text-right">
+                            <p class="font-bold text-lg">ด้วยความเคารพและความตั้งใจ</p>
+                            <p class="text-sm opacity-75 mb-2">ผู้ลงสมัครประธานสภานักเรียน</p>
+                            <h2 class="text-3xl md:text-4xl font-black text-partyYellow tracking-tight mt-2 inline-block border-b-4 border-partyYellow pb-1 transform -rotate-2">พรรค Pioneer</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-4 w-full bg-stripes"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white pt-20 pb-10 border-t-8 border-partyYellow">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="mb-10 rotate-2 inline-block p-4 border-2 border-partyBlue rounded-lg shadow-pop-yellow bg-white reveal-on-scroll">
+                <h2 class="text-2xl md:text-4xl font-black text-partyBlue font-display">
+                    "Follow us & get to know Pioneer"
+                </h2>
+                <p class="text-gray-500 mt-2">Because every voice matters. See you on Election Day</p>
+            </div>
+            <div class="flex justify-center gap-6 mb-12">
+                <a href="#" class="w-16 h-16 border-2 border-black flex items-center justify-center rounded-full hover:bg-partyBlue hover:text-white hover:border-partyBlue transition text-xl font-bold">IG</a>
+                <a href="#" class="w-16 h-16 border-2 border-black flex items-center justify-center rounded-full hover:bg-black hover:text-white transition text-xl font-bold">TT</a>
+            </div>
+            <div class="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                © 2026 Pioneer Party - เบอร์ 0
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. Animation Logic (Scroll Reveal) ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = { threshold: 0.1 };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            const elements = document.querySelectorAll('.reveal-on-scroll');
+            elements.forEach(el => observer.observe(el));
+        });
+
+        // --- 2. Candidates Data ---
+        const candidates = [
+            { id: 1, name: "พาขวัญ นวลสำลี", role: "ประธานนักเรียน", img: "images/รูปสภานักเรียน/ผู้ลงสมัครประธานสภานักเรียน.PNG" },
+            { id: 2, name: "กฤษณะกันท์ ไข่แก้ว", role: "กรรมการ คนที่ 1", img: "images/รูปสภานักเรียน/กรรมการ 1.PNG" },
+            { id: 3, name: "ธัญญรัตน์ หมื่นรัตน์", role: "กรรมการ คนที่ 2", img: "images/รูปสภานักเรียน/กรรมการ 2.PNG" },
+            { id: 4, name: "ฐานิดา รื่นเริง", role: "กรรมการ คนที่ 3", img: "images/รูปสภานักเรียน/กรรมการ 3.PNG" },
+            { id: 5, name: "วาศิณี ปู่ไข่", role: "กรรมการ คนที่ 4", img: "images/รูปสภานักเรียน/กรรมการ 4.PNG" },
+            { id: 6, name: "ปรียากาญจน์ ใจกล้า", role: "กรรมการ คนที่ 5", img: "images/รูปสภานักเรียน/กรรมการ 5.PNG" },
+            { id: 7, name: "เขมิกา ศักดิ์เสรีกุล", role: "กรรมการ คนที่ 6", img: "images/รูปสภานักเรียน/กรรมการ 6.PNG" },
+            { id: 8, name: "อารีรัตน์ บัวทอง", role: "กรรมการ คนที่ 7", img: "images/รูปสภานักเรียน/กรรมการ 7.PNG" },
+            { id: 9, name: "สิทธิโชค แสงสว่าง", role: "กรรมการ คนที่ 8", img: "images/รูปสภานักเรียน/กรรมการ 8.PNG" },
+        ];
+
+        const container = document.getElementById('candidate-list');
+        candidates.forEach((person, index) => {
+            const isPresident = index === 0;
+            const cardHTML = `
+                <a href="profile.html?id=${person.id}" class="block group reveal-on-scroll" style="transition-delay: ${index * 50}ms">
+                    <div class="relative pt-[125%] bg-gray-200 border-2 border-black overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
+                        <img src="${person.img}" class="absolute top-0 left-0 w-full h-full object-cover  group-hover:grayscale-0 transition duration-500">
+                        ${isPresident ? '<div class="absolute top-2 right-2 bg-partyYellow text-partyBlue font-black px-2 py-1 text-xs border border-black z-10">หัวหน้าพรรค</div>' : ''}
+                        
+                        <div class="absolute bottom-0 left-0 w-full bg-white border-t-2 border-black p-3 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <p class="text-[10px] font-bold uppercase text-partyBlue tracking-widest mb-1">${person.role}</p>
+                            <h3 class="text-base font-black text-black leading-tight">${person.name}</h3>
+                        </div>
+                    </div>
+                </a>`;
+            container.innerHTML += cardHTML;
+        });
+
+        // --- 3. Interactive Features ---
+        // Random Policy
+        const policies = ["ห้องน้ำสะอาด 🚽", "พื้นที่ Co-Working 📚", "Wi-Fi แรงทุกจุด 📶", "E-Sport Week 🎮", "ลดการบ้าน 💡", "ตลาดนัดนักเรียน 🛍️"];
+        const policyDisplay = document.getElementById("policy-display");
+        document.getElementById("generate-btn").addEventListener("click", () => {
+            let count = 0;
+            const interval = setInterval(() => {
+                policyDisplay.innerText = policies[Math.floor(Math.random() * policies.length)];
+                count++;
+                if(count > 10) clearInterval(interval);
+            }, 50);
+        });
+
+        // Typing Effect (Marquee Area)
+        const typeTarget = document.getElementById("typing-text");
+        const textToType = "เข้าคูหา... กาเบอร์ 0 พรรค Pioneer ! ";
+        let charIdx = 0;
+        function type() {
+            if (charIdx < textToType.length) {
+                typeTarget.innerHTML += textToType.charAt(charIdx); charIdx++;
+                setTimeout(type, 100);
+            } else {
+                // Reset to loop
+                setTimeout(() => { typeTarget.innerHTML = ""; charIdx = 0; type(); }, 3000);
+            }
+        }
+        type();
+
+        // Slider
+        let currentSlide = 0;
+        const track = document.getElementById('banner-track');
+        function updateSlide() { track.style.transform = `translateX(-${currentSlide * 100}%)`; }
+        window.nextSlide = () => { currentSlide = (currentSlide + 1) % 3; updateSlide(); };
+        window.prevSlide = () => { currentSlide = (currentSlide - 1 + 3) % 3; updateSlide(); };
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>

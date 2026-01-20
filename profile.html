@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ประวัติผู้สมัคร - Pioneer Party</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        partyBlue: '#1e3a8a', 
+                        partyDarkBlue: '#172554',
+                        partyYellow: '#facc15',
+                        offWhite: '#fdfbf7' 
+                    },
+                    fontFamily: { 
+                        sans: ['Sarabun', 'sans-serif'], 
+                        display: ['Prompt', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'pop': '6px 6px 0px 0px rgba(30, 58, 138, 1)',
+                        'pop-hover': '3px 3px 0px 0px rgba(30, 58, 138, 1)',
+                        'pop-yellow': '6px 6px 0px 0px rgba(250, 204, 21, 1)',
+                    },
+                    backgroundImage: {
+                        'dot-pattern': 'radial-gradient(#1e3a8a 1px, transparent 1px)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700;900&family=Sarabun:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #fdfbf7;
+        }
+        
+        h1, h2, h3, .font-display {
+            font-family: 'Prompt', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-offWhite text-gray-900 min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <div class="fixed inset-0 bg-dot-pattern opacity-10 pointer-events-none z-0"></div>
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b-4 border-partyBlue shadow-pop" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
+                    <img src="images/Pioneer logo 2.png" alt="Pioneer Logo" class="h-10 w-10 object-contain bg-white">
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-2xl font-black text-partyBlue uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Pioneer</span>
+                    <span class="text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max">PARTY</span>
+                </div>
+            </a>
+            
+            <ul class="hidden md:flex space-x-6 items-center">
+                <li><a href="index.html" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors">หน้าหลัก</a></li>
+                <li><a href="index.html#candidates" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors">ผู้สมัคร</a></li>
+                <li><a href="policy.html" class="bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none transition-all">อ่านนโยบาย</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-20 px-4 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            
+            <a href="index.html#candidates" class="inline-flex items-center gap-2 font-bold text-partyBlue bg-white border-2 border-partyBlue px-4 py-2 mb-8 shadow-pop-yellow hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                <span class="text-xl leading-none">❮</span> กลับไปหน้ารวม
+            </a>
+
+            <div id="profile-card" class="bg-white border-4 border-partyBlue shadow-pop flex flex-col md:flex-row overflow-hidden">
+                
+                <div class="w-full md:w-5/12 relative border-b-4 md:border-b-0 md:border-r-4 border-partyBlue bg-gray-100 group">
+                    <img id="p-img" src="" alt="" class="w-full h-full object-cover min-h-[400px]">
+                    <div class="absolute top-6 left-6 bg-partyYellow text-partyBlue border-2 border-black px-4 py-2 font-black text-3xl rotate-[-6deg] shadow-lg z-10">
+                        NO.<span id="p-id"></span>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-7/12 p-8 md:p-12 flex flex-col justify-center bg-white relative">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-partyYellow opacity-20 rounded-bl-full"></div>
+
+                    <div class="mb-8">
+                        <span class="bg-partyBlue text-white px-2 py-1 text-xs font-bold uppercase tracking-wider inline-block mb-3">Candidate Profile</span>
+                        <h1 id="p-name" class="text-3xl md:text-5xl font-black text-partyBlue leading-[1.1] mb-3"></h1>
+                        <p id="p-role" class="text-lg md:text-2xl font-bold text-white bg-partyYellow text-partyBlue inline-block px-2 rotate-1"></p>
+                    </div>
+
+                    <div class="mb-8 relative">
+                        <span class="absolute -top-4 -left-2 text-6xl text-gray-200 font-serif z-0">“</span>
+                        <p id="p-quote" class="relative z-10 text-xl md:text-2xl font-black italic text-gray-800 border-l-8 border-partyYellow pl-4 py-2"></p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 border-t-2 border-dashed border-gray-300 py-6 mb-6">
+                        <div>
+                            <span class="block text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">อายุ (Age)</span>
+                            <span id="p-age" class="text-xl font-bold text-partyBlue"></span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">ชั้นเรียน (Class)</span>
+                            <span id="p-class" class="text-xl font-bold text-partyBlue"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h3 class="font-black text-lg text-partyBlue uppercase border-b-2 border-partyBlue inline-block mb-3">Vision & Responsibility</h3>
+                        <p id="p-vision" class="text-gray-600 text-lg leading-relaxed"></p>
+                    </div>
+
+                    <div class="bg-gray-50 border-2 border-partyBlue p-4 rounded-lg">
+                        <h3 class="font-black text-lg text-partyBlue uppercase flex items-center gap-2 mb-3">
+                            <span>🏆</span> ผลงานที่ผ่านมา / ทำอะไรมาก่อน 
+                        </h3>
+                        <ul id="p-achievements" class="space-y-2">
+                            </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white pt-16 pb-8 border-t-8 border-partyYellow relative z-10">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-black text-partyBlue font-display mb-2">PIONEER PARTY</h2>
+            <p class="text-gray-500 font-medium mb-8">"Because every voice matters"</p>
+            <div class="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                © 2026 Pioneer Party - เบอร์ 0
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Structure (ข้อมูลผู้สมัคร)
+        // ** คุณสามารถแก้ไข ข้อมูล อายุ, ห้อง, คติ, วิสัยทัศน์ และ ผลงาน ได้ที่นี่ **
+        const candidates = [
+            { 
+                id: 1, 
+                name: "พาขวัญ นวลสำลี", 
+                role: "ประธานนักเรียน", 
+                img: "images/รูปสภานักเรียน/ผู้ลงสมัครประธานสภานักเรียน.PNG",
+                age: 17, 
+                class: "ม.4/2", 
+                quote: "ผู้นำที่ฟัง คือพลังของการเปลี่ยนแปลง", 
+                vision: "สร้างโรงเรียนที่เป็นพื้นที่ปลอดภัย รับฟังทุกความเห็น และผลักดันกิจกรรมสร้างสรรค์",
+                achievements: [
+                    "คฑากรโรงเรียน",
+                    "รางวัลรองชนะเลิศอันดับที่ 1 การตอบปัญหาวิทยาศาสตร์"
+                ]
+            },
+            { 
+                id: 2, 
+                name: "กฤษณะกันท์ ไข่แก้ว", 
+                role: "กรรมการ คนที่ 1", 
+                img: "images/รูปสภานักเรียน/กรรมการ 1.PNG",
+                age: 16, 
+                class: "ม.4/", 
+                quote: "คิดให้ไกล ไปให้ถึง", 
+                vision: "ดูแลงานวิชาการและประสานงานกับกลุ่มสาระการเรียนรู้ต่างๆ",
+                achievements: [
+                    "ตัวแทนแข่งมารยาทไทย",
+                    "รางวัลรองชนะเลิศอันดับ 2 การประกวดสื่อสร้างสรรค์ภาพยนตร์สั้น รายวิชาสังคม“ เย็บฝันกลางคำดูถูก “"
+                ]
+            },
+            { 
+                id: 3, 
+                name: "ธัญญรัตน์ หมื่นรัตน์", 
+                role: "กรรมการ คนที่ 2", 
+                img: "images/รูปสภานักเรียน/กรรมการ 2.PNG",
+                age: 16, 
+                class: "ม.4/", 
+                quote: "ความสุขของเพื่อน คือหน้าที่ของเรา", 
+                vision: "รับผิดชอบฝ่ายนันทนาการและกิจกรรมรื่นเริง",
+                achievements: [
+                ]
+            },
+            { 
+                id: 4, 
+                name: "ฐานิดา รื่นเริง", 
+                role: "กรรมการ คนที่ 3", 
+                img: "images/รูปสภานักเรียน/กรรมการ 3.PNG",
+                age: 16, 
+                class: "ม.4/2", 
+                quote: "โปร่งใส ตรวจสอบได้", 
+                vision: "เหรัญญิกดูแลความคุ้มค่าของการใช้งบประมาณสภา",
+                achievements: [
+                    "รางวัลรองชนะเลิศอันดับที่ 2 การตอบปัญหาวิทยาศาสตร์"
+                ]
+            },
+            { 
+                id: 5, 
+                name: "วาศิณี ปู่ไข่", 
+                role: "กรรมการ คนที่ 4", 
+                img: "images/รูปสภานักเรียน/กรรมการ 4.PNG",
+                age: 16, 
+                class: "ม.4/2", 
+                quote: "สื่อสารดี มีชัยไปกว่าครึ่ง", 
+                vision: "ฝ่ายประชาสัมพันธ์ กระจายข่าวสารให้ทั่วถึงทุกระดับชั้น",
+                achievements: [
+                    "รางวัลรองชนะเลิศอันดับที่ 2 การตอบปัญหาวิทยาศาสตร์"
+                ]
+            },
+            { 
+                id: 6, 
+                name: "ปรียากาญจน์ ใจกล้า", 
+                role: "กรรมการ คนที่ 5", 
+                img: "images/รูปสภานักเรียน/กรรมการ 5.PNG",
+                age: 16, 
+                class: "ม.4/2", 
+                quote: "ระเบียบวินัย เริ่มต้นที่ใจ", 
+                vision: "สารวัตรนักเรียน ดูแลความเรียบร้อยด้วยความเข้าใจ ไม่ใช่อำนาจ",
+                achievements: [
+                    "สางวัลรองชนะเลิศอันดับที่ 1 การตอบปัญหาวิทยาศาสตร์",
+                    "รางวัลชนะเลิศ การประกวดสื่อสร้างสรรค์ ภาพยนตร์สั้น รายวิชาสังคม“ No offside in life ”"
+                ]
+            },
+            { 
+                id: 7, 
+                name: "เขมิกา ศักดิ์เสรีกุล", 
+                role: "กรรมการ คนที่ 6", 
+                img: "images/รูปสภานักเรียน/กรรมการ 6.PNG",
+                age: 16, 
+                class: "ม.4/", 
+                quote: "สะอาดตา สบายใจ", 
+                vision: "ฝ่ายอาคารสถานที่ ดูแลห้องน้ำและจุดทิ้งขยะ",
+                achievements: [
+                    "หัวหน้าห้องระดับชั้นมัธยมศึกษา ปีที่4/2"
+                ]
+            },
+            { 
+                id: 8, 
+                name: "อารีรัตน์ บัวทอง", 
+                role: "กรรมการ คนที่ 7", 
+                img: "images/รูปสภานักเรียน/กรรมการ 7.PNG",
+                age: 16, 
+                class: "ม.4/2", 
+                quote: "บริการด้วยใจ ยิ้มแย้มแจ่มใส", 
+                vision: "ฝ่ายสวัสดิการ ดูแลน้ำดื่มและพยาบาลเบื้องต้นในกิจกรรม",
+                achievements: [
+                ]
+            },
+            { 
+                id: 9, 
+                name: "สิทธิโชค แสงสว่าง", 
+                role: "กรรมการ คนที่ 8", 
+                img: "images/รูปสภานักเรียน/กรรมการ 8.PNG",
+                age: 16, 
+                class: "ม.4/2", 
+                quote: "เทคโนโลยีเพื่อการศึกษา", 
+                vision: "ฝ่ายโสตทัศนศึกษา ดูแลระบบเสียงและอุปกรณ์ไอที",
+                achievements: [
+                ]
+            },
+        ];
+
+        // Logic ดึงข้อมูล
+        const urlParams = new URLSearchParams(window.location.search);
+        const candidateId = parseInt(urlParams.get('id'));
+        const person = candidates.find(c => c.id === candidateId);
+
+        const card = document.querySelector('#profile-card');
+        
+        if (person) {
+            document.getElementById('p-img').src = person.img;
+            document.getElementById('p-id').innerText = person.id;
+            document.getElementById('p-name').innerText = person.name;
+            document.getElementById('p-role').innerText = person.role;
+            document.getElementById('p-age').innerText = (person.age || 16) + " ปี";
+            document.getElementById('p-class').innerText = person.class || "ม.4/-";
+            document.getElementById('p-quote').innerText = `"${person.quote || 'Pioneer Party'}"`;
+            document.getElementById('p-vision').innerText = person.vision || "มุ่งมั่นทำงานเพื่อนักเรียนทุกคน";
+
+            // Render Achievements
+            const achList = document.getElementById('p-achievements');
+            achList.innerHTML = ''; // Clear existing
+            if (person.achievements && person.achievements.length > 0) {
+                person.achievements.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = "flex items-start text-gray-700 font-medium";
+                    li.innerHTML = `<span class="text-partyYellow mr-2">★</span> ${item}`;
+                    achList.appendChild(li);
+                });
+            } else {
+                achList.innerHTML = '<li class="text-gray-400 italic">ยังไม่มีข้อมูลผลงาน</li>';
+            }
+
+        } else {
+            card.innerHTML = `
+                <div class="p-20 text-center w-full bg-white">
+                    <h2 class="text-4xl font-black text-gray-300 mb-4">404 NOT FOUND</h2>
+                    <p class="text-gray-500 mb-6">ไม่พบข้อมูลผู้สมัครที่คุณค้นหา</p>
+                    <a href="index.html#candidates" class="text-partyBlue font-bold underline">กลับหน้าเลือกผู้สมัคร</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

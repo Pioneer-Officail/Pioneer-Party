@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>นโยบายพรรค - Pioneer Party</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        partyBlue: '#1e3a8a', 
+                        partyDarkBlue: '#172554',
+                        partyYellow: '#facc15',
+                        offWhite: '#fdfbf7' 
+                    },
+                    fontFamily: { 
+                        sans: ['Sarabun', 'sans-serif'], 
+                        display: ['Prompt', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'pop': '6px 6px 0px 0px rgba(30, 58, 138, 1)',
+                        'pop-hover': '3px 3px 0px 0px rgba(30, 58, 138, 1)',
+                        'pop-yellow': '6px 6px 0px 0px rgba(250, 204, 21, 1)',
+                    },
+                    backgroundImage: {
+                        'dot-pattern': 'radial-gradient(#1e3a8a 1px, transparent 1px)',
+                        'stripes': 'repeating-linear-gradient(45deg, #facc15, #facc15 10px, #ffffff 10px, #ffffff 20px)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700;900&family=Sarabun:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #fdfbf7;
+        }
+        
+        h1, h2, h3, .font-display {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-offWhite text-gray-900 overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b-4 border-partyBlue shadow-pop transition-transform duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="rounded-none p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
+                    <img src="images/Pioneer logo 2.png" alt="Pioneer Logo" class="h-10 w-10 object-contain bg-white">
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-2xl font-black text-partyBlue uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Pioneer</span>
+                    <span class="text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max">PARTY</span>
+                </div>
+            </a>
+
+            <ul class="hidden md:flex space-x-6 items-center">
+                <li><a href="index.html" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors">หน้าหลัก</a></li>
+                <li><a href="index.html#candidates" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors">ผู้สมัคร</a></li>
+                <li>
+                    <a href="policy.html" class="bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15]">
+                        อ่านนโยบาย
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="pt-32 pb-16 md:pt-48 md:pb-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none"></div>
+        <div class="absolute right-[-5%] top-20 w-64 h-64 bg-partyYellow rounded-full blur-3xl opacity-30"></div>
+        
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <span class="inline-block bg-partyYellow text-partyBlue px-4 py-1 font-black text-lg mb-6 border-2 border-partyBlue shadow-pop transform -rotate-2 reveal-on-scroll">
+                #POLICY PIONEER
+            </span>
+            <h1 class="text-6xl md:text-8xl font-black text-partyBlue tracking-tighter mb-4 reveal-on-scroll" style="transition-delay: 100ms;">
+                OUR VISION
+            </h1>
+            <p class="text-xl md:text-3xl text-gray-600 font-bold max-w-2xl mx-auto reveal-on-scroll" style="transition-delay: 200ms;">
+                "คิดจริง ทำจริง เพื่อสิ่งที่ดีกว่า...<br>เริ่มจากปัญหาที่นักเรียนเจอ"
+            </p>
+        </div>
+    </header>
+
+    <section class="py-16 md:py-24 bg-partyBlue relative">
+        <div class="absolute inset-0 bg-stripes opacity-5 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex items-center gap-4 mb-12 reveal-on-scroll">
+                <div class="w-12 h-12 bg-partyYellow border-2 border-white flex items-center justify-center font-black text-2xl">!</div>
+                <h2 class="text-4xl md:text-5xl font-black text-white uppercase">3 นโยบายเร่งด่วน</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 border-4 border-partyYellow shadow-[8px_8px_0px_0px_#ffffff] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 reveal-on-scroll">
+                    <div class="text-5xl mb-6">📢</div>
+                    <h3 class="text-2xl font-black text-partyBlue mb-4 font-display">เสียงของคุณ ดังถึงเรา</h3>
+                    <p class="text-gray-600 leading-relaxed border-t-2 border-dashed border-gray-300 pt-4">
+                        จัดตั้ง "ตู้แดงออนไลน์" รับเรื่องร้องเรียนโดยไม่ระบุตัวตน เพื่อให้ทุกคนกล้าพูดปัญหาที่เจอจริงๆ
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 border-4 border-partyYellow shadow-[8px_8px_0px_0px_#ffffff] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="text-5xl mb-6">🚽</div>
+                    <h3 class="text-2xl font-black text-partyBlue mb-4 font-display">ห้องน้ำต้อง "แห้ง-หอม"</h3>
+                    <p class="text-gray-600 leading-relaxed border-t-2 border-dashed border-gray-300 pt-4">
+                        ผลักดันให้มีสบู่เหลวและกระดาษชำระในทุกห้องน้ำ และเพิ่มรอบการตรวจสอบความสะอาดช่วงพักเที่ยง
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 border-4 border-partyYellow shadow-[8px_8px_0px_0px_#ffffff] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="text-5xl mb-6">🎮</div>
+                    <h3 class="text-2xl font-black text-partyBlue mb-4 font-display">พื้นที่ปล่อยของ</h3>
+                    <p class="text-gray-600 leading-relaxed border-t-2 border-dashed border-gray-300 pt-4">
+                        จัด "Pioneer Week" สัปดาห์อิสระ เปิดพื้นที่ให้ชมรมต่างๆ มาแสดงผลงาน หรือขายของได้ โดยโรงเรียนสนับสนุนสถานที่
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 max-w-5xl mx-auto px-4">
+        <div class="text-center mb-16 reveal-on-scroll">
+            <span class="text-partyBlue font-bold tracking-widest uppercase mb-2 block">More Policies</span>
+            <h2 class="text-4xl md:text-5xl font-black text-partyBlue">นโยบายเพิ่มเติม</h2>
+            <div class="w-24 h-2 bg-partyYellow mx-auto mt-4"></div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="group flex flex-col md:flex-row gap-6 p-6 bg-white border-2 border-gray-200 hover:border-partyBlue hover:shadow-pop transition-all duration-300 reveal-on-scroll">
+                <div class="flex-shrink-0">
+                    <span class="w-12 h-12 bg-partyBlue text-white flex items-center justify-center font-black text-xl border-2 border-black group-hover:bg-partyYellow group-hover:text-partyBlue transition-colors">01</span>
+                </div>
+                <div>
+                    <h4 class="font-black text-xl text-partyBlue mb-2">โครงการ "พี่สอนน้อง" (Tutor Peer)</h4>
+                    <p class="text-gray-600">สร้างระบบจับคู่ติวหนังสือช่วงใกล้สอบ โดยรุ่นพี่ที่มีความถนัดในวิชานั้นๆ แลกกับชั่วโมงกิจกรรมจิตอาสา</p>
+                </div>
+            </div>
+
+            <div class="group flex flex-col md:flex-row gap-6 p-6 bg-white border-2 border-gray-200 hover:border-partyBlue hover:shadow-pop transition-all duration-300 reveal-on-scroll">
+                <div class="flex-shrink-0">
+                    <span class="w-12 h-12 bg-partyBlue text-white flex items-center justify-center font-black text-xl border-2 border-black group-hover:bg-partyYellow group-hover:text-partyBlue transition-colors">02</span>
+                </div>
+                <div>
+                    <h4 class="font-black text-xl text-partyBlue mb-2">Wi-Fi ครอบคลุมจุดนั่งเล่น</h4>
+                    <p class="text-gray-600">สำรวจจุดอับสัญญาณ Wi-Fi ในบริเวณโรงอาหารและโต๊ะหินอ่อน เพื่อเสนอโรงเรียนให้ปรับปรุงจุดกระจายสัญญาณ</p>
+                </div>
+            </div>
+
+            <div class="group flex flex-col md:flex-row gap-6 p-6 bg-white border-2 border-gray-200 hover:border-partyBlue hover:shadow-pop transition-all duration-300 reveal-on-scroll">
+                <div class="flex-shrink-0">
+                    <span class="w-12 h-12 bg-partyBlue text-white flex items-center justify-center font-black text-xl border-2 border-black group-hover:bg-partyYellow group-hover:text-partyBlue transition-colors">03</span>
+                </div>
+                <div>
+                    <h4 class="font-black text-xl text-partyBlue mb-2">ลดภาระขยะพลาสติก</h4>
+                    <p class="text-gray-600">รณรงค์แคมเปญ "แก้วเดียวเฟี้ยวทั้งปี" ใครนำแก้วมาเองรับส่วนลดร้านน้ำในโรงอาหาร 1-2 บาท (ประสานงานกับร้านค้า)</p>
+                </div>
+            </div>
+
+            <div class="group flex flex-col md:flex-row gap-6 p-6 bg-white border-2 border-gray-200 hover:border-partyBlue hover:shadow-pop transition-all duration-300 reveal-on-scroll">
+                <div class="flex-shrink-0">
+                    <span class="w-12 h-12 bg-partyBlue text-white flex items-center justify-center font-black text-xl border-2 border-black group-hover:bg-partyYellow group-hover:text-partyBlue transition-colors">04</span>
+                </div>
+                <div>
+                    <h4 class="font-black text-xl text-partyBlue mb-2">E-Sport Tournament</h4>
+                    <p class="text-gray-600">จัดแข่งกีฬา E-Sport อย่างเป็นทางการปีละ 1 ครั้ง เพื่อส่งเสริมทักษะการวางแผนและการทำงานเป็นทีมในโลกดิจิทัล</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 text-center reveal-on-scroll">
+            <p class="text-gray-500 mb-6 font-medium">ทุกนโยบายผ่านการคิดวิเคราะห์ความเป็นไปได้ <br class="md:hidden">และพร้อมผลักดันทันทีที่ได้รับโอกาส</p>
+            <a href="index.html#candidates" class="inline-block bg-partyYellow text-partyBlue px-8 py-3 font-black text-lg border-2 border-partyBlue shadow-pop hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                ดูทีมงานผู้สมัคร
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-white pt-20 pb-10 border-t-8 border-partyYellow">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="mb-10 rotate-2 inline-block p-4 border-2 border-partyBlue rounded-lg shadow-pop-yellow bg-white reveal-on-scroll">
+                <h2 class="text-2xl md:text-4xl font-black text-partyBlue font-display">
+                    "Follow us & get to know Pioneer"
+                </h2>
+                <p class="text-gray-500 mt-2">Because every voice matters. See you on Election Day</p>
+            </div>
+            <div class="flex justify-center gap-6 mb-12">
+                <a href="#" class="w-16 h-16 border-2 border-black flex items-center justify-center rounded-full hover:bg-partyBlue hover:text-white hover:border-partyBlue transition text-xl font-bold">IG</a>
+                <a href="#" class="w-16 h-16 border-2 border-black flex items-center justify-center rounded-full hover:bg-black hover:text-white transition text-xl font-bold">TT</a>
+            </div>
+            <div class="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                © 2026 Pioneer Party - เบอร์ 0
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+            const elements = document.querySelectorAll('.reveal-on-scroll');
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
+
+</body>
+</html>

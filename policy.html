@@ -17,27 +17,24 @@
                         partyBlue: '#1e3a8a', 
                         partyDarkBlue: '#172554',
                         partyYellow: '#facc15',
-                        offWhite: '#fdfbf7' 
+                        offWhite: '#fdfbf7',
+                        alertRed: '#ef4444',
+                        successGreen: '#22c55e'
                     },
                     fontFamily: { 
                         sans: ['Sarabun', 'sans-serif'], 
                         display: ['Prompt', 'sans-serif'],
+                        marker: ['DancingScript', 'cursive'], 
                     },
                     boxShadow: {
                         'pop': '6px 6px 0px 0px rgba(30, 58, 138, 1)',
-                        'pop-hover': '2px 2px 0px 0px rgba(30, 58, 138, 1)',
+                        'pop-hover': '3px 3px 0px 0px rgba(30, 58, 138, 1)',
                         'pop-yellow': '6px 6px 0px 0px rgba(250, 204, 21, 1)',
-                        'pop-white': '4px 4px 0px 0px #ffffff',
                     },
                     animation: {
-                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
-                        slideUp: {
-                            '0%': { transform: 'translateY(50px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
@@ -53,344 +50,400 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700;900&family=Sarabun:wght@300;400;600&display=swap');
-
-        .bg-noise {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 50; opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
         body { font-family: 'Sarabun', sans-serif; background-color: #fdfbf7; }
-
-        @media (min-width: 768px) { body { cursor: none; } }
-        
-        #cursor {
-            position: fixed; top: 0; left: 0; width: 20px; height: 20px;
-            background-color: #facc15; border: 2px solid #1e3a8a; border-radius: 50%;
-            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s; mix-blend-mode: difference;
-        }
-        #cursor.hovered { width: 50px; height: 50px; background-color: transparent; border-width: 2px; }
-
         h1, h2, h3, .font-display { font-family: 'Prompt', sans-serif; }
-
-        @font-face {
-            font-family: 'DancingScript';
-            src: url('Fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
-            font-weight: 400 700;
-        }
-        .font-marker { font-family: 'DancingScript', cursive; font-weight: 700; }
-
-        .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
-
-        .cursor-blink { display: inline-block; width: 3px; background-color: #1e3a8a; animation: blink 1s step-end infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        @keyframes slideUpPerson {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .person-center { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; z-index: 20; transform: scale(1.15); }
-        .person-side { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; z-index: 10; opacity: 0; filter: contrast(105%) brightness(105%); }
-        .bottom-fade { background: linear-gradient(to top, #ffffff 15%, rgba(255,255,255,0) 100%); }
+        
+        .modal-open { overflow: hidden; } /* ป้องกัน scroll พื้นหลังเมื่อเปิด modal */
+        
+        /* Custom Scrollbar for Modal */
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #172554; }
     </style>
 </head>
-<body class="bg-offWhite text-gray-900 min-h-screen flex flex-col relative overflow-x-hidden">
+<body class="bg-offWhite text-gray-900 min-h-screen flex flex-col relative">
 
-    <div class="bg-noise"></div>
-    <div id="cursor" class="hidden md:block"></div>
-
-    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white border-b-4 border-partyBlue shadow-pop transition-transform duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center bg-white relative z-20">
-            <a href="index.html" class="flex items-center gap-3 group hover-trigger">
+    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white border-b-4 border-partyBlue shadow-pop">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center bg-white">
+            <a href="index.html" class="flex items-center gap-3 group">
                 <div class="rounded-none p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
                     <img src="images/Pioneer logo 2.png" alt="Pioneer Logo" class="h-8 w-8 md:h-10 md:w-10 object-contain bg-white">
                 </div>
                 <div class="flex flex-col leading-none">
-                    <span class="text-xl md:text-2xl font-black text-partyBlue uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Pioneer</span>
-                    <span class="text-[10px] md:text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max transform -rotate-2 group-hover:rotate-0 transition-transform">PARTY</span>
+                    <span class="text-xl md:text-2xl font-black text-partyBlue uppercase tracking-tighter">Pioneer</span>
+                    <span class="text-[10px] md:text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max">PARTY</span>
                 </div>
             </a>
-
             <ul class="hidden md:flex space-x-6 items-center">
-                <li><a href="index.html" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">หน้าหลัก</a></li>
-                <li><a href="index.html#candidates" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">ผู้สมัคร</a></li>
-                <li>
-                    <a href="policy.html" class="hover-trigger bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                        อ่านนโยบาย
-                    </a>
-                </li>
+                <li><a href="index.html" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors">หน้าหลัก</a></li>
+                <li><a href="index.html#candidates" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors">ผู้สมัคร</a></li>
+                <li><a href="policy.html" class="bg-partyBlue text-white border-2 border-partyBlue px-4 py-1 font-bold shadow-[2px_2px_0px_0px_#facc15]">อ่านนโยบาย</a></li>
             </ul>
-
-            <button id="mobile-menu-btn" class="md:hidden text-partyBlue p-2 focus:outline-none z-20">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+             <button id="mobile-menu-btn" class="md:hidden text-partyBlue p-2 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
         </div>
-
         <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-partyBlue border-t-2 border-partyYellow shadow-xl z-10 flex flex-col p-4 space-y-3">
             <a href="index.html" class="block text-white font-bold text-xl py-2 border-b border-white/20">หน้าหลัก</a>
             <a href="index.html#candidates" class="block text-white font-bold text-xl py-2 border-b border-white/20">ผู้สมัคร</a>
-            <a href="policy.html" class="block bg-partyYellow text-partyBlue font-black text-center text-xl py-3 border-2 border-white shadow-[4px_4px_0px_0px_#ffffff]">อ่านนโยบาย</a>
+            <a href="policy.html" class="block bg-partyYellow text-partyBlue font-black text-center text-xl py-3 border-2 border-white">อ่านนโยบาย</a>
         </div>
     </nav>
 
-    <header class="pt-28 pb-12 md:pt-32 md:pb-16 px-4 relative z-10 text-center overflow-hidden">
-        <div class="absolute top-20 right-[-5%] w-40 h-40 bg-partyYellow opacity-20 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-10 left-[-5%] w-60 h-60 bg-partyBlue opacity-10 rounded-full blur-3xl animate-float" style="animation-delay: 2s"></div>
+    <main class="flex-grow pt-28 pb-16 px-4 relative z-10">
+        <div class="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none z-0"></div>
 
-        <div class="relative z-10">
-            <div class="inline-block bg-partyYellow text-partyBlue px-4 py-1 md:px-6 md:py-2 text-lg md:text-xl font-black uppercase tracking-widest mb-6 border-4 border-partyBlue shadow-pop rotate-[-3deg] hover:rotate-0 transition-transform duration-300">
-                Our Manifesto
-            </div>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-partyBlue mb-8 drop-shadow-sm leading-tight reveal-on-scroll">
-                นโยบายพรรค <br> 
-                <span class="relative inline-block mt-2">
-                    <span class="absolute inset-0 bg-partyBlue transform translate-x-2 translate-y-2 z-[-1]"></span>
-                    <span class="bg-white border-4 border-partyBlue px-4 text-partyBlue">PIONEER</span>
-                </span>
-            </h1>
-            <p class="text-lg md:text-2xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed reveal-on-scroll border-l-4 border-partyYellow pl-6 text-left md:text-center md:border-l-0 md:pl-0">
-                "เราไม่ได้มาเพื่อขายฝัน แต่เรามาเพื่อสร้างสรรค์ความจริง" <br class="hidden md:block">
-                พบกับ 4 นโยบายหลักที่จะเปลี่ยนแปลงโรงเรียนของเรา
-            </p>
-        </div>
-    </header>
-
-    <main class="max-w-6xl mx-auto px-4 pb-24 relative z-10">
-        <div class="grid md:grid-cols-2 gap-8 lg:gap-12 mb-24">
-            
-            <div class="bg-white border-4 border-partyBlue p-6 md:p-8 shadow-pop hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 group relative overflow-hidden reveal-on-scroll hover-trigger">
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-100 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-                <div class="flex flex-col gap-4 relative z-10">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-white border-4 border-partyBlue shadow-sm rounded-full flex items-center justify-center text-3xl md:text-4xl group-hover:rotate-12 transition-transform">📚</div>
-                    <div>
-                        <h3 class="text-2xl md:text-3xl font-black text-partyBlue font-display mb-3 uppercase">Academic Support</h3>
-                        <p class="text-gray-700 text-base md:text-lg leading-relaxed font-medium">
-                            ส่งเสริมการเรียนรู้ที่หลากหลาย จัดตั้งกลุ่มติวเพื่อนช่วยเพื่อน และประสานงานจัดหาสื่อการเรียนรู้ที่ทันสมัยเข้าสู่ห้องสมุด
-                        </p>
-                    </div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-12">
+                <div class="inline-block relative">
+                    <div class="absolute inset-0 bg-partyYellow transform translate-x-2 translate-y-2"></div>
+                    <h1 class="relative bg-white border-4 border-partyBlue text-4xl md:text-6xl font-black text-partyBlue px-8 py-4 uppercase tracking-tighter">
+                        นโยบายของเรา
+                    </h1>
                 </div>
+                <p class="mt-6 text-xl text-gray-600 font-bold max-w-2xl mx-auto">
+                    "เพราะทุกเสียงมีความหมาย เราจึงสร้างสรรค์นโยบายเพื่อทุกคน"
+                </p>
             </div>
 
-            <div class="bg-white border-4 border-partyBlue p-6 md:p-8 shadow-pop hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 group relative overflow-hidden reveal-on-scroll hover-trigger" style="transition-delay: 100ms;">
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-green-100 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-                <div class="flex flex-col gap-4 relative z-10">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-white border-4 border-partyBlue shadow-sm rounded-full flex items-center justify-center text-3xl md:text-4xl group-hover:rotate-12 transition-transform">🌱</div>
-                    <div>
-                        <h3 class="text-2xl md:text-3xl font-black text-partyBlue font-display mb-3 uppercase">Green School</h3>
-                        <p class="text-gray-700 text-base md:text-lg leading-relaxed font-medium">
-                            เพิ่มพื้นที่สีเขียว ปรับปรุงระบบแยกขยะให้ใช้งานได้จริง และรณรงค์ลดการใช้พลาสติกในโรงอาหารอย่างจริงจัง
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white border-4 border-partyBlue p-6 md:p-8 shadow-pop hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 group relative overflow-hidden reveal-on-scroll hover-trigger" style="transition-delay: 200ms;">
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-yellow-100 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-                <div class="flex flex-col gap-4 relative z-10">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-white border-4 border-partyBlue shadow-sm rounded-full flex items-center justify-center text-3xl md:text-4xl group-hover:rotate-12 transition-transform">🎭</div>
-                    <div>
-                        <h3 class="text-2xl md:text-3xl font-black text-partyBlue font-display mb-3 uppercase">Creative Space</h3>
-                        <p class="text-gray-700 text-base md:text-lg leading-relaxed font-medium">
-                            เปิดพื้นที่ลานกิจกรรมให้นักเรียนได้แสดงออกทางดนตรี ศิลปะ และการแสดง ในช่วงพักเที่ยงและหลังเลิกเรียน
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white border-4 border-partyBlue p-6 md:p-8 shadow-pop hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 group relative overflow-hidden reveal-on-scroll hover-trigger" style="transition-delay: 300ms;">
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-100 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-                <div class="flex flex-col gap-4 relative z-10">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-white border-4 border-partyBlue shadow-sm rounded-full flex items-center justify-center text-3xl md:text-4xl group-hover:rotate-12 transition-transform">📢</div>
-                    <div>
-                        <h3 class="text-2xl md:text-3xl font-black text-partyBlue font-display mb-3 uppercase">Voice of Student</h3>
-                        <p class="text-gray-700 text-base md:text-lg leading-relaxed font-medium">
-                            สร้างระบบรับเรื่องร้องเรียนออนไลน์ที่โปร่งใส ติดตามสถานะได้ และจัดเวทีเสวนา "สภานักเรียน" ทุกเดือน
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <section class="max-w-4xl mx-auto relative">
-            <div class="absolute -left-20 top-0 text-[10rem] font-black text-gray-200 -z-10 select-none rotate-90 md:rotate-0 hidden md:block">MORE</div>
-            
-            <div class="text-center mb-16 reveal-on-scroll">
-                <h2 class="text-4xl md:text-5xl font-black text-partyBlue inline-block bg-white px-4 border-y-4 border-partyYellow transform -skew-x-12">
-                    <span class="block transform skew-x-12">นโยบายเพิ่มเติม</span>
+            <div class="mb-16">
+                <h2 class="text-3xl font-black text-partyBlue mb-8 flex items-center gap-2">
+                    <span class="bg-partyBlue text-white px-2 py-1 transform -rotate-2 text-sm md:text-xl shadow-[4px_4px_0_#facc15]">MAIN POLICIES</span> นโยบายหลัก
                 </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="policy-grid">
+                    </div>
             </div>
 
-            <div class="space-y-6">
-                <div class="group flex flex-col md:flex-row gap-6 p-6 bg-white border-l-8 border-partyYellow hover:bg-partyBlue hover:text-white transition-all duration-300 reveal-on-scroll hover-trigger shadow-sm hover:shadow-pop-yellow">
-                    <div class="flex-shrink-0">
-                        <span class="w-16 h-16 bg-partyBlue text-white group-hover:bg-white group-hover:text-partyBlue flex items-center justify-center font-black text-3xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-colors">01</span>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-2xl mb-2 group-hover:text-partyYellow">โครงการ "พี่สอนน้อง" (Tutor Peer)</h4>
-                        <p class="text-gray-600 group-hover:text-gray-200 text-lg">สร้างระบบจับคู่ติวหนังสือช่วงใกล้สอบ โดยรุ่นพี่ที่มีความถนัดในวิชานั้นๆ แลกกับชั่วโมงกิจกรรมจิตอาสา</p>
-                    </div>
-                </div>
-
-                <div class="group flex flex-col md:flex-row gap-6 p-6 bg-white border-l-8 border-partyYellow hover:bg-partyBlue hover:text-white transition-all duration-300 reveal-on-scroll hover-trigger shadow-sm hover:shadow-pop-yellow">
-                    <div class="flex-shrink-0">
-                        <span class="w-16 h-16 bg-partyBlue text-white group-hover:bg-white group-hover:text-partyBlue flex items-center justify-center font-black text-3xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-colors">02</span>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-2xl mb-2 group-hover:text-partyYellow">Wi-Fi ครอบคลุมจุดนั่งเล่น</h4>
-                        <p class="text-gray-600 group-hover:text-gray-200 text-lg">สำรวจจุดอับสัญญาณ Wi-Fi ในบริเวณโรงอาหารและโต๊ะหินอ่อน เพื่อเสนอโรงเรียนให้ปรับปรุงจุดกระจายสัญญาณ</p>
-                    </div>
-                </div>
-
-                <div class="group flex flex-col md:flex-row gap-6 p-6 bg-white border-l-8 border-partyYellow hover:bg-partyBlue hover:text-white transition-all duration-300 reveal-on-scroll hover-trigger shadow-sm hover:shadow-pop-yellow">
-                    <div class="flex-shrink-0">
-                        <span class="w-16 h-16 bg-partyBlue text-white group-hover:bg-white group-hover:text-partyBlue flex items-center justify-center font-black text-3xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-colors">03</span>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-2xl mb-2 group-hover:text-partyYellow">ลดภาระขยะพลาสติก</h4>
-                        <p class="text-gray-600 group-hover:text-gray-200 text-lg">รณรงค์แคมเปญ "แก้วเดียวเฟี้ยวทั้งปี" ใครนำแก้วมาเองรับส่วนลดร้านน้ำในโรงอาหาร 1-2 บาท (ประสานงานกับร้านค้า)</p>
-                    </div>
-                </div>
-
-                <div class="group flex flex-col md:flex-row gap-6 p-6 bg-white border-l-8 border-partyYellow hover:bg-partyBlue hover:text-white transition-all duration-300 reveal-on-scroll hover-trigger shadow-sm hover:shadow-pop-yellow">
-                    <div class="flex-shrink-0">
-                        <span class="w-16 h-16 bg-partyBlue text-white group-hover:bg-white group-hover:text-partyBlue flex items-center justify-center font-black text-3xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-colors">04</span>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-2xl mb-2 group-hover:text-partyYellow">E-Sport Tournament</h4>
-                        <p class="text-gray-600 group-hover:text-gray-200 text-lg">จัดแข่งกีฬา E-Sport อย่างเป็นทางการปีละ 1 ครั้ง เพื่อส่งเสริมทักษะการวางแผนและการทำงานเป็นทีมในโลกดิจิทัล</p>
-                    </div>
+            <div class="bg-white border-4 border-partyBlue p-8 md:p-12 shadow-pop relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-partyYellow rounded-bl-full opacity-20 transform translate-x-10 -translate-y-10 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform"></div>
+                
+                <h2 class="text-3xl font-black text-partyBlue mb-6 flex items-center gap-2 relative z-10">
+                    <span class="bg-partyYellow text-partyBlue px-2 py-1 transform rotate-1 text-sm md:text-xl border border-black">SECONDARY</span> นโยบายรอง
+                </h2>
+                
+                <div class="flex flex-col items-center justify-center py-10 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
+                    <div class="animate-bounce mb-4 text-4xl">⏳</div>
+                    <h3 class="text-2xl font-bold text-gray-500 font-display">กำลังรวบรวมข้อมูลเพิ่มเติม</h3>
+                    <p class="text-gray-400 mt-2">เรากำลังรับฟังเสียงจากเพื่อนๆ เพื่อพัฒนานโยบายรองให้ดียิ่งขึ้น</p>
                 </div>
             </div>
-
-            <div class="mt-16 text-center reveal-on-scroll">
-                <p class="text-gray-500 mb-6 font-medium text-lg">ทุกนโยบายผ่านการคิดวิเคราะห์ความเป็นไปได้ <br class="md:hidden">และพร้อมผลักดันทันทีที่ได้รับโอกาส</p>
-                <a href="index.html#candidates" class="inline-block bg-partyYellow text-partyBlue px-10 py-4 font-black text-xl border-2 border-partyBlue shadow-pop hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all hover-trigger">
-                    ดูทีมงานผู้สมัคร ➔
-                </a>
-            </div>
-        </section>
+        </div>
     </main>
 
-    <div class="bg-white overflow-hidden pt-10 border-t border-gray-200 w-full relative">
-        <div class="absolute inset-0 bg-noise z-40 opacity-20"></div>
+    <div id="policy-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-partyBlue/90 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
         
-        <div class="relative h-[250px] md:h-[420px] w-full max-w-7xl mx-auto overflow-hidden group">
-            <div class="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-end justify-center w-full h-full px-4 transition-transform duration-500 group-hover:scale-105 origin-bottom">
-                <img src="images/รูปรวม ไม่มีพื้นหลัง/Committee 1 NBG.png" alt="Member Left" 
-                     class="person-side h-[70%] md:h-[85%] object-contain object-bottom -mr-16 md:-mr-31 translate-y-full transition-all duration-500 z-10">
-                <img src="images/รูปรวม ไม่มีพื้นหลัง/Student President NBG.png" alt="President" 
-                     class="person-center h-[80%] md:h-[95%] object-contain object-bottom relative z-20 drop-shadow-2xl translate-y-full">
-                <img src="images/รูปรวม ไม่มีพื้นหลัง/Committee 2 NBG.png" alt="Member Right" 
-                     class="person-side h-[70%] md:h-[85%] object-contain object-bottom -ml-16 md:-ml-31 translate-y-full transition-all duration-500 z-10">
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 bottom-fade z-30 pointer-events-none"></div>
-        </div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto custom-scrollbar border-4 border-partyYellow shadow-[0_0_50px_rgba(0,0,0,0.5)] relative transform scale-95 opacity-0 transition-all duration-300" id="modal-content">
+                
+                <button onclick="closeModal()" class="absolute top-4 right-4 z-50 bg-red-500 hover:bg-red-600 text-white w-10 h-10 flex items-center justify-center font-bold text-xl rounded-full border-2 border-white shadow-md transition-transform hover:scale-110">
+                    ✕
+                </button>
 
-        <div class="text-center pb-12 pt-2 bg-white relative z-40 px-4 min-h-[80px] md:min-h-[100px]" id="typewriter-section">
-            <h2 class="text-3xl md:text-6xl lg:text-7xl font-bold text-partyBlue tracking-tighter drop-shadow-md">
-                <span id="typed-text"></span><span class="cursor-blink bg-partyBlue w-3 h-8 md:w-4 md:h-20 inline-block align-middle ml-2"></span>
-            </h2>
+                <div class="flex flex-col md:flex-row">
+                    <div class="md:w-1/3 bg-partyBlue text-white p-6 md:p-8 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
+                        <div>
+                            <span class="bg-partyYellow text-partyBlue px-3 py-1 font-black text-xs uppercase tracking-widest inline-block mb-4">POLICY NO.<span id="m-id"></span></span>
+                            <h2 id="m-title" class="text-3xl md:text-4xl font-black font-display leading-tight mb-2"></h2>
+                            <div class="w-12 h-1 bg-partyYellow mb-6"></div>
+                            
+                            <div class="aspect-video bg-partyDarkBlue/50 border-2 border-dashed border-white/30 rounded flex items-center justify-center text-center p-4 mb-4">
+                                <span class="text-sm opacity-70">พื้นที่สำหรับรูปภาพประกอบ<br>(Example Image)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="relative z-10 mt-4">
+                            <span class="text-6xl opacity-20 absolute -top-4 -left-2">“</span>
+                            <p id="m-slogan" class="text-xl md:text-2xl font-black text-partyYellow italic relative z-10"></p>
+                        </div>
+                    </div>
+
+                    <div class="md:w-2/3 p-6 md:p-10 bg-white">
+                        
+                        <div class="mb-8">
+                            <h3 class="font-bold text-partyBlue text-lg mb-2 flex items-center gap-2">
+                                <span class="w-6 h-6 bg-partyBlue text-white rounded-full flex items-center justify-center text-xs">?</span> คืออะไร
+                            </h3>
+                            <p id="m-concept" class="text-gray-700 leading-relaxed pl-8 border-l-2 border-gray-200"></p>
+                        </div>
+
+                        <div class="mb-8">
+                            <h3 class="font-bold text-partyBlue text-lg mb-3 flex items-center gap-2">
+                                <span class="w-6 h-6 bg-partyYellow text-partyBlue rounded-full flex items-center justify-center text-xs border border-partyBlue">🛠</span> ทำอย่างไร
+                            </h3>
+                            <ul id="m-how" class="space-y-2 pl-8"></ul>
+                        </div>
+
+                        <div class="mb-8 bg-green-50 p-4 border-l-4 border-green-500 rounded-r-lg">
+                            <h3 class="font-bold text-green-800 text-lg mb-2">✨ ทำแล้วได้อะไร</h3>
+                            <ul id="m-benefits" class="space-y-2 text-green-700 text-sm md:text-base"></ul>
+                        </div>
+
+                        <div id="m-extra-container" class="hidden mt-6 pt-6 border-t-2 border-dashed border-gray-300">
+                            <h3 id="m-extra-title" class="font-black text-xl text-partyBlue mb-4"></h3>
+                            <div id="m-extra-content"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer class="bg-partyBlue text-white py-12 relative shadow-[0_-10px_40px_rgba(0,0,0,0.3)] z-50 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-2 bg-partyYellow"></div>
-        <div class="absolute -right-10 -bottom-20 w-64 h-64 border-4 border-partyYellow rounded-full opacity-20"></div>
-
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0 relative z-10">
-            
-            <div class="flex-shrink-0 order-2 md:order-1 hover-trigger">
-                <div class="bg-white p-2 rounded-none rotate-3 hover:rotate-0 transition-transform duration-300 shadow-pop-yellow w-20 h-20 md:w-24 md:h-24 flex items-center justify-center border-2 border-black">
-                    <img src="images/Pioneer logo 3.png" alt="Pioneer Logo" class="w-full h-full object-contain">
-                </div>
-            </div>
-
-            <div class="text-center order-1 md:order-2 flex-grow">
-                <h3 class="font-marker text-2xl md:text-4xl lg:text-5xl text-white mb-2 tracking-wide leading-tight">
-                    Follow us & get to know Pioneer
-                </h3>
-                <p class="font-marker text-partyYellow text-xl md:text-3xl mb-2 leading-tight">
-                    Because every voice matters
-                </p>
-                <div class="flex justify-center gap-2 mt-4">
-                     <span class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0s"></span>
-                     <span class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
-                     <span class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
-                </div>
-            </div>
-
-            <div class="flex flex-col items-center md:items-end gap-3 order-3 md:order-3 flex-shrink-0">
-                <span class="text-sm font-black text-partyYellow uppercase tracking-widest bg-partyBlue border border-partyYellow px-2">ช่องทางการติดต่อ</span>
-                <a href="https://instagram.com/thepioneerpsc" target="_blank" class="hover-trigger flex items-center gap-3 hover:text-partyYellow transition-colors group">
-                    <span class="font-bold text-xl md:text-2xl group-hover:translate-x-[-5px] transition-transform">thepioneerpsc</span>
-                    <div class="bg-white text-partyBlue p-2 rounded-none border border-black hover:bg-partyYellow transition-colors shadow-[2px_2px_0px_0px_#fff] group-hover:shadow-none group-hover:translate-x-[2px] group-hover:translate-y-[2px]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                    </div>
-                </a>
-                <a href="https://tiktok.com/@thepioneerpsc" target="_blank" class="hover-trigger flex items-center gap-3 hover:text-partyYellow transition-colors group">
-                    <span class="font-bold text-xl md:text-2xl group-hover:translate-x-[-5px] transition-transform">thepioneerpsc</span>
-                    <div class="bg-white text-partyBlue p-2 rounded-none border border-black hover:bg-partyYellow transition-colors shadow-[2px_2px_0px_0px_#fff] group-hover:shadow-none group-hover:translate-x-[2px] group-hover:translate-y-[2px]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-                    </div>
-                </a>
-            </div>
-
+    <footer class="bg-partyBlue text-white py-8 mt-auto border-t-4 border-partyYellow">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="font-marker text-2xl text-partyYellow mb-2">Pioneer Party</p>
+            <p class="text-sm opacity-80">พรรคไพโอเนียร์ เบอร์ 3 - โรงเรียนของเรา</p>
         </div>
     </footer>
+
     <script>
+        // Mobile Menu Logic
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
 
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        const hoverTriggers = document.querySelectorAll('a, button, .hover-trigger');
-        hoverTriggers.forEach(trigger => {
-            trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-            trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-        });
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const textToType = "เข้าคูหา . . . กาเบอร์ <span class='font-bold text-partyYellow bg-partyBlue px-2'>3</span> พรรค <span class='font-bold text-partyYellow'>Pioneer</span> ! ";
-            const typedTextElement = document.getElementById('typed-text');
-            const typeSection = document.getElementById('typewriter-section');
-            let hasStarted = false;
-
-            function typeWriter(text, i) {
-                if (i < text.length) {
-                    if (text.charAt(i) === '<') { let tagEnd = text.indexOf('>', i); if (tagEnd !== -1) i = tagEnd; }
-                    typedTextElement.innerHTML = text.substring(0, i + 1);
-                    setTimeout(function() { typeWriter(text, i + 1) }, 80); 
+        // Policy Data
+        const policies = [
+            {
+                id: 1,
+                title: "Loud & Clear",
+                icon: "📢",
+                concept: "นโยบายพัฒนาระบบการสื่อสารของโรงเรียน เพื่อให้ข่าวสาร ประกาศ ข้อมูลสำคัญได้อย่างชัดเจนและทั่วถึง",
+                how: [
+                    "เสนอแนวทางปรับปรุงคุณภาพลำโพง ให้เสียงชัดขึ้นในพื้นที่ที่มีปัญหา",
+                    "เมื่อมีการประกาศทางเสียงตามสาย จะพิมพ์ข้อความซ้ำในกลุ่ม 'สายใยพี่น้อง'",
+                    "เพื่อให้นักเรียนที่ฟังไม่ทันหรืออยู่ในจุดอับเสียงได้รับข้อมูลครบถ้วน"
+                ],
+                slogan: "เสียงชัด ข่าวถึงทุกคน",
+                benefits: [
+                    "นักเรียนได้รับข้อมูล ทั้งจากเสียงและข้อความ",
+                    "ลดปัญหาฟังไม่ชัด พลาดข่าวสำคัญ",
+                    "การสื่อสารของโรงเรียนมีความเป็นระบบมากขึ้น",
+                    "นักเรียนรู้สึกว่าโรงเรียนใส่ใจการสื่อสารจริง ๆ"
+                ]
+            },
+            {
+                id: 2,
+                title: "Colorful Day",
+                icon: "🎨",
+                concept: "นโยบายสร้างพื้นที่แห่งความหลากหลายและความคิดสร้างสรรค์ เปิดโอกาสให้นักเรียนสามารถแสดงตัวตนผ่านการแต่งกายตามธีมหรือเทศกาล อย่างเหมาะสมและอยู่ภายใต้กฎระเบียบ",
+                how: [
+                    "กำหนดวัน Colorful Day เป็นครั้งคราวตามความเหมาะสม",
+                    "กำหนดธีมการแต่งกายชัดเจน เช่น วันวัฒนธรรม, วันสีสัน, วันอาชีพในฝัน",
+                    "ประชาสัมพันธ์กติกาและขอบเขตการแต่งกายล่วงหน้า",
+                    "ดูแลความเรียบร้อยโดยประสานงานกับคุณครูผู้รับผิดชอบ"
+                ],
+                slogan: "เป็นตัวเองได้อย่างมั่นใจ",
+                benefits: [
+                    "นักเรียนกล้าแสดงออกอย่างสร้างสรรค์",
+                    "โรงเรียนมีบรรยากาศที่สดใส เป็นมิตร และน่าอยู่มากขึ้น",
+                    "สร้างความสามัคคีและการมีส่วนร่วมของนักเรียน",
+                    "ส่งเสริมความมั่นใจและการเคารพความแตกต่าง"
+                ],
+                extra: {
+                    title: "🎉 เทศกาลที่สามารถจัดได้",
+                    type: "list",
+                    data: ["วันภาษาไทย", "ฮาโลวีน (Halloween)", "คริสต์มาส (Christmas)", "Pride Month", "และเทศกาลอื่นๆ อีกมากมาย"]
+                }
+            },
+            {
+                id: 3,
+                title: "Pathway to Future",
+                icon: "🚀",
+                concept: "นโยบายรวบรวมข้อมูลการศึกษาต่ออย่างเป็นระบบ เพื่อให้นักเรียนสามารถวางแผนอนาคตได้ง่ายและชัดเจน",
+                how: [
+                    "รวบรวมลิงก์ค่าย / Open House จากมหาวิทยาลัยต่าง ๆ",
+                    "สรุปเกณฑ์การรับเข้าแต่ละคณะ แบบเข้าใจง่าย",
+                    "จัดหมวดหมู่ตามสายการเรียน (วิทย์–คณิต / ศิลป์) และคณะยอดนิยม",
+                    "เผยแพร่ผ่านเว็บไซต์สภานักเรียน, QR Code และกลุ่มสายใยพี่น้อง"
+                ],
+                slogan: "เส้นทางการเรียนที่ชัดเจน",
+                benefits: [
+                    "นักเรียนเข้าถึงข้อมูลโอกาสทางการศึกษาได้สะดวก",
+                    "ลดความสับสนในการเลือกคณะและการเตรียมพอร์ต",
+                    "ช่วยให้นักเรียนวางแผนอนาคตได้เร็วและชัดเจนขึ้น",
+                    "สร้างแรงบันดาลใจและเป้าหมายในการเรียน"
+                ]
+            },
+            {
+                id: 4,
+                title: "Smart Parking",
+                icon: "🅿️",
+                concept: "นโยบายปรับปรุงและจัดระเบียบพื้นที่จอดรถภายในโรงเรียน เพื่อให้การจอดรถเป็นระบบ ปลอดภัย และเป็นธรรมต่อผู้ใช้งานทุกคน โดยคำนึงถึงขนาดรถและพื้นที่อย่างเหมาะสม",
+                how: [
+                    "แบ่งโซนที่จอดรถตามประเภทและขนาดรถ (เช่น รถจักรยานยนต์ทั่วไป / คันใหญ่)",
+                    "ปรับผังการจอดให้เป็นระเบียบ ลดการจอดซ้อนหรือกีดขวางทางสัญจร",
+                    "ติดป้ายและเส้นสัญลักษณ์ให้ชัดเจน",
+                    "ประชาสัมพันธ์แนวทางการจอดรถที่ถูกต้องแก่ผู้ใช้งาน",
+                    "ประสานงานกับคุณครูและฝ่ายที่เกี่ยวข้องในการดูแลความเรียบร้อย"
+                ],
+                slogan: "จอดเป็นระบบ ใช้งานสะดวก",
+                benefits: [
+                    "พื้นที่จอดรถถูกใช้อย่างคุ้มค่าและเป็นระบบมากขึ้น",
+                    "ลดปัญหาการจอดรถไม่เป็นระเบียบและความแออัด",
+                    "เพิ่มความปลอดภัยในการเข้า–ออกพื้นที่จอดรถ",
+                    "นักเรียนใช้งานได้สะดวกและเป็นธรรมมากขึ้น"
+                ]
+            },
+            {
+                id: 5,
+                title: "No More Wait",
+                icon: "🚽",
+                concept: "นโยบายเปิดใช้งานห้องน้ำใต้ตึก 4–5 เพื่ออำนวยความสะดวกแก่นักเรียนทุกคน ลดปัญหาการเดินไกล และการต้องรอห้องน้ำเป็นเวลานาน",
+                how: [
+                    "เปิดใช้งานห้องน้ำใต้ตึก 4–5 อย่างเป็นทางการ",
+                    "กำหนดกติกาการใช้งานอย่างชัดเจน",
+                    "รณรงค์การใช้ห้องน้ำอย่างเหมาะสมและรับผิดชอบร่วมกัน",
+                    "ประสานงานกับคุณครูและฝ่ายที่เกี่ยวข้องในการดูแลความเรียบร้อย"
+                ],
+                slogan: "ไม่ต้องรอ ไม่ต้องกลั้น",
+                benefits: [
+                    "นักเรียนใช้ชีวิตในโรงเรียนได้สะดวกขึ้น",
+                    "ลดปัญหาการอั้นปัสสาวะ ซึ่งส่งผลต่อสุขภาพ",
+                    "โรงเรียนมีการจัดสรรพื้นที่ที่ตอบโจทย์การใช้งานจริง",
+                    "ส่งเสริมวินัยและความรับผิดชอบร่วมกันของนักเรียน"
+                ],
+                extra: {
+                    title: "⚠️ กฎระเบียบและข้อควรปฏิบัติ",
+                    type: "rules",
+                    rules: [
+                        "ใช้ห้องน้ำด้วยความสุภาพและเหมาะสม",
+                        "เข้าใช้ตามความจำเป็น ไม่ใช้เป็นพื้นที่รวมกลุ่ม",
+                        "รักษาความสะอาดก่อนและหลังใช้งาน",
+                        "ห้ามสูบบุหรี่ บุหรี่ไฟฟ้า หรือสิ่งเสพติดทุกชนิด",
+                        "ห้ามทำลายหรือเขียนขีดข่วนอุปกรณ์ภายในห้องน้ำ",
+                        "ไม่ส่งเสียงดังหรือก่อความรบกวน",
+                        "ใช้ห้องน้ำตามช่วงเวลาที่โรงเรียนกำหนด",
+                        "ให้ความร่วมมือกับคุณครูและผู้ดูแลพื้นที่",
+                        "หากพบพฤติกรรมไม่เหมาะสม ให้แจ้งคุณครูหรือสภานักเรียน",
+                        "การใช้ห้องน้ำเป็นความรับผิดชอบร่วมกันของนักเรียนทุกคน"
+                    ],
+                    note: "หมายเหตุ: หากมีการใช้งานผิดวัตถุประสงค์ เช่น การสูบบุหรี่หรือการกระทำร้ายแรง โรงเรียนอาจพิจารณา **ปิดการใช้งานห้องน้ำชั่วคราว 1 ภาคเรียน**",
+                    dos: ["กด/ราด โถส้วมทุกครั้งหลังใช้งาน", "สแกน QR code ทุกครั้งที่พบปัญหาผิดปกติ"],
+                    donts: ["สูบบุหรี่/พอต ในห้องน้ำ", "ใช้เป็นจุดรวมพล"]
                 }
             }
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !hasStarted) { hasStarted = true; setTimeout(() => { typeWriter(textToType, 0); }, 800); }
-                });
-            }, { threshold: 0.5 });
-            observer.observe(typeSection);
+        ];
+
+        // Render Policy Grid
+        const gridContainer = document.getElementById('policy-grid');
+        policies.forEach((policy, index) => {
+            const delay = index * 100;
+            const card = document.createElement('div');
+            card.className = `bg-white border-2 border-partyBlue p-6 shadow-pop hover:shadow-pop-hover hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full`;
+            card.setAttribute('onclick', `openModal(${policy.id})`);
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-4">
+                    <div class="text-5xl group-hover:scale-110 transition-transform duration-300">${policy.icon}</div>
+                    <span class="text-4xl font-black text-gray-200 font-display">0${policy.id}</span>
+                </div>
+                <h3 class="text-2xl font-black text-partyBlue mb-2 font-display group-hover:text-partyYellow transition-colors filter group-hover:drop-shadow-[1px_1px_0_#1e3a8a]">${policy.title}</h3>
+                <p class="text-gray-600 line-clamp-3 mb-4 text-sm flex-grow">${policy.concept}</p>
+                <div class="mt-auto">
+                     <span class="inline-flex items-center text-partyBlue font-bold text-sm border-b-2 border-partyYellow pb-1 group-hover:border-partyBlue transition-colors">
+                        อ่านรายละเอียด <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                     </span>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('policy-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal(id) {
+            const policy = policies.find(p => p.id === id);
+            if (!policy) return;
+
+            // Fill Content
+            document.getElementById('m-id').innerText = policy.id;
+            document.getElementById('m-title').innerText = policy.title;
+            document.getElementById('m-slogan').innerText = policy.slogan;
+            document.getElementById('m-concept').innerText = policy.concept;
+            
+            const howList = document.getElementById('m-how');
+            howList.innerHTML = policy.how.map(item => `<li class="list-disc text-gray-700">${item}</li>`).join('');
+
+            const benefitsList = document.getElementById('m-benefits');
+            benefitsList.innerHTML = policy.benefits.map(item => `<li>✅ ${item}</li>`).join('');
+
+            // Extra Content Handling
+            const extraContainer = document.getElementById('m-extra-container');
+            const extraContent = document.getElementById('m-extra-content');
+            
+            if (policy.extra) {
+                extraContainer.classList.remove('hidden');
+                document.getElementById('m-extra-title').innerText = policy.extra.title;
+                
+                if (policy.extra.type === 'list') {
+                    extraContent.innerHTML = `<ul class="grid grid-cols-1 md:grid-cols-2 gap-2">${policy.extra.data.map(d => `<li class="flex items-center gap-2"><span class="text-partyYellow">★</span> ${d}</li>`).join('')}</ul>`;
+                } else if (policy.extra.type === 'rules') {
+                    let html = `<ol class="list-decimal pl-5 space-y-1 mb-6 text-gray-700 font-medium">${policy.extra.rules.map(r => `<li>${r}</li>`).join('')}</ol>`;
+                    
+                    html += `<div class="bg-red-50 border border-red-200 p-3 rounded mb-6 text-red-700 text-sm font-bold flex items-start gap-2"><span class="text-xl">⚠️</span><span>${policy.extra.note}</span></div>`;
+                    
+                    html += `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-green-50 p-4 rounded border border-green-200">
+                            <h4 class="font-bold text-green-700 mb-2">สิ่งที่ควรทำ (Do's)</h4>
+                            <ul class="space-y-1">${policy.extra.dos.map(d => `<li class="flex items-start gap-2 text-sm"><span class="text-green-600 font-bold">✓</span> ${d}</li>`).join('')}</ul>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded border border-red-200">
+                            <h4 class="font-bold text-red-700 mb-2">สิ่งที่ไม่ควรทำ (Don'ts)</h4>
+                            <ul class="space-y-1">${policy.extra.donts.map(d => `<li class="flex items-start gap-2 text-sm"><span class="text-red-600 font-bold">✗</span> ${d}</li>`).join('')}</ul>
+                        </div>
+                    </div>`;
+                    
+                    extraContent.innerHTML = html;
+                }
+            } else {
+                extraContainer.classList.add('hidden');
+            }
+
+            // Show Modal
+            modal.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+                // ล้าง URL Param
+                const url = new URL(window.location);
+                url.searchParams.delete('id');
+                window.history.pushState({}, '', url);
+            }, 300);
+        }
+
+        // Close when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target === modalBackdrop) closeModal();
+        });
+
+        // --- ส่วนที่เพิ่มใหม่: Auto Open Modal from URL ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const openId = parseInt(urlParams.get('id'));
+            if(openId) {
+                // รอเล็กน้อยให้โหลดเสร็จ
+                setTimeout(() => openModal(openId), 300);
+            }
         });
     </script>
 </body>

@@ -33,6 +33,7 @@
                         'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'marquee': 'marquee 25s linear infinite',
                         'float': 'float 6s ease-in-out infinite',
+                        'bounce-x': 'bounceX 1s infinite',
                     },
                     keyframes: {
                         slideUp: {
@@ -46,6 +47,10 @@
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
+                        },
+                        bounceX: {
+                            '0%, 100%': { transform: 'translateX(-25%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
+                            '50%': { transform: 'none', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' },
                         }
                     },
                     backgroundImage: {
@@ -123,8 +128,8 @@
     <div class="bg-noise"></div>
     <div id="cursor" class="hidden md:block"></div>
 
-    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white border-b-4 border-partyBlue shadow-pop transition-transform duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative z-20 bg-white">
+    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white border-b-4 border-partyBlue shadow-pop transition-transform duration-300 h-[68px] md:h-[76px]" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative z-20 bg-white h-full">
             <a href="index.html" class="flex items-center gap-3 group hover-trigger z-20">
                 <div class="rounded-none p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
                     <img src="images/Pioneer logo 2.png" alt="Pioneer Logo" class="h-8 w-8 md:h-10 md:w-10 object-contain bg-white">
@@ -159,8 +164,44 @@
         </div>
     </nav>
 
-    <header class="pt-28 pb-16 md:pt-40 md:pb-24 relative overflow-hidden bg-white">
-        <div class="marquee-container w-full absolute top-24 left-0 opacity-10 z-0 pointer-events-none -rotate-3">
+    <div class="mt-[68px] md:mt-[76px] bg-partyYellow border-b-4 border-partyBlue py-4 overflow-hidden relative group cursor-default z-40">
+        <div class="absolute inset-0 bg-dot-pattern opacity-10"></div>
+        <div class="container mx-auto px-4 flex flex-wrap justify-center items-center gap-4 relative z-10">
+            
+            <div class="flex items-center gap-2 mr-4">
+                <span class="text-3xl animate-bounce">⏳</span>
+                <span class="font-black text-partyBlue text-xl md:text-2xl uppercase tracking-tighter transform -rotate-2">Election Countdown</span>
+            </div>
+
+            <div class="flex gap-2 md:gap-4 text-center">
+                <div class="bg-white border-2 border-partyBlue p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
+                    <span id="days" class="block text-2xl md:text-4xl font-black text-partyBlue leading-none font-display">00</span>
+                    <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Days</span>
+                </div>
+                <div class="bg-white border-2 border-partyBlue p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
+                    <span id="hours" class="block text-2xl md:text-4xl font-black text-partyBlue leading-none font-display">00</span>
+                    <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Hours</span>
+                </div>
+                <div class="bg-white border-2 border-partyBlue p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
+                    <span id="minutes" class="block text-2xl md:text-4xl font-black text-partyBlue leading-none font-display">00</span>
+                    <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Mins</span>
+                </div>
+                 <div class="bg-partyBlue border-2 border-white p-2 shadow-[4px_4px_0px_0px_#ffffff] min-w-[60px] md:min-w-[70px]">
+                    <span id="seconds" class="block text-2xl md:text-4xl font-black text-partyYellow leading-none font-display">00</span>
+                    <span class="text-[10px] md:text-xs font-bold text-gray-300 uppercase">Secs</span>
+                </div>
+            </div>
+
+            <div class="ml-4 hidden lg:block">
+                <span class="bg-white text-partyBlue px-3 py-1 font-bold text-sm border-2 border-partyBlue transform rotate-3 inline-block shadow-sm">
+                    13 กุมภาพันธ์ เข้าคูหา กาเบอร์ 3 !
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <header class="pt-8 pb-16 md:pt-16 md:pb-24 relative overflow-hidden bg-white">
+        <div class="marquee-container w-full absolute top-10 left-0 opacity-10 z-0 pointer-events-none -rotate-3">
             <div class="marquee-content text-[5rem] md:text-[8rem] font-black text-partyBlue uppercase">
                 Pioneer Party • Your Voice Matters • เบอร์ 3 • Pioneer Party • Your Voice Matters • เบอร์ 3 •
             </div>
@@ -290,6 +331,13 @@
             <div class="text-center mb-12 reveal-on-scroll">
                 <span class="bg-partyYellow text-partyBlue px-4 py-1 text-lg font-black uppercase inline-block mb-4 rotate-2 border-2 border-white shadow-[4px_4px_0px_0px_#ffffff]">Q & A</span>
                 <h2 class="text-3xl md:text-6xl font-black tracking-tight">คำถามที่พบบ่อย</h2>
+            </div>
+            
+            <div class="flex justify-center items-center mb-16 reveal-on-scroll relative z-20">
+                <a href="https://ngl.link/thepioneerpsc" target="_blank" class="hover-trigger relative z-10 bg-partyYellow text-partyBlue border-4 border-white px-8 py-4 font-black text-xl md:text-2xl shadow-[6px_6px_0px_0px_#ffffff] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all flex items-center gap-3 transform hover:scale-105 rounded-full md:rounded-lg">
+                    <span class="text-3xl">💬</span>
+                    <span>ถามคำถาม (ไม่ระบุตัวตน) คลิกเลย!</span>
+                </a>
             </div>
 
             <div class="space-y-4 md:space-y-6">
@@ -618,6 +666,33 @@
         window.nextSlide = () => { currentSlide = (currentSlide + 1) % 3; updateSlide(); };
         window.prevSlide = () => { currentSlide = (currentSlide - 1 + 3) % 3; updateSlide(); };
         setInterval(nextSlide, 5000);
+
+        // ตั้งค่าวันเลือกตั้ง: 13 กุมภาพันธ์ 2026 เวลา 08:30:00
+        const electionDate = new Date("2026-02-13T08:30:00").getTime(); 
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = electionDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            if(document.getElementById("seconds")) document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }, 1000);
     </script>
 </body>
 </html>

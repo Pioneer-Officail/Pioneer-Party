@@ -68,7 +68,6 @@
         body {
             font-family: 'Sarabun', sans-serif;
             background-color: #fdfbf7;
-            /* cursor: none;  ปิด cursor custom ในมือถือเพื่อให้กดง่ายขึ้น */
         }
 
         @media (min-width: 768px) {
@@ -231,9 +230,15 @@
                         </div>
                     </div>
                     
-                    <h2 id="policy-display" class="text-2xl md:text-3xl font-black text-partyBlue min-h-[120px] md:min-h-[140px] flex items-center justify-center text-center leading-tight border-2 border-dashed border-gray-300 rounded-lg bg-offWhite m-2 p-2">
-                        "กดสุ่ม... เพื่อดูวิสัยทัศน์"
-                    </h2>
+                    <div class="group cursor-pointer hover-trigger" id="policy-clickable">
+                        <h2 id="policy-display" class="text-2xl md:text-3xl font-black text-partyBlue min-h-[120px] md:min-h-[140px] flex items-center justify-center text-center leading-tight border-2 border-dashed border-gray-300 rounded-lg bg-offWhite m-2 p-2 group-hover:bg-partyYellow/10 group-hover:border-partyYellow transition-colors select-none">
+                            "กดสุ่ม... เพื่อดูวิสัยทัศน์"
+                        </h2>
+                        <p class="text-center text-gray-500 text-xs font-bold mt-2 animate-pulse group-hover:text-partyYellow transition-colors">
+                            (สามารถกดข้อความที่สุ่มได้ เพื่ออ่านรายละเอียดนะ 👆)
+                        </p>
+                    </div>
+
                     <button id="generate-btn" class="hover-trigger w-full bg-partyYellow text-partyBlue border-2 border-partyBlue py-3 font-black text-xl hover:bg-white transition-all active:scale-95 mt-4 shadow-[4px_4px_0px_0px_#1e3a8a] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
                         🎲 สุ่มนโยบาย
                     </button>
@@ -301,7 +306,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="group bg-white/5 border-l-4 border-partyYellow hover:bg-white hover:text-partyBlue transition-all duration-300 cursor-pointer overflow-hidden hover-trigger">
+
+                 <div class="group bg-white/5 border-l-4 border-partyYellow hover:bg-white hover:text-partyBlue transition-all duration-300 cursor-pointer overflow-hidden hover-trigger">
                     <div class="p-4 md:p-6">
                         <h3 class="font-bold text-lg md:text-2xl flex justify-between items-center font-display">
                             <span>Q : <span class="text-partyYellow group-hover:text-partyBlue font-black"> Pioneer </span> จะทำได้จริงแค่ไหน?</span>
@@ -314,7 +320,35 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="group bg-white/5 border-l-4 border-partyYellow hover:bg-white hover:text-partyBlue transition-all duration-300 cursor-pointer overflow-hidden hover-trigger">
+                    <div class="p-4 md:p-6">
+                        <h3 class="font-bold text-lg md:text-2xl flex justify-between items-center font-display">
+                            <span>Q : <span class="text-partyYellow group-hover:text-partyBlue font-black"> Pioneer </span> แตกต่างยังไง?</span>
+                            <span class="text-partyYellow group-hover:text-partyBlue text-2xl md:text-3xl transition-transform group-hover:rotate-90">➔</span>
+                        </h3>
+                        <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
+                            <p class="mt-4 pt-4 border-t border-dashed border-current opacity-90 text-base md:text-lg">
+                                เราไม่ได้อยากเป็นพรรคที่ฮอตที่สุด แต่ <span class="font-black bg-partyYellow text-partyBlue px-1">อยากเป็นพรรคที่นักเรียนกล้าเข้ามาหามากที่สุด</span> เพราะสำหรับเราเสียงที่เบาก็สำคัญไม่แพ้เสียงที่ดังค่ะ
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
+                 <div class="group bg-white/5 border-l-4 border-partyYellow hover:bg-white hover:text-partyBlue transition-all duration-300 cursor-pointer overflow-hidden hover-trigger">
+                    <div class="p-4 md:p-6">
+                        <h3 class="font-bold text-lg md:text-2xl flex justify-between items-center font-display">
+                            <span>Q : เลือก <span class="text-partyYellow group-hover:text-partyBlue font-black"> Pioneer </span> ได้อะไร?</span>
+                            <span class="text-partyYellow group-hover:text-partyBlue text-2xl md:text-3xl transition-transform group-hover:rotate-90">➔</span>
+                        </h3>
+                        <div class="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
+                            <p class="mt-4 pt-4 border-t border-dashed border-current opacity-90 text-base md:text-lg">
+                                A : ได้ประธานที่เข้าถึงได้จริง <span class="font-black">กล้าพูดแทนทุกคน</span> และกล้ารับผิดชอบกับสิ่งที่พูดค่ะ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -525,19 +559,44 @@
             container.innerHTML += cardHTML;
         });
 
-        const policies = ["ห้องน้ำสะอาด 🚽", "พื้นที่ Co-Working 📚", "Wi-Fi แรงทุกจุด 📶", "E-Sport Week 🎮", "ลดการบ้าน 💡", "ตลาดนัดนักเรียน 🛍️"];
+        // --- Random Policy Logic (Updated for Click) ---
+        // เก็บ ID คู่กับชื่อนโยบาย
+        const policies = [
+            { id: 1, text: "Loud & Clear 📢" },
+            { id: 2, text: "Colorful Day 🎨" },
+            { id: 3, text: "Pathway to Future 🚀" },
+            { id: 4, text: "Smart Parking 🅿️" },
+            { id: 5, text: "No More Wait 🚽" }
+        ];
+        
         const policyDisplay = document.getElementById("policy-display");
+        const clickableArea = document.getElementById("policy-clickable");
+        let currentPolicyId = null;
+
         document.getElementById("generate-btn").addEventListener("click", () => {
             let count = 0;
             const interval = setInterval(() => {
-                policyDisplay.innerText = policies[Math.floor(Math.random() * policies.length)];
+                const random = policies[Math.floor(Math.random() * policies.length)];
+                policyDisplay.innerText = random.text;
                 policyDisplay.classList.toggle("text-partyYellow");
+                currentPolicyId = random.id; // จำ ID ล่าสุดไว้
+                
                 count++;
                 if(count > 10) {
                     clearInterval(interval);
                     policyDisplay.classList.remove("text-partyYellow");
                 }
             }, 50);
+        });
+
+        // เมื่อกดที่ข้อความ ให้เด้งไปหน้า policy.html พร้อมส่ง ID ไปด้วย
+        clickableArea.addEventListener("click", () => {
+            if (currentPolicyId) {
+                window.location.href = `policy.html?id=${currentPolicyId}`;
+            } else {
+                // ถ้ายังไม่ได้สุ่ม กดไปหน้า policy เฉยๆ
+                window.location.href = `policy.html`;
+            }
         });
 
         const typeTarget = document.getElementById("typing-text");

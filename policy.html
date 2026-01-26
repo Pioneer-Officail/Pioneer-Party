@@ -559,20 +559,19 @@
         modal.addEventListener('click', (e) => { if (e.target === modal || e.target === modalBackdrop) closeModal(); });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const openId = parseInt(urlParams.get('id'));
-            if(openId) setTimeout(() => openModal(openId), 300);
-            
-            // Typewriter Effect
-            const textToType = "เพราะทุกเสียงมีความหมาย เราจึงสร้างสรรค์นโยบายเพื่อทุกคน";
+            const textToType = "เข้าคูหา . . . กาเบอร์ <span class='font-bold text-partyYellow bg-partyBlue px-2'>3</span> พรรค <span class='font-bold text-partyYellow'>Pioneer</span> ! ";
             const typedTextElement = document.getElementById('typed-text');
             const typeSection = document.getElementById('typewriter-section');
             let hasStarted = false;
 
             function typeWriter(text, i) {
                 if (i < text.length) {
+                    if (text.charAt(i) === '<') {
+                        let tagEnd = text.indexOf('>', i);
+                        if (tagEnd !== -1) i = tagEnd; 
+                    }
                     typedTextElement.innerHTML = text.substring(0, i + 1);
-                    setTimeout(function() { typeWriter(text, i + 1) }, 60); 
+                    setTimeout(function() { typeWriter(text, i + 1) }, 80); 
                 }
             }
 
@@ -580,12 +579,11 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasStarted) {
                         hasStarted = true;
-                        setTimeout(() => { typeWriter(textToType, 0); }, 500); 
+                        setTimeout(() => { typeWriter(textToType, 0); }, 800); 
                     }
                 });
             }, { threshold: 0.5 });
-            
-            if(typeSection) observer.observe(typeSection);
+            observer.observe(typeSection);
         });
         
         // Image Animation On Load
@@ -616,3 +614,4 @@
     </script>
 </body>
 </html>
+

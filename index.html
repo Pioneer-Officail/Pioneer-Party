@@ -13,8 +13,6 @@
     <link rel="apple-touch-icon" href="images/Pioneer logo 2.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <script>
         tailwind.config = {
@@ -27,8 +25,8 @@
                         offWhite: '#fdfbf7' 
                     },
                     fontFamily: { 
-                        sans: ['Sarabun', 'sans-serif'], 
-                        display: ['Prompt', 'sans-serif'],
+                        sans: ['Anakotmai', 'sans-serif'], 
+                        display: ['Anakotmai', 'sans-serif'],
                     },
                     boxShadow: {
                         'pop': '6px 6px 0px 0px rgba(30, 58, 138, 1)',
@@ -41,6 +39,7 @@
                         'marquee': 'marquee 25s linear infinite',
                         'float': 'float 6s ease-in-out infinite',
                         'bounce-x': 'bounceX 1s infinite',
+                        'shimmer': 'shimmer 2.5s infinite', // Animation แสงวิบวับ
                     },
                     keyframes: {
                         slideUp: {
@@ -58,6 +57,10 @@
                         bounceX: {
                             '0%, 100%': { transform: 'translateX(-25%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
                             '50%': { transform: 'none', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' },
+                        },
+                        shimmer: {
+                            '0%': { left: '-100%' },
+                            '100%': { left: '200%' }
                         }
                     },
                     backgroundImage: {
@@ -69,7 +72,32 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700;900&family=Sarabun:wght@300;400;600&display=swap');
+        /* Import Fonts */
+        @font-face {
+            font-family: 'Anakotmai';
+            src: url('Fonts/Anakotmai-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Anakotmai';
+            src: url('Fonts/Anakotmai-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Anakotmai';
+            src: url('Fonts/Anakotmai-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        /* Marker Font for fun elements */
+        @font-face {
+            font-family: 'DancingScript';
+            src: url('Fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
+            font-weight: 400 700;
+        }
 
         .bg-noise {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -78,49 +106,42 @@
         }
 
         body {
-            font-family: 'Sarabun', sans-serif;
+            font-family: 'Anakotmai', sans-serif;
             background-color: #fdfbf7;
         }
 
+        h1, h2, h3, .font-display { font-family: 'Anakotmai', sans-serif; font-weight: 700; }
+
+        /* Custom Cursor */
         @media (min-width: 768px) {
             body { cursor: none; }
         }
-        
         #cursor {
             position: fixed; top: 0; left: 0; width: 20px; height: 20px;
             background-color: #facc15; border: 2px solid #1e3a8a; border-radius: 50%;
             pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
             transition: width 0.2s, height 0.2s, background-color 0.2s; mix-blend-mode: difference;
         }
-        
         #cursor.hovered { width: 50px; height: 50px; background-color: transparent; border-width: 2px; }
 
-        h1, h2, h3, .font-display { font-family: 'Prompt', sans-serif; }
-
-        .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
-
+        /* Scrollbar */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #1e3a8a; }
         ::-webkit-scrollbar-thumb:hover { background: #facc15; }
 
+        /* Utilities */
+        .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
         .bg-stripes { background-image: repeating-linear-gradient(45deg, #facc15, #facc15 10px, #1e3a8a 10px, #1e3a8a 20px); }
         .clip-diagonal { clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%); }
-
         .marquee-container { overflow: hidden; white-space: nowrap; position: absolute; }
         .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
-
-        @font-face {
-            font-family: 'DancingScript';
-            src: url('Fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
-            font-weight: 400 700;
-        }
         .font-marker { font-family: 'DancingScript', cursive; font-weight: 700; }
-
         .cursor-blink { display: inline-block; width: 3px; background-color: #000000; animation: blink 1s step-end infinite; }
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
 
+        /* Animations for Footer Images */
         @keyframes slideUpPerson {
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -128,6 +149,29 @@
         .person-center { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; z-index: 20; transform: scale(1.15); }
         .person-side { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; z-index: 10; opacity: 0; filter: contrast(105%) brightness(105%); }
         .bottom-fade { background: linear-gradient(to top, #ffffff 10%, rgba(255,255,255,0) 100%); }
+
+        /* Shine Effect Class */
+        .shine-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 25; 
+        }
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-25deg);
+            animation: shimmer 3s infinite;
+        }
     </style>
 </head>
 <body class="bg-offWhite text-gray-900 overflow-x-hidden relative">
@@ -136,45 +180,41 @@
     <div id="cursor" class="hidden md:block"></div>
 
     <nav class="fixed top-0 left-0 right-0 z-[60] bg-white border-b-4 border-partyBlue shadow-pop transition-transform duration-300 h-[68px] md:h-[76px]" id="navbar">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative z-20 bg-white h-full">
-        <a href="index.html" class="flex items-center gap-3 group hover-trigger z-20">
-            <div class="rounded-none p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
-                <img src="images/Pioneer logo 2.png" alt="Pioneer Logo" class="h-8 w-8 md:h-10 md:w-10 object-contain bg-white">
-            </div>
-            <div class="flex flex-col leading-none">
-                <span class="text-xl md:text-2xl font-black text-partyBlue uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Pioneer</span>
-                <span class="text-[10px] md:text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max transform -rotate-2 group-hover:rotate-0 transition-transform">PARTY</span>
-            </div>
-        </a>
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative z-20 bg-white h-full">
+            <a href="index.html" class="flex items-center gap-3 group hover-trigger z-20">
+                <div class="rounded-none p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
+                    <img src="images/Pioneer logo 2.png" alt="Pioneer Logo" class="h-8 w-8 md:h-10 md:w-10 object-contain bg-white">
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl md:text-2xl font-black text-partyBlue uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Pioneer</span>
+                    <span class="text-[10px] md:text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max transform -rotate-2 group-hover:rotate-0 transition-transform">PARTY</span>
+                </div>
+            </a>
 
-        <ul class="hidden md:flex space-x-6 items-center">
-            <li><a href="index.html" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">หน้าหลัก</a></li>
-            <li><a href="index.html#candidates" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">ผู้สมัคร</a></li>
-            
-            <li><a href="council-committee.html" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">คณะสภานักเรียน</a></li>
-            
-            <li>
-                <a href="policy.html" class="hover-trigger bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                    อ่านนโยบาย
-                </a>
-            </li>
-        </ul>
+            <ul class="hidden md:flex space-x-6 items-center">
+                <li><a href="#" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">หน้าหลัก</a></li>
+                <li><a href="#candidates" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">ผู้สมัคร</a></li>
+                <li><a href="council-committee.html" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">คณะสภานักเรียน</a></li>
+                <li>
+                    <a href="policy.html" class="hover-trigger bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                        อ่านนโยบาย
+                    </a>
+                </li>
+            </ul>
 
-        <button id="mobile-menu-btn" class="md:hidden text-partyBlue p-2 focus:outline-none z-20">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-    </div>
+            <button id="mobile-menu-btn" class="md:hidden text-partyBlue p-2 focus:outline-none z-20">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
 
-    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-partyBlue border-t-2 border-partyYellow shadow-xl z-10 flex flex-col p-4 space-y-3">
-        <a href="index.html" class="block text-white font-bold text-xl py-2 border-b border-white/20">หน้าหลัก</a>
-        <a href="index.html#candidates" class="block text-white font-bold text-xl py-2 border-b border-white/20">ผู้สมัคร</a>
-        
-        <a href="council-committee.html" class="block text-white font-bold text-xl py-2 border-b border-white/20">คณะสภานักเรียน</a>
-        
-        <a href="policy.html" class="block bg-partyYellow text-partyBlue font-black text-center text-xl py-3 border-2 border-white shadow-[4px_4px_0px_0px_#ffffff]">อ่านนโยบาย</a>
-    </div>
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-partyBlue border-t-2 border-partyYellow shadow-xl z-10 flex flex-col p-4 space-y-3">
+            <a href="#" class="block text-white font-bold text-xl py-2 border-b border-white/20">หน้าหลัก</a>
+            <a href="#candidates" class="block text-white font-bold text-xl py-2 border-b border-white/20">ผู้สมัคร</a>
+            <a href="council-committee.html" class="block text-white font-bold text-xl py-2 border-b border-white/20">คณะสภานักเรียน</a>
+            <a href="policy.html" class="block bg-partyYellow text-partyBlue font-black text-center text-xl py-3 border-2 border-white shadow-[4px_4px_0px_0px_#ffffff]">อ่านนโยบาย</a>
+        </div>
     </nav>
 
     <div class="mt-[68px] md:mt-[76px] bg-partyYellow border-b-4 border-partyBlue py-4 overflow-hidden relative group cursor-default z-40">
@@ -247,7 +287,7 @@
                     <a href="#candidates" class="hover-trigger bg-partyBlue text-white px-8 py-4 font-black text-xl shadow-pop-yellow hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all border-2 border-partyBlue group">
                         <span class="group-hover:mr-2 transition-all">รู้จักทีมผู้สมัคร</span> ➔
                     </a>
-                    <a href="policy.html" class="hover-trigger bg-white text-partyBlue px-8 py-4 font-black text-xl border-2 border-partyBlue hover:bg-gray-100 transition-colors shadow-pop">
+                    <a href="policy.html" class="hover-trigger bg-white text-partyBlue px-8 py-4 font-black text-xl border-2 border-partyBlue hover:bg-white/90 transition-colors shadow-pop">
                         ดูนโยบายทั้งหมด
                     </a>
                 </div>
@@ -259,7 +299,7 @@
                     <div class="absolute inset-0 bg-partyYellow border-2 border-black translate-x-4 translate-y-4 z-0"></div>
                     <div class="absolute inset-0 bg-partyBlue border-2 border-black translate-x-2 translate-y-2 z-10"></div>
                     <div class="absolute inset-0 bg-gray-200 border-2 border-black z-20 overflow-hidden group">
-                         <img src="images/รูปรวมมีพื้นหลัง/1.png" class="w-full h-full object-cover transition-all duration-500 cursor-pointer scale-100 group-hover:scale-105">
+                         <img src="images/รูปรวมมีพื้นหลัง/Student Council President.png" class="w-full h-full object-cover transition-all duration-500 cursor-pointer scale-100 group-hover:scale-105">
                     </div>
                     <div class="absolute -bottom-6 -right-6 z-30 bg-white text-partyBlue border-2 border-partyBlue px-4 py-2 font-black text-xl md:text-2xl rotate-[-12deg] shadow-pop transition-transform hover:rotate-0">
                         President!
@@ -273,8 +313,8 @@
         <div class="absolute inset-0 bg-dot-pattern opacity-30 mix-blend-overlay"></div>
         
         <div class="container mx-auto px-4 relative z-10">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <div class="lg:w-1/3 bg-white p-6 md:p-8 border-4 border-partyYellow shadow-pop-white reveal-on-scroll rotate-1 hover:rotate-0 transition-transform duration-300">
+            <div class="flex flex-col gap-8">
+                <div class="w-full bg-white p-6 md:p-8 border-4 border-partyYellow shadow-pop-white reveal-on-scroll rotate-1 hover:rotate-0 transition-transform duration-300">
                     <div class="flex justify-between items-center mb-4">
                         <span class="bg-partyBlue text-white px-3 py-1 text-xs font-bold uppercase inline-block">Random Policy</span>
                         <div class="flex gap-1">
@@ -286,7 +326,7 @@
                     
                     <div class="group cursor-pointer hover-trigger" id="policy-clickable">
                         <h2 id="policy-display" class="text-2xl md:text-3xl font-black text-partyBlue min-h-[120px] md:min-h-[140px] flex items-center justify-center text-center leading-tight border-2 border-dashed border-gray-300 rounded-lg bg-offWhite m-2 p-2 group-hover:bg-partyYellow/10 group-hover:border-partyYellow transition-colors select-none">
-                            "กดสุ่ม... เพื่อดูนโยบาย"
+                            "กดสุ่ม... เพื่อดูวิสัยทัศน์"
                         </h2>
                         <p class="text-center text-gray-500 text-xs font-bold mt-2 animate-pulse group-hover:text-partyYellow transition-colors">
                             (สามารถกดข้อความที่สุ่มได้ เพื่ออ่านรายละเอียดนะ 👆)
@@ -298,20 +338,26 @@
                     </button>
                 </div>
 
-                <div class="lg:w-2/3 border-4 border-white bg-black p-2 relative shadow-2xl reveal-on-scroll" style="transition-delay: 200ms;">
-                    <div class="absolute top-4 left-4 w-3 h-3 bg-red-500 rounded-full z-20 animate-pulse"></div>
-                    <div class="absolute top-4 right-4 text-white text-xs font-mono z-20 bg-red-600 px-2 rounded">LIVE ●</div>
-                    
-                    <div class="relative w-full h-[250px] md:h-[400px] bg-gray-800 overflow-hidden group">
-                        <div id="banner-track" class="flex h-full transition-transform duration-500 ease-out">
-                            <div class="min-w-full h-full"><img alt="Banner 1" src="" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500"></div>
-                            <div class="min-w-full h-full"><img alt="Banner 2" src="" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500"></div>
-                            <div class="min-w-full h-full"><img alt="Banner 3" src="" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500"></div>
-                        </div>
-                        <button class="hover-trigger absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white text-partyBlue w-8 h-8 md:w-12 md:h-12 border-2 border-partyBlue shadow-pop flex items-center justify-center font-bold hover:bg-partyYellow transition active:translate-y-[-45%] active:shadow-none" onclick="prevSlide()">❮</button>
-                        <button class="hover-trigger absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white text-partyBlue w-8 h-8 md:w-12 md:h-12 border-2 border-partyBlue shadow-pop flex items-center justify-center font-bold hover:bg-partyYellow transition active:translate-y-[-45%] active:shadow-none" onclick="nextSlide()">❯</button>
-                    </div>
-                </div>
+                <div class="w-full border-4 border-white bg-black p-2 relative shadow-2xl reveal-on-scroll" style="transition-delay: 200ms;">
+    <div class="absolute top-4 left-4 w-3 h-3 bg-red-500 rounded-full z-20 animate-pulse"></div>
+    <div class="absolute top-4 right-4 text-white text-xs font-mono z-20 bg-red-600 px-2 rounded">LIVE ●</div>
+    
+    <div class="relative w-full h-[400px] md:h-[550px] bg-gray-800 overflow-hidden group rounded-xl">
+        <div id="banner-track" class="flex h-full transition-transform duration-500 ease-out">
+            <div class="min-w-full h-full">
+                <img src="images/สไลด์รูปภาพประกาศ/616939886_1983564162559487_435518655539440928_n.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+            </div>
+            <div class="min-w-full h-full">
+                <img src="images/สไลด์รูปภาพประกาศ/623876737_735752906270905_7591785256596960466_n.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+            </div>
+        </div>
+    </div>
+    
+    <div class="flex justify-center gap-3 mt-4 relative z-30">
+        <button class="hover-trigger bg-white text-partyBlue w-12 h-12 border-2 border-partyBlue shadow-pop flex items-center justify-center font-bold text-xl hover:bg-partyYellow transition active:translate-y-[2px] active:shadow-none" onclick="prevSlide()">❮</button>
+        <button class="hover-trigger bg-white text-partyBlue w-12 h-12 border-2 border-partyBlue shadow-pop flex items-center justify-center font-bold text-xl hover:bg-partyYellow transition active:translate-y-[2px] active:shadow-none" onclick="nextSlide()">❯</button>
+    </div>
+</div>
             </div>
             
             <div class="mt-12 border-y-2 border-dashed border-white/50 py-6 overflow-hidden bg-partyBlue">
@@ -429,9 +475,9 @@
                 <div class="p-6 md:p-16 flex flex-col md:flex-row gap-8 md:gap-12 items-start bg-offWhite">
                     <div class="w-full md:w-1/3 flex flex-col items-center text-center md:items-start md:text-left">
                         <div class="bg-partyYellow text-partyBlue w-40 h-40 md:w-48 md:h-48 flex items-center justify-center font-black text-6xl md:text-7xl mb-6 shadow-pop-yellow border-4 border-black rotate-3 overflow-hidden transition-transform hover:rotate-0">
-                             <img src="images/รูปรวมมีพื้นหลัง/1.1.png" alt="รูปผู้สมัคร" class="w-full h-full object-cover">
+                             <img src="images/รูปรวมมีพื้นหลัง/Student Council President1.png" alt="รูปผู้สมัคร" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-partyBlue font-black text-lg md:text-xl uppercase leading-none mb-2">พาขวัญ นวลสำลี</h3>
+                        <h3 class="text-partyBlue font-black text-xl md:text-2xl uppercase leading-none mb-2">พาขวัญ นวลสำลี</h3>
                         <p class="bg-partyBlue text-white px-2 py-1 font-bold text-sm inline-block">ผู้ลงสมัครประธานสภานักเรียน</p>
                     </div>
 
@@ -446,7 +492,6 @@
                         </div>
                         <div class="mt-8 md:mt-12 text-right">
                             <p class="font-bold text-lg">ด้วยความเคารพและความตั้งใจ</p>
-                            <h3 class="text-partyBlue font-black text-lg md:text-xl uppercase leading-none mb-2">พาขวัญ นวลสำลี</h3>
                             <h2 class="text-3xl md:text-5xl font-black text-partyBlue tracking-tight mt-2 inline-block transform -rotate-2">พรรค Pioneer</h2>
                         </div>
                     </div>
@@ -462,13 +507,13 @@
         <div class="relative h-[250px] md:h-[420px] w-full max-w-7xl mx-auto overflow-hidden group">
             <div class="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-end justify-center w-full h-full px-4 transition-transform duration-500 group-hover:scale-105 origin-bottom">
                 
-                <img src="images/รูปรวมไม่มีพื้นหลัง/2.png" alt="Member Left" 
+                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 1.png" alt="Member Left" 
                      class="person-side h-[70%] md:h-[85%] object-contain object-bottom -mr-16 md:-mr-31 translate-y-full transition-all duration-500 z-10">
                 
-                <img src="images/รูปรวมไม่มีพื้นหลัง/1.png" alt="President" 
+                <img src="images/รูปรวมไม่มีพื้นหลัง/Student Council President.png" alt="President" 
                      class="person-center h-[80%] md:h-[95%] object-contain object-bottom relative z-20 drop-shadow-2xl translate-y-full">
                 
-                <img src="images/รูปรวมไม่มีพื้นหลัง/3.png" alt="Member Right" 
+                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 2.png" alt="Member Right" 
                      class="person-side h-[70%] md:h-[85%] object-contain object-bottom -ml-16 md:-ml-31 translate-y-full transition-all duration-500 z-10">
             </div>
 
@@ -534,33 +579,22 @@
     </footer>
     <script>
         // --- APP VERSION & PWA INSTALL ---
-        const APP_VERSION = "1.0.0";
+        const APP_VERSION = "1.0.1";
         document.getElementById('app-version').innerText = APP_VERSION;
 
         let deferredPrompt;
         const installBtn = document.getElementById('install-pwa-btn');
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent Chrome 67 and earlier from automatically showing the prompt
             e.preventDefault();
-            // Stash the event so it can be triggered later.
             deferredPrompt = e;
-            // Update UI to notify the user they can add to home screen
             installBtn.classList.remove('hidden');
         });
 
         installBtn.addEventListener('click', (e) => {
-            // Hide our user interface that shows our A2HS button
             installBtn.classList.add('hidden');
-            // Show the prompt
             deferredPrompt.prompt();
-            // Wait for the user to respond to the prompt
             deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the A2HS prompt');
-                } else {
-                    console.log('User dismissed the A2HS prompt');
-                }
                 deferredPrompt = null;
             });
         });
@@ -626,46 +660,84 @@
         });
 
         const candidates = [
-            { id: 1, name: "พาขวัญ นวลสำลี", role: "ประธานนักเรียน", img: "images/รูปรวมมีพื้นหลัง/1.png" },
-            { id: 2, name: "กฤษณะกันท์ ไข่แก้ว", role: "รองประธานนักเรียน คนที่ 1", img: "images/รูปรวมมีพื้นหลัง/2.png" },
-            { id: 3, name: "ธัญญรัตน์ หมื่นรัตน์", role: "รองประธานนักเรียน คนที่ 2", img: "images/รูปรวมมีพื้นหลัง/3.png" },
-            { id: 4, name: "ฐานิดา รื่นเริง", role: "กรรมการ คนที่ 1", img: "images/รูปรวมมีพื้นหลัง/4.png" },
-            { id: 5, name: "วาศิณี ปู่ไข่", role: "กรรมการ คนที่ 2", img: "images/รูปรวมมีพื้นหลัง/5.png" },
-            { id: 6, name: "ปรียากาญจน์ ใจกล้า", role: "กรรมการ คนที่ 3", img: "images/รูปรวมมีพื้นหลัง/6.png" },
-            { id: 7, name: "เขมิกา ศักดิ์เสรีกุล", role: "กรรมการ คนที่ 4", img: "images/รูปรวมมีพื้นหลัง/7.png" },
-            { id: 8, name: "อารีรัตน์ บัวทอง", role: "กรรมการ คนที่ 5", img: "images/รูปรวมมีพื้นหลัง/8.png" },
-            { id: 9, name: "สิทธิโชค แสงสว่าง", role: "กรรมการ คนที่ 6", img: "images/รูปรวมมีพื้นหลัง/9.png" },
+            { id: 1, name: "พาขวัญ นวลสำลี", role: "ประธานนักเรียน", img: "images/รูปรวมมีพื้นหลัง/Student Council President.png" },
+            { id: 2, name: "กฤษณะกันท์ ไข่แก้ว", role: "รองประธานนักเรียน", img: "images/รูปรวมมีพื้นหลัง/Vice Student Council President 1.png" },
+            { id: 3, name: "ธัญญรัตน์ หมื่นรัตน์", role: "รองประธานนักเรียน", img: "images/รูปรวมมีพื้นหลัง/Vice Student Council President 2.png" },
+            { id: 4, name: "ฐานิดา รื่นเริง", role: "กรรมการ 1", img: "images/รูปรวมมีพื้นหลัง/Committee 1.png" },
+            { id: 5, name: "วาศิณี ปู่ไข่", role: "กรรมการ 2", img: "images/รูปรวมมีพื้นหลัง/Committee 2.png" },
+            { id: 6, name: "ปรียากาญจน์ ใจกล้า", role: "กรรมการ 3", img: "images/รูปรวมมีพื้นหลัง/Committee 3.png" },
+            { id: 7, name: "เขมิกา ศักดิ์เสรีกุล", role: "กรรมการ 4", img: "images/รูปรวมมีพื้นหลัง/Committee 4.png" },
+            { id: 8, name: "อารีรัตน์ บัวทอง", role: "กรรมการ 5", img: "images/รูปรวมมีพื้นหลัง/Committee 5.png" },
+            { id: 9, name: "สิทธิโชค แสงสว่าง", role: "กรรมการ 6", img: "images/รูปรวมมีพื้นหลัง/Committee 6.png" },
         ];
 
         const container = document.getElementById('candidate-list');
         candidates.forEach((person, index) => {
             const isPresident = index === 0;
-            const cardHTML = `
-                <a href="profile.html?id=${person.id}" class="block group reveal-on-scroll hover-trigger" style="transition-delay: ${index * 50}ms">
-                    <div class="relative bg-white border-2 border-black shadow-pop hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-                        <div class="absolute -top-3 -left-3 bg-partyYellow text-black font-black w-8 h-8 flex items-center justify-center border-2 border-black z-20 group-hover:rotate-12 transition-transform">${index + 1}</div>
-                        
-                        <div class="pt-[125%] overflow-hidden bg-gray-200 relative">
-                             <img src="${person.img}" class="absolute top-0 left-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110">
-                        </div>
+            const isVice = index === 1 || index === 2;
+            
+            let cardHTML = '';
 
-                        ${isPresident ? '<div class="absolute top-2 right-2 bg-partyBlue text-white font-black px-2 py-1 text-xs border border-white z-10 shadow-sm">หัวหน้าพรรค</div>' : ''}
+            if (isPresident) {
+                // *** Structure for President ***
+                cardHTML = `
+                <a href="profile.html?id=${person.id}" class="block group reveal-on-scroll hover-trigger" style="transition-delay: ${index * 50}ms">
+                    <div class="relative bg-white border-4 border-partyYellow shadow-pop-yellow hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 transform scale-105 z-10">
+                        <div class="absolute -top-4 -left-4 bg-partyYellow text-black font-black w-10 h-10 flex items-center justify-center border-2 border-black z-50 group-hover:rotate-12 transition-transform shadow-sm text-lg">
+                            ${index + 1}
+                        </div>
+                        <div class="relative w-full h-full overflow-hidden">
+                            <div class="shine-effect"></div>
+                            <div class="pt-[125%] bg-gray-200 relative z-0">
+                                 <img src="${person.img}" class="absolute top-0 left-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110">
+                                 
+                                 <div class="absolute bottom-2 right-2 bg-partyBlue text-white font-black px-3 py-1 text-xs border border-white shadow-sm z-30 animate-pulse">ประธานนักเรียน</div>
+                            </div>
+                            <div class="p-4 border-t-2 border-black bg-white relative z-30">
+                                <p class="text-[10px] font-bold uppercase text-gray-400 tracking-widest mb-1 group-hover:text-partyBlue transition-colors">${person.role}</p>
+                                <h3 class="text-base md:text-lg font-black text-partyBlue leading-tight">${person.name}</h3>
+                                <div class="w-full h-1 bg-partyYellow mt-3 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>`;} 
+                else {
+                // *** Standard Structure for Other Candidates ***
+                let cardClass = "relative bg-white border-2 border-black shadow-pop hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200";
+                let badgeHTML = "";
+                let numberBadgeClass = "absolute -top-3 -left-3 bg-partyYellow text-black font-black w-8 h-8 flex items-center justify-center border-2 border-black z-20 group-hover:rotate-12 transition-transform";
+
+                if (isVice) {
+                    cardClass = "relative bg-white border-2 border-partyBlue shadow-pop hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200";
+                    // เปลี่ยนตำแหน่งป้ายรองประธานเป็นด้านล่าง (bottom-2)
+                    badgeHTML = '<div class="absolute bottom-2 right-2 bg-partyYellow text-partyBlue font-black px-2 py-1 text-[10px] border border-black z-30 shadow-sm">รองประธานนักเรียน</div>';
+                }
+
+                cardHTML = `
+                <a href="profile.html?id=${person.id}" class="block group reveal-on-scroll hover-trigger" style="transition-delay: ${index * 50}ms">
+                    <div class="${cardClass}">
+                        <div class="${numberBadgeClass}">${index + 1}</div>
                         
-                        <div class="p-4 border-t-2 border-black bg-white relative z-10">
+                        <div class="pt-[125%] overflow-hidden bg-gray-200 relative z-0">
+                             <img src="${person.img}" class="absolute top-0 left-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110">
+                             ${badgeHTML} </div>
+                        
+                        <div class="p-4 border-t-2 border-black bg-white relative z-30">
                             <p class="text-[10px] font-bold uppercase text-gray-400 tracking-widest mb-1 group-hover:text-partyBlue transition-colors">${person.role}</p>
                             <h3 class="text-base md:text-lg font-black text-partyBlue leading-tight">${person.name}</h3>
                             <div class="w-full h-1 bg-partyYellow mt-3 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
                         </div>
                     </div>
                 </a>`;
+            }
+
             container.innerHTML += cardHTML;
         });
 
         // --- Random Policy Logic (Updated for Click) ---
-        // เก็บ ID คู่กับชื่อนโยบาย
         const policies = [
             { id: 1, text: "Loud & Clear 📢" },
-            { id: 2, text: "Comtinuity Policy🔄" },
+            { id: 2, text: "Colorful Day 🎨" },
             { id: 3, text: "Pathway to Future 🚀" },
             { id: 4, text: "Smart Parking 🅿️" },
             { id: 5, text: "No More Wait 🚽" }
@@ -681,7 +753,7 @@
                 const random = policies[Math.floor(Math.random() * policies.length)];
                 policyDisplay.innerText = random.text;
                 policyDisplay.classList.toggle("text-partyYellow");
-                currentPolicyId = random.id; // จำ ID ล่าสุดไว้
+                currentPolicyId = random.id; 
                 
                 count++;
                 if(count > 10) {
@@ -691,12 +763,10 @@
             }, 50);
         });
 
-        // เมื่อกดที่ข้อความ ให้เด้งไปหน้า policy.html พร้อมส่ง ID ไปด้วย
         clickableArea.addEventListener("click", () => {
             if (currentPolicyId) {
                 window.location.href = `policy.html?id=${currentPolicyId}`;
             } else {
-                // ถ้ายังไม่ได้สุ่ม กดไปหน้า policy เฉยๆ
                 window.location.href = `policy.html`;
             }
         });
@@ -714,15 +784,22 @@
         }
         type();
 
-        let currentSlide = 0;
+        // ส่วน Script เดิม (แก้แค่ตรงตัวเลข)
+    let currentSlide = 0;
+    const nextSlide = () => { 
+        currentSlide = (currentSlide + 1) % 2; // <--- แก้ตรงนี้เป็นเลข 2
+        updateSlide(); 
+    };
+    const prevSlide = () => { 
+        currentSlide = (currentSlide - 1 + 2) % 2; // <--- แก้ตรงนี้เป็นเลข 2 (ทั้งสองจุด)
+        updateSlide(); 
+    };
+    const updateSlide = () => {
         const track = document.getElementById('banner-track');
-        function updateSlide() { track.style.transform = `translateX(-${currentSlide * 100}%)`; }
-        window.nextSlide = () => { currentSlide = (currentSlide + 1) % 3; updateSlide(); };
-        window.prevSlide = () => { currentSlide = (currentSlide - 1 + 3) % 3; updateSlide(); };
-        setInterval(nextSlide, 5000);
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    };
 
-        // ตั้งค่าวันเลือกตั้ง: 13 กุมภาพันธ์ 2026 เวลา 08:30:00
-        const electionDate = new Date("2026-02-13T08:30:00").getTime(); 
+        const electionDate = new Date(2026, 1, 13, 8, 30, 0).getTime(); 
 
         const timer = setInterval(function() {
             const now = new Date().getTime();
@@ -750,8 +827,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-

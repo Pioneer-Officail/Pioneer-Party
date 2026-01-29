@@ -546,50 +546,7 @@
     </button>
 </div>
 
-<script>
-    // --- 1. สคริปต์สำหรับ Loading (5 วินาที) ---
-    window.addEventListener('load', () => {
-        // แถบโหลดวิ่งเต็ม (Visual Effect)
-        const bar = document.querySelector('#global-loader .bg-partyYellow');
-        if(bar) bar.style.width = '100%';
-
-        // รอ 5 วินาที แล้วค่อยซ่อน
-        setTimeout(() => {
-            const loader = document.getElementById('global-loader');
-            if(loader) {
-                loader.classList.add('opacity-0', 'pointer-events-none');
-            }
-        }, 5000); // <-- แก้ตัวเลขตรงนี้ถ้าอยากให้เร็วกว่า 5 วิ (หน่วยเป็นมิลลิวินาที 1000 = 1 วิ)
-    });
-
-    // --- 2. สคริปต์เช็คเน็ต (Offline/Online) ---
-    const offlineScreen = document.getElementById('offline-screen');
-
-    function updateOnlineStatus() {
-        if (!navigator.onLine) {
-            // เน็ตหลุด: แสดงหน้าแจ้งเตือน
-            offlineScreen.classList.remove('hidden');
-        } else {
-            // เน็ตมา: ซ่อนหน้าแจ้งเตือน
-            offlineScreen.classList.add('hidden');
-        }
-    }
-
-    // ดักฟังเหตุการณ์เน็ตหลุด/เน็ตมา
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
-    
-    // เช็คครั้งแรกตอนเข้าเว็บ
-    updateOnlineStatus();
-</script>
-
-<style>
-    /* Animation สำหรับ Loading Bar */
-    @keyframes width {
-        from { width: 0%; }
-        to { width: 100%; }
-    }
-</style>
 </body>
 </html>
+
 

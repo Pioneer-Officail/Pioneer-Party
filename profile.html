@@ -2,27 +2,6 @@
 <html lang="th" class="scroll-smooth">
 <head>
 
-    <div id="profile-loader" class="fixed inset-0 z-[9999] bg-gray-900 flex flex-col items-center justify-center text-white transition-all duration-700 ease-in-out">
-    
-    <div class="relative w-24 h-24 mb-8">
-        <div class="absolute inset-0 border-4 border-partyBlue border-t-partyYellow rounded-full animate-spin"></div>
-        <img src="images/Pioneer logo 2.png" class="absolute inset-0 w-16 h-16 m-auto opacity-80">
-    </div>
-
-    <div class="text-center space-y-2 font-mono">
-        <h2 id="loader-status" class="text-xl md:text-2xl font-bold text-partyYellow tracking-widest uppercase">กำลังเตรียมระบบ...</h2>
-        <p id="loader-sub" class="text-sm text-gray-400">กำลังเชื่อมต่อกับฐานข้อมูล Pioneer</p>
-    </div>
-
-    <div class="w-64 h-1 bg-gray-700 rounded-full mt-6 overflow-hidden relative">
-        <div id="loader-bar" class="h-full bg-partyYellow w-0 transition-all duration-[1500ms] ease-out"></div>
-    </div>
-    
-    <div class="absolute bottom-10 right-10 text-xs text-gray-600 font-mono hidden md:block">
-        SYS_REQ: <span id="random-code">2026-X88</span>
-    </div>
-    </div>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข้อมูลผู้สมัคร - Pioneer Party</title>
@@ -107,6 +86,27 @@
     </style>
 </head>
 <body class="bg-offWhite text-gray-900 relative flex flex-col min-h-screen">
+
+        <div id="profile-loader" class="fixed inset-0 z-[9999] bg-gray-900 flex flex-col items-center justify-center text-white transition-all duration-700 ease-in-out">
+    
+    <div class="relative w-24 h-24 mb-8">
+        <div class="absolute inset-0 border-4 border-partyBlue border-t-partyYellow rounded-full animate-spin"></div>
+        <img src="images/Pioneer logo 2.png" class="absolute inset-0 w-16 h-16 m-auto opacity-80">
+    </div>
+
+    <div class="text-center space-y-2 font-mono">
+        <h2 id="loader-status" class="text-xl md:text-2xl font-bold text-partyYellow tracking-widest uppercase">กำลังเตรียมระบบ...</h2>
+        <p id="loader-sub" class="text-sm text-gray-400">กำลังเชื่อมต่อกับฐานข้อมูล Pioneer</p>
+    </div>
+
+    <div class="w-64 h-1 bg-gray-700 rounded-full mt-6 overflow-hidden relative">
+        <div id="loader-bar" class="h-full bg-partyYellow w-0 transition-all duration-[1500ms] ease-out"></div>
+    </div>
+    
+    <div class="absolute bottom-10 right-10 text-xs text-gray-600 font-mono hidden md:block">
+        SYS_REQ: <span id="random-code">2026-X88</span>
+    </div>
+    </div>
 
     <div class="bg-noise"></div>
     <div id="cursor" class="hidden md:block"></div>
@@ -612,3 +612,4 @@
 
 </body>
 </html>
+

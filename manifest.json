@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#fdfbf7",
   "theme_color": "#1e3a8a",
-  "orientation": "portrait",
+  "orientation": "any",
   "icons": [
     {
       "src": "images/Pioneer logo 2.png",

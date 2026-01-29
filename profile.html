@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="th" class="scroll-smooth">
 <head>
+
+    <div id="profile-loader" class="fixed inset-0 z-[9999] bg-gray-900 flex flex-col items-center justify-center text-white transition-all duration-700 ease-in-out">
+    
+    <div class="relative w-24 h-24 mb-8">
+        <div class="absolute inset-0 border-4 border-partyBlue border-t-partyYellow rounded-full animate-spin"></div>
+        <img src="images/Pioneer logo 2.png" class="absolute inset-0 w-16 h-16 m-auto opacity-80">
+    </div>
+
+    <div class="text-center space-y-2 font-mono">
+        <h2 id="loader-status" class="text-xl md:text-2xl font-bold text-partyYellow tracking-widest uppercase">กำลังเตรียมระบบ...</h2>
+        <p id="loader-sub" class="text-sm text-gray-400">กำลังเชื่อมต่อกับฐานข้อมูล Pioneer</p>
+    </div>
+
+    <div class="w-64 h-1 bg-gray-700 rounded-full mt-6 overflow-hidden relative">
+        <div id="loader-bar" class="h-full bg-partyYellow w-0 transition-all duration-[1500ms] ease-out"></div>
+    </div>
+    
+    <div class="absolute bottom-10 right-10 text-xs text-gray-600 font-mono hidden md:block">
+        SYS_REQ: <span id="random-code">2026-X88</span>
+    </div>
+    </div>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข้อมูลผู้สมัคร - Pioneer Party</title>
@@ -156,11 +178,10 @@
                         <h1 class="text-3xl md:text-5xl font-black text-partyBlue leading-tight mb-1 tracking-tighter">
                             <span id="p-name"></span>
                         </h1>
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl md:text-4xl text-partyYellow font-black" style="-webkit-text-stroke: 1.5px #1e3a8a;">
-                                <span id="p-role-hero"></span>
+                        <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+                            <span class="inline-block bg-partyYellow text-partyBlue font-black text-xl md:text-2xl px-4 py-1 rounded-full border-2 border-partyBlue shadow-pop transform -rotate-1">
+                            ชื่อเล่น: <span id="p-nickname"></span>
                             </span>
-                            <div class="h-1 bg-partyBlue flex-grow ml-4 mt-2"></div>
                         </div>
                     </div>
 
@@ -289,7 +310,7 @@
                 gpa: "4.00",
                 quote: "ฟังทุกเสียง คิดเพื่อทุกคน และลงมือทำจริง", 
                 vision: "มุ่งมั่นสร้างโรงเรียนที่เป็นพื้นที่แห่งโอกาส รับฟังทุกเสียงสะท้อนอย่างจริงใจ และขับเคลื่อนนโยบายที่ทำได้จริงเพื่อพัฒนาคุณภาพชีวิตของนักเรียนทุกคน", 
-                achievements: [ "(ล่าสุด)หัวหน้าพรรค Pioneer", "เป็นคฑากรโรงเรียน", "รางวัลรองชนะเลิศอันดับที่ 1 การตอบปัญหาวิทยาศาสตร์" ] 
+                achievements: ["เป็นคฑากรโรงเรียน", "รางวัลรองชนะเลิศอันดับที่ 1 การตอบปัญหาวิทยาศาสตร์" ] 
             },
             { 
                 id: 2, 
@@ -308,7 +329,7 @@
             { 
                 id: 3, 
                 name: "ธัญญรัตน์ หมื่นรัตน์", 
-                nickname: "หนิง", 
+                nickname: "หนุงหนิง", 
                 role: "รองประธานนักเรียน คนที่ 2", 
                 img: "images/รูปรวมมีพื้นหลัง/Vice Student Council President 2.png", 
                 age: 16, 
@@ -443,13 +464,8 @@
             if (candidate) {
                 document.getElementById('p-id').innerText = candidate.id;
                 document.getElementById('p-img').src = candidate.img;
-                
-                // Combined Name and Nickname
-                document.getElementById('p-name').innerText = `${candidate.name} (${candidate.nickname})`;
-                
-                // Role displayed in the hero section
-                document.getElementById('p-role-hero').innerText = candidate.role;
-                // Badge role in image
+                document.getElementById('p-name').innerText = candidate.name;
+                document.getElementById('p-nickname').innerText = candidate.nickname;
                 document.getElementById('p-role-badge').innerText = candidate.role;
 
                 document.getElementById('p-quote').innerText = candidate.quote;
@@ -530,9 +546,69 @@
             });
         });
     </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. ดึง ID ผู้สมัครจาก URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const candidateId = urlParams.get('id') || 'Unknown';
+        
+        // ตัวแปรของ Loader
+        const loader = document.getElementById('profile-loader');
+        const statusText = document.getElementById('loader-status');
+        const subText = document.getElementById('loader-sub');
+        const bar = document.getElementById('loader-bar');
+        const randomCode = document.getElementById('random-code');
+
+        // เริ่มอนิเมชั่นทันทีที่เข้าหน้า
+        setTimeout(() => {
+            // สเต็ป 1: หลอดโหลดเริ่มวิ่ง
+            bar.style.width = "40%";
+            
+            // สเต็ป 2: ทำตัวเลขสุ่มวิ่งๆ (เพื่อความเท่)
+            const interval = setInterval(() => {
+                randomCode.innerText = 'DATA_' + Math.floor(Math.random() * 9999);
+            }, 50);
+
+            // สเต็ป 3: เจอข้อมูล (จำลองเวลา 0.5 วิ)
+            setTimeout(() => {
+                statusText.innerText = `ได้รับอนุญาตให้เข้าถึง`;
+                statusText.classList.remove('text-partyYellow');
+                statusText.classList.add('text-green-400'); // เปลี่ยนสีเป็นเขียว
+                
+                subText.innerText = `ดึงข้อมูลสำหรับผู้สมัครหมายเลข. ${candidateId}`;
+                bar.style.width = "100%"; // หลอดเต็ม
+                
+                clearInterval(interval);
+                randomCode.innerText = "COMPLETE";
+
+                // สเต็ป 4: ปิดหน้าโหลด (Slide Up)
+                setTimeout(() => {
+                    // เลื่อนหน้าโหลดขึ้นข้างบน
+                    loader.style.transform = "translateY(-100%)";
+                    
+                    // (Optional) สั่งให้การ์ดผู้สมัครเด้งขึ้นมา
+                    const card = document.querySelector('.container'); // หรือ class หลักของคุณ
+                    if(card) {
+                        card.classList.add('animate-fade-in-up');
+                    }
+                }, 800); // รอหลอดเต็มแป๊บนึงค่อยเปิด
+
+            }, 600); // ดีเลย์จำลองการค้นหา
+        }, 100);
+    });
+</script>
+
+<style>
+    /* แถม Animation ให้ตอนเปิดหน้า */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+</style>
+
 </body>
 </html>
-
-
-
-

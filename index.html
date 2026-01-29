@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="th" class="scroll-smooth">
 <head>
+
+    <div id="app-loader" class="fixed inset-0 z-[9999] bg-partyBlue flex flex-col items-center justify-center transition-opacity duration-500">
+    <img src="images/Pioneer logo 1.png" alt="Logo" class="w-24 h-24 mb-6 animate-pulse drop-shadow-2xl">
+    
+    <div class="flex flex-col items-center space-y-2">
+        <div class="flex space-x-1">
+            <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+            <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+        </div>
+        <p class="text-white font-mono text-sm tracking-widest mt-2 opacity-80">กำลังเชื่อมต่อ...</p>
+    </div>
+    </div>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pioneer Party - พรรคไพโอเนียร์ เบอร์ 3</title>
@@ -326,7 +340,7 @@
                     
                     <div class="group cursor-pointer hover-trigger" id="policy-clickable">
                         <h2 id="policy-display" class="text-2xl md:text-3xl font-black text-partyBlue min-h-[120px] md:min-h-[140px] flex items-center justify-center text-center leading-tight border-2 border-dashed border-gray-300 rounded-lg bg-offWhite m-2 p-2 group-hover:bg-partyYellow/10 group-hover:border-partyYellow transition-colors select-none">
-                            "กดสุ่ม... เพื่อดูวิสัยทัศน์"
+                            "กดสุ่ม... เพื่อดูนโยบายของเรา"
                         </h2>
                         <p class="text-center text-gray-500 text-xs font-bold mt-2 animate-pulse group-hover:text-partyYellow transition-colors">
                             (สามารถกดข้อความที่สุ่มได้ เพื่ออ่านรายละเอียดนะ 👆)
@@ -393,9 +407,6 @@
             </div>
             
             <div class="flex justify-center items-center mb-16 reveal-on-scroll relative z-20">
-                <div class="hidden md:block text-7xl absolute -left-12 top-1/2 -translate-y-1/2 animate-bounce-x z-20 pointer-events-none">👉</div>
-                <div class="md:hidden text-5xl absolute -top-12 animate-bounce z-20 pointer-events-none">👇</div>
-
                 <a href="https://ngl.link/thepioneerpsc" target="_blank" class="hover-trigger relative z-10 bg-partyYellow text-partyBlue border-4 border-white px-8 py-4 font-black text-xl md:text-2xl shadow-[6px_6px_0px_0px_#ffffff] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all flex items-center gap-3 transform hover:scale-105 rounded-full md:rounded-lg">
                     <span class="text-3xl">💬</span>
                     <span>ถามคำถาม (ไม่ระบุตัวตน) คลิกเลย!</span>
@@ -579,7 +590,7 @@
     </footer>
     <script>
         // --- APP VERSION & PWA INSTALL ---
-        const APP_VERSION = "1.0.1";
+        const APP_VERSION = "1.0.5";
         document.getElementById('app-version').innerText = APP_VERSION;
 
         let deferredPrompt;
@@ -783,15 +794,13 @@
             }
         }
         type();
-
-        // ส่วน Script เดิม (แก้แค่ตรงตัวเลข)
     let currentSlide = 0;
     const nextSlide = () => { 
-        currentSlide = (currentSlide + 1) % 2; // <--- แก้ตรงนี้เป็นเลข 2
+        currentSlide = (currentSlide + 1) % 2;
         updateSlide(); 
     };
     const prevSlide = () => { 
-        currentSlide = (currentSlide - 1 + 2) % 2; // <--- แก้ตรงนี้เป็นเลข 2 (ทั้งสองจุด)
+        currentSlide = (currentSlide - 1 + 2) % 2;
         updateSlide(); 
     };
     const updateSlide = () => {
@@ -799,32 +808,53 @@
         track.style.transform = `translateX(-${currentSlide * 100}%)`;
     };
 
-        const electionDate = new Date(2026, 1, 13, 8, 30, 0).getTime(); 
+// กำหนดเป้าหมาย: 13 ก.พ. 2026 เวลา 08:30:00 (GMT+7)
+    const electionDate = new Date("2026-02-13T08:30:00+07:00").getTime(); 
 
-        const timer = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = electionDate - now;
+    const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = electionDate - now;
 
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById("days").innerText = "00";
-                document.getElementById("hours").innerText = "00";
-                document.getElementById("minutes").innerText = "00";
-                document.getElementById("seconds").innerText = "00";
-                return;
-            }
+    if (distance < 0) {
+        clearInterval(timer);
+        if(document.getElementById("days")) document.getElementById("days").innerText = "00";
+        if(document.getElementById("hours")) document.getElementById("hours").innerText = "00";
+        if(document.getElementById("minutes")) document.getElementById("minutes").innerText = "00";
+        if(document.getElementById("seconds")) document.getElementById("seconds").innerText = "00";
+        return;
+    }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            if(document.getElementById("seconds")) document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-        }, 1000);
+        if(document.getElementById("days")) document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+        if(document.getElementById("hours")) document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+        if(document.getElementById("minutes")) document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+        if(document.getElementById("seconds")) document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+    }, 1000);
     </script>
-    
+
+    <script>
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('app-loader');
+        
+        // เช็คว่าเคยเข้ามาใน Session นี้หรือยัง
+        if (!sessionStorage.getItem('visited')) {
+            // == เข้าครั้งแรก: โหลดนานหน่อย (2.5 วินาที)==
+            setTimeout(() => {
+                loader.classList.add('opacity-0', 'pointer-events-none');
+                sessionStorage.setItem('visited', 'true'); // จำไว้ว่าเข้าแล้ว
+            }, 2500);
+        } else {
+            // == เคยเข้าแล้ว: โหลดเร็วๆ (0.5 วินาที) ==
+            setTimeout(() => {
+                loader.classList.add('opacity-0', 'pointer-events-none');
+            }, 500);
+        }
+    });
+    </script>
+
 </body>
 </html>

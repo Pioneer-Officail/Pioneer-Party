@@ -9,7 +9,6 @@
     <link rel="apple-touch-icon" href="images/Pioneer logo 2.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script>
         tailwind.config = {
             theme: {
@@ -66,8 +65,6 @@
             pointer-events: none; z-index: 50; opacity: 0.05;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
         }
-        
-        /* Animations for Footer Images */
         @keyframes slideUpPerson {
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -100,7 +97,6 @@
     </div>
 
     <div class="bg-noise"></div>
-
     <nav class="fixed top-0 left-0 right-0 z-[60] bg-white border-b-4 border-partyBlue shadow-pop transition-transform duration-300 h-[68px] md:h-[76px]" id="navbar">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative z-20 bg-white h-full">
             <a href="index.html" class="flex items-center gap-3 group hover-trigger z-20">
@@ -129,7 +125,6 @@
             <a href="policy.html" class="block bg-partyYellow text-partyBlue font-black text-center text-xl py-3 border-2 border-white shadow-[4px_4px_0px_0px_#ffffff]">อ่านนโยบาย</a>
         </div>
     </nav>
-
     <main class="flex-grow pt-28 pb-12 px-4 relative z-10">
         <div class="max-w-6xl mx-auto">
             
@@ -242,10 +237,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
-
     <div class="bg-white overflow-hidden pt-10 border-t border-gray-200 w-full relative">
         <div class="absolute inset-0 bg-noise z-40 opacity-20"></div>
         
@@ -308,12 +301,9 @@
     </footer>
 
     <script>
-        // Toggle Mobile Menu
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-
-        // Scroll Animation
         document.addEventListener("DOMContentLoaded", function() {
             const observerOptions = { threshold: 0.1 };
             const observer = new IntersectionObserver((entries) => {
@@ -330,13 +320,10 @@
             document.querySelectorAll('.person-center, .person-side').forEach(el => {
                 el.classList.remove('translate-y-full');
             });
-
-            // Typewriter Effect
             const textToType = "เข้าคูหา . . . กาเบอร์ <span class='font-bold text-partyYellow bg-partyBlue px-2'>3</span> พรรค <span class='font-bold text-partyYellow'>Pioneer</span> ! ";
             const typedTextElement = document.getElementById('typed-text');
             const typeSection = document.getElementById('typewriter-section');
             let hasStarted = false;
-
             function typeWriter(text, i) {
                 if (i < text.length) {
                     if (text.charAt(i) === '<') {
@@ -347,7 +334,6 @@
                     setTimeout(function() { typeWriter(text, i + 1) }, 80); 
                 }
             }
-
             if (typeSection) {
                 const typeObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -360,8 +346,6 @@
                 typeObserver.observe(typeSection);
             }
         });
-
-        // PWA Script
         const appVersionSpan = document.getElementById('app-version');
         if(appVersionSpan) appVersionSpan.innerText = "1.0.5";
 
@@ -391,6 +375,5 @@
 </script>
 </body>
 </html>
-
 
 

@@ -8,9 +8,10 @@
     <meta name="theme-color" content="#1e3a8a">
     <link rel="apple-touch-icon" href="images/Pioneer logo 2.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <script>
         tailwind.config = {
+            darkMode: 'class', // ✅ เพิ่ม Dark Mode
             theme: {
                 extend: {
                     colors: { 
@@ -41,7 +42,6 @@
             }
         }
     </script>
-
     <style>
         /* Font Setup */
         @font-face { font-family: 'Anakotmai'; src: url('Fonts/Anakotmai-Light.ttf') format('truetype'); font-weight: 300; }
@@ -80,54 +80,70 @@
         }
         .person-center { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; z-index: 20; transform: scale(1.15); }
         .person-side { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; z-index: 10; opacity: 0; filter: contrast(105%) brightness(105%); }
-        .bottom-fade { background: linear-gradient(to top, #ffffff 10%, rgba(255,255,255,0) 100%); }
+        /* ลบ .bottom-fade ออกแล้ว */
         .cursor-blink { display: inline-block; width: 3px; background-color: #000000; animation: blink 1s step-end infinite; }
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
     </style>
 </head>
-<body class="bg-offWhite text-gray-900 relative flex flex-col min-h-screen">
+<body class="bg-offWhite dark:bg-gray-900 text-gray-900 dark:text-gray-100 relative flex flex-col min-h-screen transition-colors duration-300">
 
-        <div id="app-loader" class="fixed inset-0 z-[9999] bg-partyBlue flex flex-col items-center justify-center transition-opacity duration-500">
-    <img src="images/Pioneer logo 1.png" alt="Logo" class="w-24 h-24 mb-6 animate-pulse drop-shadow-2xl">
-    
-    <div class="flex flex-col items-center space-y-2">
-        <div class="flex space-x-1">
-            <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-            <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-            <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+    <div id="app-loader" class="fixed inset-0 z-[9999] bg-partyBlue flex flex-col items-center justify-center transition-opacity duration-500">
+        <img src="images/Pioneer logo 1.png" alt="Logo" class="w-24 h-24 mb-6 animate-pulse drop-shadow-2xl">
+        
+        <div class="flex flex-col items-center space-y-2">
+            <div class="flex space-x-1">
+                <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+            </div>
+            <p class="text-white font-mono text-sm tracking-widest mt-2 opacity-80">กำลังเชื่อมต่อ...</p>
         </div>
-        <p class="text-white font-mono text-sm tracking-widest mt-2 opacity-80">กำลังเชื่อมต่อ...</p>
-    </div>
     </div>
 
     <div class="bg-noise"></div>
 
-    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white border-b-4 border-partyBlue shadow-pop transition-transform duration-300 h-[68px] md:h-[76px]" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative z-20 bg-white h-full">
+    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white dark:bg-gray-900 border-b-4 border-partyBlue dark:border-partyYellow shadow-pop transition-all duration-300 h-[68px] md:h-[76px]" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative z-20 bg-white dark:bg-gray-900 h-full">
             <a href="index.html" class="flex items-center gap-3 group hover-trigger z-20">
                 <div class="rounded-none p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
                     <img src="images/Pioneer logo 2.png" alt="Pioneer Logo" class="h-8 w-8 md:h-10 md:w-10 object-contain bg-white">
                 </div>
                 <div class="flex flex-col leading-none">
-                    <span class="text-xl md:text-2xl font-black text-partyBlue uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Pioneer</span>
+                    <span class="text-xl md:text-2xl font-black text-partyBlue dark:text-partyYellow uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Pioneer</span>
                     <span class="text-[10px] md:text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max transform -rotate-2 group-hover:rotate-0 transition-transform">PARTY</span>
                 </div>
             </a>
             <ul class="hidden md:flex space-x-6 items-center">
-                <li><a href="index.html" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">หน้าหลัก</a></li>
-                <li><a href="index.html#candidates" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">ผู้สมัคร</a></li>
-                <li><a href="council-committee.html" class="text-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">คณะสภานักเรียน</a></li>
-                <li><a href="#" class="hover-trigger bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">อ่านนโยบาย</a></li>
+                <li><a href="index.html" class="text-partyBlue dark:text-white hover:dark:bg-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">หน้าหลัก</a></li>
+                <li><a href="index.html#candidates" class="text-partyBlue dark:text-white hover:dark:bg-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">ผู้สมัคร</a></li>
+                <li><a href="council-committee.html" class="text-partyBlue dark:text-white hover:dark:bg-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">คณะสภานักเรียน</a></li>
+                <li><a href="policy.html" class="hover-trigger bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">อ่านนโยบาย</a></li>
+           <li>
+                    <button onclick="toggleTheme()" class="bg-gray-100 dark:bg-gray-800 p-2 rounded-full border-2 border-gray-300 dark:border-gray-600 hover:border-partyYellow transition-all group">
+                        <svg class="sun-icon w-5 h-5 text-gray-500 dark:text-yellow-400 hidden group-hover:rotate-45 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg class="moon-icon w-5 h-5 text-partyBlue group-hover:-rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </li>
             </ul>
-            <button id="mobile-menu-btn" class="md:hidden text-partyBlue p-2 focus:outline-none z-20 hover-trigger">
+
+            <button id="mobile-menu-btn" class="md:hidden text-partyBlue dark:text-partyYellow p-2 focus:outline-none z-20 hover-trigger">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
         </div>
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-partyBlue border-t-2 border-partyYellow shadow-xl z-10 flex flex-col p-4 space-y-3">
+
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-partyBlue dark:bg-gray-800 border-t-2 border-partyYellow shadow-xl z-10 flex flex-col p-4 space-y-3">
             <a href="index.html" class="block text-white font-bold text-xl py-2 border-b border-white/20">หน้าหลัก</a>
             <a href="index.html#candidates" class="block text-white font-bold text-xl py-2 border-b border-white/20">ผู้สมัคร</a>
             <a href="council-committee.html" class="block text-white font-bold text-xl py-2 border-b border-white/20">คณะสภานักเรียน</a>
-            <a href="#" class="block bg-partyYellow text-partyBlue font-black text-center text-xl py-3 border-2 border-white shadow-[4px_4px_0px_0px_#ffffff]">อ่านนโยบาย</a>
+            <a href="policy.html" class="block bg-partyYellow text-partyBlue font-black text-center text-xl py-3 border-2 border-white shadow-[4px_4px_0px_0px_#ffffff]">อ่านนโยบาย</a>
+            
+            <button onclick="toggleTheme()" class="flex items-center justify-between w-full text-white font-bold text-xl py-2 border-b border-white/20 hover:text-partyYellow transition-colors group">
+                <span>โหมดมืด / สว่าง</span>
+                <div class="relative w-8 h-8 flex items-center justify-center border-2 border-white rounded-full bg-white/10 group-hover:bg-partyYellow group-hover:text-partyBlue group-hover:border-partyBlue transition-colors">
+                    <svg class="sun-icon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg class="moon-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </div>
+            </button>
         </div>
     </nav>
 
@@ -137,82 +153,98 @@
             <div class="text-center mb-16 reveal-on-scroll">
                 <div class="inline-block relative group">
                     <div class="absolute inset-0 bg-partyYellow transform translate-x-2 translate-y-2 border-2 border-black"></div>
-                    <h1 class="relative bg-white border-4 border-partyBlue text-4xl md:text-6xl font-black text-partyBlue px-10 py-6 uppercase tracking-tighter shadow-pop transition-transform group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none">
+                    <h1 class="relative bg-white dark:bg-gray-800 border-4 border-partyBlue dark:border-partyYellow text-4xl md:text-6xl font-black text-partyBlue dark:text-white px-10 py-6 uppercase tracking-tighter shadow-pop transition-transform group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none">
                         Our Policy
                     </h1>
                 </div>
-                <p class="mt-8 text-2xl text-gray-700 font-bold tracking-wide">
+                <p class="mt-8 text-2xl text-gray-700 dark:text-gray-300 font-bold tracking-wide">
                     นโยบายที่ <span class="text-partyBlue bg-partyYellow px-2">ทำได้จริง</span> เพื่อทุกคน
                 </p>
             </div>
 
             <div id="policy-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                </div>
+            </div>
 
-            <div class="mt-24 pt-12 border-t-4 border-dashed border-partyBlue/20 reveal-on-scroll">
-                <h2 class="text-3xl font-black text-partyBlue mb-8 text-center uppercase tracking-tight">
-                    <span class="bg-partyYellow px-2 mr-2 transform -rotate-2 inline-block">Special</span> Projects
+            <div class="mt-24 pt-12 border-t-4 border-dashed border-partyBlue/20 dark:border-gray-600 reveal-on-scroll">
+                <h2 class="text-3xl font-black text-partyBlue dark:text-white mb-8 text-center uppercase tracking-tight">
+                    <span class="bg-partyYellow px-2 mr-2 transform -rotate-2 inline-block text-partyBlue">Special</span> Projects
                 </h2>
                 <div id="secondary-policy-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    </div>
+                </div>
             </div>
 
         </div>
     </main>
 
     <div id="policy-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-partyDarkBlue/90 backdrop-blur-sm hidden overflow-y-auto">
-        <div id="modal-content" class="bg-white w-full max-w-4xl relative shadow-2xl border-4 border-partyYellow">
-            <button id="close-modal" class="absolute top-4 right-4 text-partyBlue hover:text-red-500 z-50 bg-white rounded-full p-1 border-2 border-partyBlue hover:rotate-90 transition-all duration-300">
+        <div id="modal-content" class="bg-white dark:bg-gray-800 w-full max-w-4xl relative shadow-2xl border-4 border-partyYellow">
+            <button id="close-modal" class="absolute top-4 right-4 text-partyBlue dark:text-white hover:text-red-500 z-50 bg-white dark:bg-gray-700 rounded-full p-1 border-2 border-partyBlue dark:border-white hover:rotate-90 transition-all duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
             <div id="modal-body" class="p-0">
-                </div>
+            </div>
         </div>
     </div>
+    </main>
 
-    <div class="bg-white overflow-hidden pt-10 border-t border-gray-200 w-full relative">
+    <div class="bg-white dark:bg-gray-900 overflow-hidden pt-10 border-t border-gray-200 dark:border-gray-800 w-full relative transition-colors duration-300">
         <div class="absolute inset-0 bg-noise z-40 opacity-20"></div>
         
         <div class="relative h-[250px] md:h-[420px] w-full max-w-7xl mx-auto overflow-hidden group">
             <div class="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-end justify-center w-full h-full px-4 transition-transform duration-500 group-hover:scale-105 origin-bottom">
-                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 1.png" alt="Member Left" class="person-side h-[70%] md:h-[85%] object-contain object-bottom -mr-16 md:-mr-31 translate-y-full transition-all duration-500 z-10">
-                <img src="images/รูปรวมไม่มีพื้นหลัง/Student Council President.png" alt="President" class="person-center h-[80%] md:h-[95%] object-contain object-bottom relative z-20 drop-shadow-2xl translate-y-full">
-                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 2.png" alt="Member Right" class="person-side h-[70%] md:h-[85%] object-contain object-bottom -ml-16 md:-ml-31 translate-y-full transition-all duration-500 z-10">
+                
+                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 1.png" alt="Member Left" 
+                     class="person-side h-[70%] md:h-[85%] object-contain object-bottom -mr-16 md:-mr-31 translate-y-full transition-all duration-500 z-10">
+                
+                <img src="images/รูปรวมไม่มีพื้นหลัง/Student Council President.png" alt="President" 
+                     class="person-center h-[80%] md:h-[95%] object-contain object-bottom relative z-20 drop-shadow-2xl translate-y-full">
+                
+                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 2.png" alt="Member Right" 
+                     class="person-side h-[70%] md:h-[85%] object-contain object-bottom -ml-16 md:-ml-31 translate-y-full transition-all duration-500 z-10">
             </div>
-            <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 bottom-fade z-30 pointer-events-none"></div>
+
+            <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 z-30 pointer-events-none bg-gradient-to-t from-white via-white/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent"></div>
         </div>
 
-        <div class="text-center pb-12 pt-2 bg-white relative z-40 px-4 min-h-[80px] md:min-h-[100px]" id="typewriter-section">
-            <h2 class="text-3xl md:text-6xl lg:text-7xl font-bold text-partyBlue tracking-tighter drop-shadow-md">
+        <div class="text-center pb-12 pt-2 bg-white dark:bg-gray-900 relative z-40 px-4 min-h-[80px] md:min-h-[100px]" id="typewriter-section">
+            <h2 class="text-3xl md:text-6xl lg:text-7xl font-bold text-partyBlue dark:text-yellow-400 tracking-tighter drop-shadow-md">
                 <span id="typed-text"></span><span class="cursor-blink bg-partyBlue w-3 h-8 md:w-4 md:h-20 inline-block align-middle ml-2"></span>
             </h2>
         </div>
+
     </div>
 
-    <button id="install-pwa-btn" class="hidden fixed bottom-4 left-4 z-50 bg-partyYellow text-partyBlue border-2 border-partyBlue px-4 py-2 font-black shadow-pop rounded-lg animate-bounce hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+    <button id="install-pwa-btn" class="hidden fixed bottom-4 left-4 z-50 bg-partyYellow text-partyBlue border-2 border-partyBlue dark:border-white px-4 py-2 font-black shadow-pop rounded-lg animate-bounce hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
         ⬇️ ติดตั้งแอป
     </button>
 
-    <footer class="bg-partyBlue text-white py-12 relative shadow-[0_-10px_40px_rgba(0,0,0,0.3)] z-50 overflow-hidden">
+    <footer class="bg-partyBlue dark:bg-gray-950 text-white py-12 relative shadow-[0_-10px_40px_rgba(0,0,0,0.3)] z-50 overflow-hidden transition-colors duration-300">
         <div class="absolute top-0 left-0 w-full h-2 bg-partyYellow"></div>
         <div class="absolute -right-10 -bottom-20 w-64 h-64 border-4 border-partyYellow rounded-full opacity-20"></div>
 
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0 relative z-10">
+            
             <div class="flex-shrink-0 order-2 md:order-1 hover-trigger">
                 <div class="bg-white p-2 rounded-none rotate-3 hover:rotate-0 transition-transform duration-300 shadow-pop-yellow w-20 h-20 md:w-24 md:h-24 flex items-center justify-center border-2 border-black">
                     <img src="images/Pioneer logo 3.png" alt="Pioneer Logo" class="w-full h-full object-contain">
                 </div>
             </div>
+
             <div class="text-center order-1 md:order-2 flex-grow">
-                <h3 class="font-marker text-2xl md:text-4xl lg:text-5xl text-white mb-2 tracking-wide leading-tight">Follow us & get to know Pioneer</h3>
-                <p class="font-marker text-partyYellow text-xl md:text-3xl mb-2 leading-tight">Because every voice matters</p>
+                <h3 class="font-marker text-2xl md:text-4xl lg:text-5xl text-white mb-2 tracking-wide leading-tight">
+                    Follow us & get to know Pioneer
+                </h3>
+                <p class="font-marker text-partyYellow text-xl md:text-3xl mb-2 leading-tight">
+                    Because every voice matters
+                </p>
                 <div class="flex justify-center gap-2 mt-4">
                      <span class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0s"></span>
                      <span class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
                      <span class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
                 </div>
-                <p class="text-xs opacity-50 mt-4 text-gray-300">Application Version <span id="app-version">1.0.1</span></p>
+                <p class="text-xs opacity-50 mt-4 text-gray-300">Application Version <span id="app-version"></span></p>
             </div>
+
             <div class="flex flex-col items-center md:items-end gap-3 order-3 md:order-3 flex-shrink-0">
                 <span class="text-sm font-black text-partyYellow uppercase tracking-widest bg-partyBlue border border-partyYellow px-2">ช่องทางการติดต่อ</span>
                 <a href="https://instagram.com/thepioneerpsc" target="_blank" class="hover-trigger flex items-center gap-3 hover:text-partyYellow transition-colors group">
@@ -228,9 +260,50 @@
                     </div>
                 </a>
             </div>
+
         </div>
     </footer>
+    <script>
+    // --- Dark Mode Logic (Updated) ---
+    const html = document.documentElement;
+    
+    // ฟังก์ชันสำหรับอัปเดตไอคอนทุกจุดในหน้าเว็บ
+    function updateIcons(isDark) {
+        const sunIcons = document.querySelectorAll('.sun-icon');
+        const moonIcons = document.querySelectorAll('.moon-icon');
+        
+        if (isDark) {
+            sunIcons.forEach(el => el.classList.remove('hidden'));
+            moonIcons.forEach(el => el.classList.add('hidden'));
+        } else {
+            sunIcons.forEach(el => el.classList.add('hidden'));
+            moonIcons.forEach(el => el.classList.remove('hidden'));
+        }
+    }
 
+    function checkTheme() {
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            updateIcons(true);
+        } else {
+            html.classList.remove('dark');
+            updateIcons(false);
+        }
+    }
+    checkTheme();
+
+    function toggleTheme() {
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            updateIcons(false);
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            updateIcons(true);
+        }
+    }
+</script>
     <script>
         // Toggle Mobile Menu
         const mobileBtn = document.getElementById('mobile-menu-btn');
@@ -443,48 +516,47 @@
                         </div>`;
                 }
             }
-
             modalBody.innerHTML = `
-                <div class="relative">
-                    <div class="h-64 md:h-80 overflow-hidden relative">
-                        <img src="${policy.image}" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-partyBlue via-transparent to-transparent opacity-90"></div>
-                        <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-                            <div class="flex items-center gap-4 mb-2">
-                                <span class="text-4xl md:text-5xl">${policy.icon}</span>
-                                <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter shadow-black drop-shadow-md">${policy.title}</h2>
-                            </div>
-                            <p class="text-partyYellow font-bold text-xl md:text-2xl bg-partyBlue/50 inline-block px-2 backdrop-blur-sm">"${policy.slogan}"</p>
-                        </div>
-                    </div>
-                    
-                    <div class="p-6 md:p-10 max-h-[60vh] overflow-y-auto">
-                        <div class="mb-8">
-                            <h3 class="text-2xl font-black text-partyBlue mb-3 flex items-center gap-2">
-                                <span class="w-2 h-8 bg-partyYellow block"></span> แนวคิด (Concept)
-                            </h3>
-                            <p class="text-gray-700 text-lg leading-relaxed font-medium">${policy.concept}</p>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                            <div>
-                                <h3 class="text-xl font-black text-partyBlue mb-3 border-b-2 border-gray-200 pb-1">วิธีการ (How)</h3>
-                                <ul class="space-y-3">
-                                    ${policy.how.map(h => `<li class="flex items-start gap-3"><span class="bg-partyBlue text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">step</span><span class="text-gray-700">${h}</span></li>`).join('')}
-                                </ul>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-black text-partyBlue mb-3 border-b-2 border-gray-200 pb-1">ประโยชน์ (Benefits)</h3>
-                                <ul class="space-y-2">
-                                    ${policy.benefits.map(b => `<li class="flex items-start gap-2 text-green-700 font-bold"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg><span>${b}</span></li>`).join('')}
-                                </ul>
-                            </div>
-                        </div>
-
-                        ${extraHTML}
-                    </div>
+    <div class="relative">
+        <div class="h-64 md:h-80 overflow-hidden relative">
+            <img src="${policy.image}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-partyBlue via-transparent to-transparent opacity-90"></div>
+            <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full">
+                <div class="flex items-center gap-4 mb-2">
+                    <span class="text-4xl md:text-5xl">${policy.icon}</span>
+                    <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter shadow-black drop-shadow-md">${policy.title}</h2>
                 </div>
-            `;
+                <p class="text-partyYellow font-bold text-xl md:text-2xl bg-partyBlue/50 inline-block px-2 backdrop-blur-sm">"${policy.slogan}"</p>
+            </div>
+        </div>
+        
+        <div class="p-6 md:p-10 max-h-[60vh] overflow-y-auto">
+            <div class="mb-8">
+                <h3 class="text-2xl font-black text-partyBlue dark:text-yellow-400 mb-3 flex items-center gap-2">
+                    <span class="w-2 h-8 bg-partyYellow block"></span> แนวคิด (Concept)
+                </h3>
+                <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed font-medium">${policy.concept}</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-black text-partyBlue dark:text-yellow-400 mb-3 border-b-2 border-gray-200 dark:border-gray-600 pb-1">วิธีการ (How)</h3>
+                    <ul class="space-y-3">
+                        ${policy.how.map(h => `<li class="flex items-start gap-3"><span class="bg-partyBlue dark:bg-yellow-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">step</span><span class="text-gray-700 dark:text-gray-300">${h}</span></li>`).join('')}
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-partyBlue dark:text-yellow-400 mb-3 border-b-2 border-gray-200 dark:border-gray-600 pb-1">ประโยชน์ (Benefits)</h3>
+                    <ul class="space-y-2">
+                        ${policy.benefits.map(b => `<li class="flex items-start gap-2 text-green-700 dark:text-green-400 font-bold"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg><span>${b}</span></li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+
+            ${extraHTML}
+        </div>
+    </div>
+`;
             
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
@@ -535,7 +607,6 @@
             });
         });
     </script>
-
     <script>
     window.addEventListener('load', () => {
         const loader = document.getElementById('app-loader');
@@ -544,10 +615,8 @@
         }, 1000);
     });
 </script>
-
 </body>
 </html>
-
 
 
 

@@ -254,28 +254,29 @@
         <div class="container mx-auto px-4 flex flex-wrap justify-center items-center gap-4 relative z-10">
             
             <div class="flex items-center gap-2 mr-4">
-                <span class="text-3xl animate-bounce">⏳</span>
-                <span class="font-black text-partyBlue dark:text-yellow-400 text-xl md:text-2xl uppercase tracking-tighter transform -rotate-2">Election Countdown</span>
-            </div>
+    <span class="text-3xl animate-bounce">⏳</span>
+    <span class="font-black text-partyBlue dark:text-yellow-400 text-xl md:text-2xl uppercase tracking-tighter transform -rotate-2">Election Countdown</span>
+</div>
 
-            <div class="flex gap-2 md:gap-4 text-center">
-                <div class="bg-white dark:bg-gray-800 border-2 border-partyBlue dark:border-gray-600 p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
-                    <span id="days" class="block text-2xl md:text-4xl font-black text-partyBlue dark:text-yellow-400 leading-none font-display">00</span>
-                    <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Days</span>
-                </div>
-                <div class="bg-white dark:bg-gray-800 border-2 border-partyBlue dark:border-gray-600 p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
-                    <span id="hours" class="block text-2xl md:text-4xl font-black text-partyBlue dark:text-yellow-400 leading-none font-display">00</span>
-                    <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Hours</span>
-                </div>
-                <div class="bg-white dark:bg-gray-800 border-2 border-partyBlue dark:border-gray-600 p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
-                    <span id="minutes" class="block text-2xl md:text-4xl font-black text-partyBlue dark:text-yellow-400 leading-none font-display">00</span>
-                    <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Mins</span>
-                </div>
-                 <div class="bg-white dark:bg-gray-800 border-2 border-partyBlue dark:border-gray-600 p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
-                    <span id="seconds" class="block text-2xl md:text-4xl font-black text-partyBlue dark:text-yellow-400 leading-none font-display">00</span>
-                    <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Secs</span>
-                </div>
-            </div>
+<div id="countdown-box" class="flex gap-2 md:gap-4 text-center items-center justify-center">
+    
+    <div class="bg-white dark:bg-gray-800 border-2 border-partyBlue dark:border-gray-600 p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
+        <span id="days" class="block text-2xl md:text-4xl font-black text-partyBlue dark:text-yellow-400 leading-none font-display">00</span>
+        <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Days</span>
+    </div>
+    <div class="bg-white dark:bg-gray-800 border-2 border-partyBlue dark:border-gray-600 p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
+        <span id="hours" class="block text-2xl md:text-4xl font-black text-partyBlue dark:text-yellow-400 leading-none font-display">00</span>
+        <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Hours</span>
+    </div>
+    <div class="bg-white dark:bg-gray-800 border-2 border-partyBlue dark:border-gray-600 p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
+        <span id="minutes" class="block text-2xl md:text-4xl font-black text-partyBlue dark:text-yellow-400 leading-none font-display">00</span>
+        <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Mins</span>
+    </div>
+     <div class="bg-white dark:bg-gray-800 border-2 border-partyBlue dark:border-gray-600 p-2 shadow-[4px_4px_0px_0px_#1e3a8a] min-w-[60px] md:min-w-[70px]">
+        <span id="seconds" class="block text-2xl md:text-4xl font-black text-partyBlue dark:text-yellow-400 leading-none font-display">00</span>
+        <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase">Secs</span>
+    </div>
+</div>
 
             <div class="ml-4 hidden lg:block">
                 <span class="bg-white text-partyBlue px-3 py-1 font-bold text-sm border-2 border-partyBlue transform rotate-3 inline-block shadow-sm">
@@ -867,33 +868,48 @@
         track.style.transform = `translateX(-${currentSlide * 100}%)`;
     };
 
-// กำหนดเป้าหมาย: 13 ก.พ. 2026 เวลา 08:30:00 (GMT+7)
+    // กำหนดเป้าหมาย: 13 ก.พ. 2026 เวลา 08:30:00 (GMT+7)
+    // หมายเหตุ: เพื่อทดสอบ ให้ลองเปลี่ยนวันที่เป็นเวลาปัจจุบันดูครับ
     const electionDate = new Date("2026-02-13T08:30:00+07:00").getTime(); 
 
     const timer = setInterval(function() {
         const now = new Date().getTime();
         const distance = electionDate - now;
 
-    if (distance < 0) {
-        clearInterval(timer);
-        if(document.getElementById("days")) document.getElementById("days").innerText = "00";
-        if(document.getElementById("hours")) document.getElementById("hours").innerText = "00";
-        if(document.getElementById("minutes")) document.getElementById("minutes").innerText = "00";
-        if(document.getElementById("seconds")) document.getElementById("seconds").innerText = "00";
-        return;
-    }
+        // เมื่อถึงเวลา (distance น้อยกว่า 0)
+        if (distance < 0) {
+            clearInterval(timer);
+            
+            // ดึงกล่องรวมมา
+            const countdownBox = document.getElementById("countdown-box");
+            
+            // ✅ เปลี่ยนเนื้อหาในกล่องเป็นข้อความเชิญชวน (ใส่ Design ให้เด่นๆ)
+            if (countdownBox) {
+                countdownBox.innerHTML = `
+                    <div class="animate-bounce bg-partyYellow text-partyBlue border-4 border-partyBlue dark:border-white p-4 shadow-pop text-center transform rotate-1">
+                        <h3 class="text-xl md:text-3xl font-black uppercase tracking-tighter leading-tight">
+                            📢 ถึงเวลาเลือกตั้ง!
+                        </h3>
+                        <p class="text-lg md:text-2xl font-bold mt-1">
+                            เข้าคูหากาเบอร์ <span class="bg-partyBlue text-white px-2 rounded-full inline-block">3</span> Pioneer
+                        </p>
+                    </div>
+                `;
+            }
+            return;
+        }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         if(document.getElementById("days")) document.getElementById("days").innerText = days < 10 ? "0" + days : days;
         if(document.getElementById("hours")) document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
         if(document.getElementById("minutes")) document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
         if(document.getElementById("seconds")) document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
     }, 1000);
-    </script>
+</script>
 
     <script>
     window.addEventListener('load', () => {
@@ -917,6 +933,7 @@
 
 </body>
 </html>
+
 
 
 

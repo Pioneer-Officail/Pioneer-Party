@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>นโยบายพรรค - Pioneer Party</title>
+    <title>ข้อมูลผู้สมัคร - Pioneer Party</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="apple-touch-icon" href="images/Pioneer logo 2.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-
+    
     <script>
-        tailwind.config = {
-            darkMode: 'class', // ✅ เพิ่ม Dark Mode
-            theme: {
-                extend: {
-                    colors: { 
-                        partyBlue: '#1e3a8a', 
-                        partyDarkBlue: '#172554',
-                        partyYellow: '#facc15',
-                        offWhite: '#fdfbf7' 
+    tailwind.config = {
+        darkMode: 'class', 
+        theme: {
+            extend: {
+                colors: { 
+                    partyBlue: '#1e3a8a', 
+                    partyDarkBlue: '#172554',
+                    partyYellow: '#facc15',
+                    offWhite: '#fdfbf7',
+                    darkBg: '#0f172a'
                     },
                     fontFamily: { 
                         sans: ['Anakotmai', 'sans-serif'], 
@@ -28,30 +30,43 @@
                         'pop': '6px 6px 0px 0px rgba(30, 58, 138, 1)',
                         'pop-hover': '2px 2px 0px 0px rgba(30, 58, 138, 1)',
                         'pop-yellow': '6px 6px 0px 0px rgba(250, 204, 21, 1)',
+                        'pop-white': '4px 4px 0px 0px #ffffff',
                     },
                     animation: {
                         'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'bounce-x': 'bounceX 1s infinite',
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
                     },
                     keyframes: {
                         slideUp: {
                             '0%': { transform: 'translateY(50px)', opacity: '0' },
                             '100%': { transform: 'translateY(0)', opacity: '1' },
                         },
+                        bounceX: {
+                            '0%, 100%': { transform: 'translateX(-25%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
+                            '50%': { transform: 'none', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                    backgroundImage: {
+                        'dot-pattern': 'radial-gradient(#1e3a8a 1px, transparent 1px)',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Font Setup */
+        /* Fonts เหมือน Index */
         @font-face { font-family: 'Anakotmai'; src: url('Fonts/Anakotmai-Light.ttf') format('truetype'); font-weight: 300; }
         @font-face { font-family: 'Anakotmai'; src: url('Fonts/Anakotmai-Medium.ttf') format('truetype'); font-weight: 500; }
         @font-face { font-family: 'Anakotmai'; src: url('Fonts/Anakotmai-Bold.ttf') format('truetype'); font-weight: 700; }
-        
         @font-face { font-family: 'DancingScript'; src: url('Fonts/DancingScript-VariableFont_wght.ttf') format('truetype'); font-weight: 700; }
 
         body { font-family: 'Anakotmai', sans-serif; background-color: #fdfbf7; }
-        .font-display { font-family: 'Anakotmai', sans-serif; }
         .font-marker { font-family: 'DancingScript', cursive; }
 
         .bg-noise {
@@ -59,50 +74,42 @@
             pointer-events: none; z-index: 50; opacity: 0.05;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
         }
-        
-        /* Utilities */
-        .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* Cursor */
+        @media (min-width: 768px) { body { cursor: none; } }
+        #cursor {
+            position: fixed; top: 0; left: 0; width: 20px; height: 20px;
+            background-color: #facc15; border: 2px solid #1e3a8a; border-radius: 50%;
+            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s; mix-blend-mode: difference;
+        }
+        #cursor.hovered { width: 50px; height: 50px; background-color: transparent; border-width: 2px; }
+
         .hover-trigger { transition: all 0.2s; }
         .hover-trigger:active { transform: translateY(2px); box-shadow: none !important; }
         
-        /* Modal Animation */
-        #policy-modal { transition: opacity 0.3s ease, visibility 0.3s ease; }
-        #policy-modal:not(.hidden) { opacity: 1; visibility: visible; }
-        #policy-modal.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        #modal-content { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: scale(0.95); }
-        #policy-modal:not(.hidden) #modal-content { transform: scale(1); }
-
-        /* Animations for Footer Images */
-        @keyframes slideUpPerson {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .person-center { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; z-index: 20; transform: scale(1.15); }
-        .person-side { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; z-index: 10; opacity: 0; filter: contrast(105%) brightness(105%); }
-        /* ลบ .bottom-fade ออกแล้ว */
         .cursor-blink { display: inline-block; width: 3px; background-color: #000000; animation: blink 1s step-end infinite; }
         @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
     </style>
 </head>
-<body class="bg-offWhite dark:bg-gray-900 text-gray-900 dark:text-gray-100 relative flex flex-col min-h-screen transition-colors duration-300">
+<body class="bg-offWhite dark:bg-gray-900 text-gray-900 dark:text-gray-100 overflow-x-hidden relative transition-colors duration-300 flex flex-col min-h-screen">
 
     <div id="app-loader" class="fixed inset-0 z-[9999] bg-partyBlue flex flex-col items-center justify-center transition-opacity duration-500">
         <img src="images/Pioneer logo 1.png" alt="Logo" class="w-24 h-24 mb-6 animate-pulse drop-shadow-2xl">
-        
         <div class="flex flex-col items-center space-y-2">
             <div class="flex space-x-1">
                 <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
                 <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
                 <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
             </div>
-            <p class="text-white font-mono text-sm tracking-widest mt-2 opacity-80">กำลังเชื่อมต่อ...</p>
+            <p class="text-white font-mono text-sm tracking-widest mt-2 opacity-80">กำลังโหลดข้อมูล...</p>
         </div>
     </div>
 
     <div class="bg-noise"></div>
+    <div id="cursor" class="hidden md:block"></div>
 
-    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white dark:bg-gray-900 border-b-4 border-partyBlue dark:border-partyYellow shadow-pop transition-all duration-300 h-[68px] md:h-[76px]" id="navbar">
+    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white dark:bg-gray-900 border-b-4 border-partyBlue dark:border-gray-800 shadow-pop transition-transform duration-300 h-[68px] md:h-[76px]" id="navbar">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative z-20 bg-white dark:bg-gray-900 h-full">
             <a href="index.html" class="flex items-center gap-3 group hover-trigger z-20">
                 <div class="rounded-none p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
@@ -113,12 +120,16 @@
                     <span class="text-[10px] md:text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max transform -rotate-2 group-hover:rotate-0 transition-transform">PARTY</span>
                 </div>
             </a>
+
             <ul class="hidden md:flex space-x-6 items-center">
                 <li><a href="index.html" class="text-partyBlue dark:text-white hover:dark:bg-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">หน้าหลัก</a></li>
                 <li><a href="index.html#candidates" class="text-partyBlue dark:text-white hover:dark:bg-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">ผู้สมัคร</a></li>
                 <li><a href="council-committee.html" class="text-partyBlue dark:text-white hover:dark:bg-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">คณะสภานักเรียน</a></li>
-                <li><a href="policy.html" class="hover-trigger bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">อ่านนโยบาย</a></li>
-           <li>
+                <li>
+                    <a href="policy.html" class="hover-trigger bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                        อ่านนโยบาย
+                    </a>
+                <li>
                     <button onclick="toggleTheme()" class="bg-gray-100 dark:bg-gray-800 p-2 rounded-full border-2 border-gray-300 dark:border-gray-600 hover:border-partyYellow transition-all group">
                         <svg class="sun-icon w-5 h-5 text-gray-500 dark:text-yellow-400 hidden group-hover:rotate-45 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                         <svg class="moon-icon w-5 h-5 text-partyBlue group-hover:-rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
@@ -147,83 +158,99 @@
         </div>
     </nav>
 
-    <main class="flex-grow pt-28 pb-12 px-4 relative z-10">
-        <div class="max-w-6xl mx-auto">
-            
-            <div class="text-center mb-16 reveal-on-scroll">
-                <div class="inline-block relative group">
-                    <div class="absolute inset-0 bg-partyYellow transform translate-x-2 translate-y-2 border-2 border-black"></div>
-                    <h1 class="relative bg-white dark:bg-gray-800 border-4 border-partyBlue dark:border-partyYellow text-4xl md:text-6xl font-black text-partyBlue dark:text-white px-10 py-6 uppercase tracking-tighter shadow-pop transition-transform group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none">
-                        Our Policy
-                    </h1>
-                </div>
-                <p class="mt-8 text-2xl text-gray-700 dark:text-gray-300 font-bold tracking-wide">
-                    นโยบายที่ <span class="text-partyBlue bg-partyYellow px-2">ทำได้จริง</span> เพื่อทุกคน
-                </p>
-            </div>
-
-            <div id="policy-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            </div>
-
-            <div class="mt-24 pt-12 border-t-4 border-dashed border-partyBlue/20 dark:border-gray-600 reveal-on-scroll">
-                <h2 class="text-3xl font-black text-partyBlue dark:text-white mb-8 text-center uppercase tracking-tight">
-                    <span class="bg-partyYellow px-2 mr-2 transform -rotate-2 inline-block text-partyBlue">Special</span> Projects
-                </h2>
-                <div id="secondary-policy-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <div id="policy-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-partyDarkBlue/90 backdrop-blur-sm hidden overflow-y-auto">
-        <div id="modal-content" class="bg-white dark:bg-gray-800 w-full max-w-4xl relative shadow-2xl border-4 border-partyYellow">
-            <button id="close-modal" class="absolute top-4 right-4 text-partyBlue dark:text-white hover:text-red-500 z-50 bg-white dark:bg-gray-700 rounded-full p-1 border-2 border-partyBlue dark:border-white hover:rotate-90 transition-all duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
-            <div id="modal-body" class="p-0">
-            </div>
-        </div>
-    </div>
-    </main>
-
-    <div class="bg-white dark:bg-gray-900 overflow-hidden pt-10 border-t border-gray-200 dark:border-gray-800 w-full relative transition-colors duration-300">
-        <div class="absolute inset-0 bg-noise z-40 opacity-20"></div>
+    <main class="flex-grow pt-28 pb-12 px-4 relative z-10 flex flex-col items-center justify-center min-h-[70vh]">
         
-        <div class="relative h-[250px] md:h-[420px] w-full max-w-7xl mx-auto overflow-hidden group">
-            <div class="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-end justify-center w-full h-full px-4 transition-transform duration-500 group-hover:scale-105 origin-bottom">
+        <div id="not-found" class="hidden text-center max-w-lg bg-white dark:bg-gray-800 p-10 border-4 border-partyBlue dark:border-gray-600 shadow-pop relative animate-fade-in-up">
+            <div class="text-6xl mb-4">❌</div>
+            <h2 class="text-3xl font-black text-partyBlue dark:text-white mb-4">ไม่พบข้อมูล</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg">รหัสไม่ถูกต้อง หรือไม่มีอยู่ในระบบ</p>
+            <a href="index.html#candidates" class="hover-trigger inline-block bg-partyBlue text-white px-8 py-3 font-bold text-xl border-2 border-partyBlue hover:bg-partyYellow hover:text-partyBlue transition-colors shadow-pop-yellow">
+                กลับหน้าหลัก
+            </a>
+        </div>
+
+        <div id="profile-card" class="hidden w-full max-w-6xl bg-white dark:bg-gray-800 border-4 border-partyBlue dark:border-gray-600 shadow-pop dark:shadow-none relative overflow-hidden animate-fade-in-up transition-colors duration-300">
+            <div class="grid grid-cols-1 md:grid-cols-12 min-h-[550px]">
                 
-                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 1.png" alt="Member Left" 
-                     class="person-side h-[70%] md:h-[85%] object-contain object-bottom -mr-16 md:-mr-31 translate-y-full transition-all duration-500 z-10">
-                
-                <img src="images/รูปรวมไม่มีพื้นหลัง/Student Council President.png" alt="President" 
-                     class="person-center h-[80%] md:h-[95%] object-contain object-bottom relative z-20 drop-shadow-2xl translate-y-full">
-                
-                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 2.png" alt="Member Right" 
-                     class="person-side h-[70%] md:h-[85%] object-contain object-bottom -ml-16 md:-ml-31 translate-y-full transition-all duration-500 z-10">
+                <div class="md:col-span-5 bg-gray-200 dark:bg-gray-700 relative group overflow-hidden border-b-4 md:border-b-0 md:border-r-4 border-partyBlue dark:border-gray-600">
+                   <img id="p-img" src="" alt="Candidate Image" class="w-full h-[400px] md:h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+                    
+                    <div class="absolute top-4 left-4 bg-partyYellow text-black font-black w-14 h-14 md:w-16 md:h-16 flex items-center justify-center border-4 border-black text-3xl md:text-4xl shadow-pop z-20 rotate-[-5deg] group-hover:rotate-0 transition-transform">
+                        <span id="p-id"></span>
+                    </div>
+                    
+                    <div class="absolute bottom-4 right-4 bg-partyBlue text-white font-black px-4 py-2 text-sm md:text-base border-2 border-white shadow-lg z-20">
+                        <span id="p-role-badge"></span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-7 p-6 md:p-10 relative flex flex-col justify-center bg-white dark:bg-gray-800">
+                    
+                    <div class="mb-6">
+                        <h1 class="text-3xl md:text-5xl font-black text-partyBlue dark:text-white leading-tight mb-2 tracking-tighter">
+                            <span id="p-name"></span>
+                        </h1>
+                        <div class="animate-fade-in-up" style="animation-delay: 0.1s;">
+                            <span class="inline-block bg-partyYellow text-partyBlue font-black text-lg md:text-xl px-4 py-1 border-2 border-partyBlue shadow-sm transform -rotate-1">
+                            ชื่อเล่น: <span id="p-nickname"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="bg-offWhite dark:bg-gray-700/50 p-5 md:p-6 mb-6 relative border-l-4 border-partyYellow">
+                        <span class="absolute -top-3 -left-2 text-4xl text-partyYellow font-serif leading-none">“</span>
+                        <p id="p-quote" class="text-lg md:text-xl font-bold italic text-gray-700 dark:text-gray-300 relative z-10 leading-snug"></p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-y-4 gap-x-6 mb-8 text-base md:text-lg">
+                        <div>
+                            <p class="text-gray-500 dark:text-gray-400 font-bold text-xs md:text-sm uppercase mb-0 tracking-wider">ระดับชั้น / อายุ</p>
+                            <p class="font-black text-partyBlue dark:text-white text-lg md:text-xl"><span id="p-class"></span> <span class="text-gray-400">|</span> <span id="p-age"></span> ปี</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 dark:text-gray-400 font-bold text-xs md:text-sm uppercase mb-0 tracking-wider">เกรดเฉลี่ย (GPA)</p>
+                            <span id="p-gpa" class="font-black text-white text-lg px-2 bg-green-500 inline-block transform rotate-1 shadow-sm"></span>
+                        </div>
+                        <div class="col-span-2">
+                            <p class="text-gray-500 dark:text-gray-400 font-bold text-xs md:text-sm uppercase mb-0 tracking-wider">แผนการเรียน</p>
+                            <p id="p-plan" class="font-bold text-partyDarkBlue dark:text-gray-200 text-lg md:text-xl"></p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-xl font-black text-partyBlue dark:text-partyYellow mb-2 uppercase border-b-2 border-gray-200 dark:border-gray-700 pb-1 inline-block">
+                             Vision
+                        </h3>
+                        <p id="p-vision" class="text-gray-700 dark:text-gray-300 font-medium text-base md:text-lg leading-relaxed text-justify mt-2"></p>
+                    </div>
+
+                    <div class="mb-8">
+                        <h3 class="text-xl font-black text-partyBlue dark:text-partyYellow mb-2 uppercase border-b-2 border-gray-200 dark:border-gray-700 pb-1 inline-block">
+                             Achievements
+                        </h3>
+                        <ul id="p-achievements" class="space-y-2 mt-2">
+                            </ul>
+                    </div>
+
+                    <div class="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <a id="p-ig" href="#" target="_blank" class="hover-trigger group flex items-center gap-3 w-fit bg-white dark:bg-gray-700 border-2 border-black dark:border-gray-500 px-4 py-2 hover:bg-partyYellow hover:text-partyBlue transition-all shadow-[4px_4px_0px_0px_#000] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            <div class="leading-tight text-left">
+                                <span class="block text-[10px] font-bold tracking-widest">FOLLOW ON IG</span>
+                                <span id="p-ig-username" class="font-bold text-sm"></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
-
-            <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 z-30 pointer-events-none bg-gradient-to-t from-white via-white/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent"></div>
         </div>
-
-        <div class="text-center pb-12 pt-2 bg-white dark:bg-gray-900 relative z-40 px-4 min-h-[80px] md:min-h-[100px]" id="typewriter-section">
-            <h2 class="text-3xl md:text-6xl lg:text-7xl font-bold text-partyBlue dark:text-yellow-400 tracking-tighter drop-shadow-md">
-                <span id="typed-text"></span><span class="cursor-blink bg-partyBlue w-3 h-8 md:w-4 md:h-20 inline-block align-middle ml-2"></span>
-            </h2>
-        </div>
-
-    </div>
-
-    <button id="install-pwa-btn" class="hidden fixed bottom-4 left-4 z-50 bg-partyYellow text-partyBlue border-2 border-partyBlue dark:border-white px-4 py-2 font-black shadow-pop rounded-lg animate-bounce hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-        ⬇️ ติดตั้งแอป
-    </button>
+    </main>
 
     <footer class="bg-partyBlue dark:bg-gray-950 text-white py-12 relative shadow-[0_-10px_40px_rgba(0,0,0,0.3)] z-50 overflow-hidden transition-colors duration-300">
         <div class="absolute top-0 left-0 w-full h-2 bg-partyYellow"></div>
         <div class="absolute -right-10 -bottom-20 w-64 h-64 border-4 border-partyYellow rounded-full opacity-20"></div>
 
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0 relative z-10">
-            
             <div class="flex-shrink-0 order-2 md:order-1 hover-trigger">
                 <div class="bg-white p-2 rounded-none rotate-3 hover:rotate-0 transition-transform duration-300 shadow-pop-yellow w-20 h-20 md:w-24 md:h-24 flex items-center justify-center border-2 border-black">
                     <img src="images/Pioneer logo 3.png" alt="Pioneer Logo" class="w-full h-full object-contain">
@@ -260,338 +287,254 @@
                     </div>
                 </a>
             </div>
-
         </div>
     </footer>
+
+    <button id="install-pwa-btn" class="hidden fixed bottom-4 left-4 z-50 bg-partyYellow text-partyBlue border-2 border-partyBlue dark:border-white px-4 py-2 font-black shadow-pop rounded-lg animate-bounce hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        ⬇️ ติดตั้งแอป
+    </button>
+
     <script>
-    // --- Dark Mode Logic (Updated) ---
-    const html = document.documentElement;
-    
-    // ฟังก์ชันสำหรับอัปเดตไอคอนทุกจุดในหน้าเว็บ
-    function updateIcons(isDark) {
-        const sunIcons = document.querySelectorAll('.sun-icon');
-        const moonIcons = document.querySelectorAll('.moon-icon');
-        
-        if (isDark) {
-            sunIcons.forEach(el => el.classList.remove('hidden'));
-            moonIcons.forEach(el => el.classList.add('hidden'));
-        } else {
-            sunIcons.forEach(el => el.classList.add('hidden'));
-            moonIcons.forEach(el => el.classList.remove('hidden'));
-        }
-    }
-
-    function checkTheme() {
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            html.classList.add('dark');
-            updateIcons(true);
-        } else {
-            html.classList.remove('dark');
-            updateIcons(false);
-        }
-    }
-    checkTheme();
-
-    function toggleTheme() {
-        if (html.classList.contains('dark')) {
-            html.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-            updateIcons(false);
-        } else {
-            html.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-            updateIcons(true);
-        }
-    }
-</script>
-    <script>
-        // Toggle Mobile Menu
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-
-        // Scroll Animation
-        document.addEventListener("DOMContentLoaded", function() {
-            const observerOptions = { threshold: 0.1 };
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, observerOptions);
-            const elements = document.querySelectorAll('.reveal-on-scroll');
-            elements.forEach(el => observer.observe(el));
-
-            // Image Animation On Load
-            document.querySelectorAll('.person-center, .person-side').forEach(el => {
-                el.classList.remove('translate-y-full');
-            });
-
-            // Typewriter Effect
-             const textToType = "ขอบคุณทุกคะแนนเสียง... พรรค Pioneer พร้อมทำงานทันที ! ";
-            const typedTextElement = document.getElementById('typed-text');
-            const typeSection = document.getElementById('typewriter-section');
-            let hasStarted = false;
-
-            function typeWriter(text, i) {
-                if (i < text.length) {
-                    if (text.charAt(i) === '<') {
-                        let tagEnd = text.indexOf('>', i);
-                        if (tagEnd !== -1) i = tagEnd; 
-                    }
-                    typedTextElement.innerHTML = text.substring(0, i + 1);
-                    setTimeout(function() { typeWriter(text, i + 1) }, 80); 
-                }
-            }
-
-            if (typeSection) {
-                const typeObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting && !hasStarted) {
-                            hasStarted = true;
-                            setTimeout(() => { typeWriter(textToType, 0); }, 500); 
-                        }
-                    });
-                }, { threshold: 0.5 });
-                typeObserver.observe(typeSection);
-            }
-        });
-
-                // --- Policies Data (ห้ามเปลี่ยน) ---
-        const policies = [
+        // --- 1. ข้อมูลผู้สมัคร (Data) - ห้ามแก้ไข ---
+         const candidates = [
             {
                 id: 1,
-                title: "Loud & Clear",
-                image: "images/รูปประกอบนโยบาย/Loud-Clear.png",
-                icon: "📢",
-                concept: "นโยบายพัฒนาระบบการสื่อสารของโรงเรียน เพื่อให้ข่าวสาร ประกาศ ข้อมูลสำคัญได้อย่างชัดเจนและทั่วถึง",
-                how: ["เสนอแนวทางปรับปรุงคุณภาพลำโพง ให้เสียงชัดขึ้นในพื้นที่ที่มีปัญหา", "เมื่อมีการประกาศทางเสียงตามสาย จะพิมพ์ข้อความซ้ำในกลุ่ม 'สายใยพี่น้อง'", "เพื่อให้นักเรียนที่ฟังไม่ทันหรืออยู่ในจุดอับเสียงได้รับข้อมูลครบถ้วน"],
-                slogan: "เสียงชัด ข่าวถึงทุกคน",
-                benefits: ["นักเรียนได้รับข้อมูล ทั้งจากเสียงและข้อความ", "ลดปัญหาฟังไม่ชัด พลาดข่าวสำคัญ", "การสื่อสารของโรงเรียนมีความเป็นระบบมากขึ้น", "นักเรียนรู้สึกว่าโรงเรียนใส่ใจการสื่อสารจริง ๆ"]
+                name: "พาขวัญ นวลสำลี",
+                nickname: "นุ้กนิ้ก",
+                role: "ประธานนักเรียน",
+                img: "images/รูปรวมมีพื้นหลัง/Student Council President.png",
+                age: 16,
+                class: "ม.4/2",
+                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
+                gpa: "4.00",
+                quote: "ฟังทุกเสียง คิดเพื่อทุกคน และลงมือทำจริง",
+                vision: "ไม่ได้มาเพื่อสั่งการ แต่มาเพื่อประสานทุกความต้องการ" ,
+                achievements: ["เป็นคฑากรโรงเรียน", "รางวัลรองชนะเลิศอันดับที่ 1 การตอบปัญหาวิทยาศาสตร์" ],
+                username: "pxkxn_nkk",
+                instagram: "https://www.instagram.com/pxkxn_nkk"
             },
             {
                 id: 2,
-                title: "Continuity Policy",
-                image: "images/รูปประกอบนโยบาย/Continuity-Policy.png",
-                icon: "🔄", 
-                concept: "การคงไว้และต่อยอดนโยบายหรือโครงการจากสภานักเรียนชุดก่อน ที่เป็นประโยชน์ต่อนักเรียนและโรงเรียน เพื่อให้เกิดการพัฒนาอย่างต่อเนื่อง",
-                how: ["ศึกษาและรวบรวมนโยบายของสภานักเรียนชุดก่อน", "คัดเลือกนโยบายที่ยังเหมาะสมและใช้งานได้จริง", "รับฟังความคิดเห็นจากนักเรียนเพื่อนำมาปรับปรุง", "ดำเนินการต่อภายใต้การดูแลของคุณครูที่ปรึกษา", "ติดตามและประเมินผลเพื่อพัฒนาอย่างเหมาะสม"],
-                slogan: "สานต่อนโยบายรุ่นพี่",
-                benefits: ["นโยบายดี ๆ จากรุ่นพี่จะยังคงดำเนินต่อไป", "นักเรียนได้รับประโยชน์อย่างต่อเนื่อง", "โรงเรียนมีทิศทางการพัฒนาที่ชัดเจน", "สร้างวัฒนธรรมความร่วมมือและการเคารพซึ่งกันและกัน", "สภานักเรียนทำงานได้อย่างมีเสถียรภาพมากขึ้น"],
-                extra: {
-                    title: "📌 ตัวอย่างนโยบายที่จะสานต่อ",
-                    type: "list",
-                    data: ["การแข่งขัน E-SPORTS", "สมุนไพรดับกลิ่นห้องน้ำ", "กระดาษรียูสห่อผ้าอนามัย", "ลานน้ำเงินชมพู","ผ้าอนามัยฉุกเฉิน"]
-                }
+                name: "กฤษณะกันท์ ไข่แก้ว",
+                nickname: "ซีโฟน",
+                role: "รองประธานนักเรียน คนที่ 1",
+                img: "images/รูปรวมมีพื้นหลัง/Vice Student Council President 1.png",
+                age: 17,
+                class: "ม.4/4",
+                studyPlan: "ภาษาอังกฤษ-ภาษาจีน",
+                gpa: "2.83",
+                quote: "อยู่เบื้องหลังความสำเร็จ และผลักดันทีมให้ไปไกลกว่าเดิม",
+                vision: "ทุกเสียงของเพื่อนๆ คือภารกิจของเรา" ,
+                achievements: [ "รางวัลเหรียญทองการประกวดมารยาทไทย", "รางวัลรองชนะเลิศอันดับ 2 การประกวดสื่อสร้างสรรค์ภาพยนตร์สั้น รายวิชาสังคม “ เย็บฝันกลางคำดูถูก “" ],
+                username: "z_fornn",
+                instagram: "https://www.instagram.com/z_fornn"
             },
             {
                 id: 3,
-                title: "Pathway to Future",
-                image: "images/รูปประกอบนโยบาย/Pathway-to-Future.png",
-                icon: "🚀",
-                concept: "นโยบายรวบรวมข้อมูลการศึกษาต่ออย่างเป็นระบบ เพื่อให้นักเรียนสามารถวางแผนอนาคตได้ง่ายและชัดเจน",
-                how: ["รวบรวมลิงก์ค่าย / Open House จากมหาวิทยาลัยต่าง ๆ", "สรุปเกณฑ์การรับเข้าแต่ละคณะ แบบเข้าใจง่าย", "จัดหมวดหมู่ตามสายการเรียน (วิทย์–คณิต / ศิลป์) และคณะยอดนิยม", "เผยแพร่ผ่านเว็บไซต์สภานักเรียน, QR Code และกลุ่มสายใยพี่น้อง"],
-                slogan: "เส้นทางการเรียนที่ชัดเจน",
-                benefits: ["นักเรียนเข้าถึงข้อมูลโอกาสทางการศึกษาได้สะดวก", "ลดความสับสนในการเลือกคณะและการเตรียมพอร์ต", "ช่วยให้นักเรียนวางแผนอนาคตได้เร็วและชัดเจนขึ้น", "สร้างแรงบันดาลใจและเป้าหมายในการเรียน"]
-            },
+                name: "ธัญญรัตน์ หมื่นรัตน์",
+                nickname: "หนุงหนิง",
+                role: "รองประธานนักเรียน คนที่ 2",
+                img: "images/รูปรวมมีพื้นหลัง/Vice Student Council President 2.png",
+                age: 16,
+                class: "ม.4/1",
+                studyPlan: "คณิตศาสตร์-หุ่นยนต์",
+                gpa: "3.85",
+                quote: "ประสานทุกความคิด ให้เป็นพลังเดียวกัน",
+                vision: "สร้างโรงเรียนที่เป็นพื้นที่ปลอดภัย (Safe Zone) สำหรับทุกคน" ,
+                achievements: ["รางวัลรองชนะเลิศอันดับที่ 2 การประกวดเรียงความทางวิทยาศาสตร์","รางวัลชมเชย การเขียนเรียงความวันสุนทรภู่และวันภาษาไทยแห่งชาติ"],
+                username: "thanyaratmunrat",
+                instagram: "https://www.instagram.com/thanyaratmunrat"
+             },
             {
                 id: 4,
-                title: "Smart Parking",
-                image: "images/รูปประกอบนโยบาย/Smart-Parking.png",
-                icon: "🅿️",
-                concept: "นโยบายปรับปรุงและจัดระเบียบพื้นที่จอดรถภายในโรงเรียน เพื่อให้การจอดรถเป็นระบบ ปลอดภัย และเป็นธรรมต่อผู้ใช้งานทุกคน โดยคำนึงถึงขนาดรถและพื้นที่อย่างเหมาะสม",
-                how: ["แบ่งโซนที่จอดรถตามประเภทและขนาดรถ (เช่น รถจักรยานยนต์ทั่วไป / คันใหญ่)", "ปรับผังการจอดให้เป็นระเบียบ ลดการจอดซ้อนหรือกีดขวางทางสัญจร", "ติดป้ายและเส้นสัญลักษณ์ให้ชัดเจน", "ประชาสัมพันธ์แนวทางการจอดรถที่ถูกต้องแก่ผู้ใช้งาน", "ประสานงานกับคุณครูและฝ่ายที่เกี่ยวข้องในการดูแลความเรียบร้อย"],
-                slogan: "จอดเป็นระบบ ใช้งานสะดวก",
-                benefits: ["พื้นที่จอดรถถูกใช้อย่างคุ้มค่าและเป็นระบบมากขึ้น", "ลดปัญหาการจอดรถไม่เป็นระเบียบและความแออัด", "เพิ่มความปลอดภัยในการเข้า–ออกพื้นที่จอดรถ", "นักเรียนใช้งานได้สะดวกและเป็นธรรมมากขึ้น"]
+                name: "ฐานิดา รื่นเริง",
+                nickname: "ข้าวฟ่าง",
+                role: "กรรมการ คนที่ 1",
+                img: "images/รูปรวมมีพื้นหลัง/Committee 1.png",
+                age: 16,
+                class: "ม.4/2",
+                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
+                gpa: "4.00",
+                quote: "ใส่ใจรายละเอียด เพื่อรอยยิ้มของทุกคนในโรงเรียน",
+                vision: "ลดความตึงเครียด เพิ่มรอยยิ้มด้วยกิจกรรมที่ผ่อนคลาย" ,
+                achievements: [ "รางวัลรองชนะเลิศอันดับที่ 2 การตอบปัญหาวิทยาศาสตร์", "รางวัลเหรียญทองอัจฉริยภาพทางวิทยาศาสตร์" ],
+                username: "tha1daa",
+                instagram: "https://www.instagram.com/tha1daa"
             },
             {
                 id: 5,
-                title: "No More Wait",
-                image: "images/รูปประกอบนโยบาย/No-More-Wait.png",
-                icon: "🚽",
-                concept: "นโยบายเปิดใช้งานห้องน้ำใต้ตึก 4-5 เพื่ออำนวยความสะดวกแก่นักเรียนทุกคน ลดปัญหาการเดินไกล และการต้องรอห้องน้ำเป็นเวลานาน",
-                how: ["เปิดใช้งานห้องน้ำใต้ตึก 4-5 อย่างเป็นทางการ", "กำหนดกติกาการใช้งานอย่างชัดเจน", "รณรงค์การใช้ห้องน้ำอย่างเหมาะสมและรับผิดชอบร่วมกัน", "ประสานงานกับคุณครูและฝ่ายที่เกี่ยวข้องในการดูแลความเรียบร้อย"],
-                slogan: "ไม่ต้องรอ ไม่ต้องกลั้น",
-                benefits: ["นักเรียนใช้ชีวิตในโรงเรียนได้สะดวกขึ้น", "ลดปัญหาการอั้นปัสสาวะ ซึ่งส่งผลต่อสุขภาพ", "โรงเรียนมีการจัดสรรพื้นที่ที่ตอบโจทย์การใช้งานจริง", "ส่งเสริมวินัยและความรับผิดชอบร่วมกันของนักเรียน"],
-                extra: {
-                    title: "⚠️ กฎระเบียบและข้อควรปฏิบัติ",
-                    type: "rules",
-                    rules: ["ใช้ห้องน้ำด้วยความสุภาพและเหมาะสม", "เข้าใช้ตามความจำเป็น ไม่ใช้เป็นพื้นที่รวมกลุ่ม", "รักษาความสะอาดก่อนและหลังใช้งาน", "ห้ามสูบบุหรี่ บุหรี่ไฟฟ้า หรือสิ่งเสพติดทุกชนิด", "ห้ามทำลายหรือเขียนขีดข่วนอุปกรณ์ภายในห้องน้ำ", "ไม่ส่งเสียงดังหรือก่อความรบกวน", "ใช้ห้องน้ำตามช่วงเวลาที่โรงเรียนกำหนด", "ให้ความร่วมมือกับคุณครูและผู้ดูแลพื้นที่", "หากพบพฤติกรรมไม่เหมาะสม ให้แจ้งคุณครูหรือสภานักเรียน", "การใช้ห้องน้ำเป็นความรับผิดชอบร่วมกันของนักเรียนทุกคน"],
-                    note: "หมายเหตุ: หากมีการใช้งานผิดวัตถุประสงค์ เช่น การสูบบุหรี่หรือการกระทำร้ายแรง โรงเรียนอาจพิจารณา **ปิดการใช้งานห้องน้ำชั่วคราว 1 ภาคเรียน**",
-                    dos: ["กด/ราด โถส้วมทุกครั้งหลังใช้งาน", "สแกน QR code ทุกครั้งที่พบปัญหาผิดปกติ"],
-                    donts: ["สูบบุหรี่/พอต ในห้องน้ำ", "ใช้เป็นจุดรวมพล"]
-                }
-            }
-        ];
-
-        // Secondary Policies
-        const secondaryPolicies = [
+                name: "วาศิณี ปู่ไข่",
+                nickname: "เนย",
+                role: "กรรมการ คนที่ 2",
+                img: "images/รูปรวมมีพื้นหลัง/Committee 2.png",
+                age: 16,
+                class: "ม.4/2",
+                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
+                gpa: "3.92",
+                quote: "พร้อมรับฟัง พร้อมพัฒนา พร้อมเดินไปด้วยกัน",
+                vision: "ใส่ใจสิทธิขั้นพื้นฐาน ที่นักเรียนทุกคนต้องได้รับ" ,
+                achievements: [ "รางวัลรองชนะเลิศอันดับที่ 2 การตอบปัญหาวิทยาศาสตร์", "ตัวแทนการแข่งขัน Crossword ณ โรงเรียนเตรียมอุดมศึกษา" ],
+                username: "buttermilk_0",
+                instagram: "https://www.instagram.com/buttermilk_0"
+            },
             {
-                id: 101, // ใช้ ID หลักร้อยเพื่อไม่ให้ซ้ำ
-                title: "ลานน้ำเงินชมพู x งานวัด",
-                icon: "🎡",
-                image: "images/รูปประกอบนโยบาย/ลานน้ำเงินชมพู x งานวัด.png",
-                concept: "ส่งเสริมให้นักเรียนใช้เวลาว่างอย่างสร้างสรรค์ ผ่านกิจกรรมลานน้ำเงินชมพูในรูปแบบงานวัดร่วมสมัย เพื่อสร้างความสามัคคี ผ่อนคลายความเครียด และเปิดพื้นที่แสดงความสามารถของนักเรียน",
-                how: ["จัดกิจกรรมงานวัดภายในลานน้ำเงินชมพู (เช่น เทอมละ 1 ครั้ง)", "จัดซุ้มเกมมหาสนุกต่างๆ เพื่อความบันเทิง", "เปิดเวทีการแสดงดนตรีและความสามารถพิเศษ", "เปิดโซนร้านค้า Market ให้พี่น้องนักเรียนได้มาขายของ"],
-                slogan: "พื้นที่ความสุข สนุกแบบสร้างสรรค์",
-                benefits: ["เกิดความสุข ความสามัคคีในหมู่คณะ", "ฝึกทักษะการทำงานเป็นทีมและการบริหารจัดการ", "นักเรียนกล้าแสดงออกในทางที่สร้างสรรค์", "เรียนรู้การใช้เวลาว่างอย่างมีคุณค่า"],
-                extra: {
-                    title: "🎯 กิจกรรมภายในงาน",
-                    type: "list",
-                    data: ["ซุ้มเกมงานวัด", "ดนตรีสด (Folk Song)", "ร้านค้า DIY นักเรียน", "จุด Check-in ถ่ายรูป"]
-                }
+                id: 6,
+                name: "ปรียากาญจน์ ใจกล้า",
+                nickname: "ไอติม",
+                role: "กรรมการ คนที่ 3",
+                img: "images/รูปรวมมีพื้นหลัง/Committee 3.png",
+                age: 16,
+                class: "ม.4/2",
+                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
+                gpa: "3.92",
+                quote: "พลังเล็ก ๆ ที่อยากสร้างการเปลี่ยนแปลงที่ยิ่งใหญ่",
+                vision: "เป็นกระบอกเสียงให้คนตัวเล็กๆ ไม่ให้ใครถูกมองข้าม" ,
+                achievements: [ "รางวัลรองชนะเลิศอันดับที่ 1 การตอบปัญหาวิทยาศาสตร์", "รางวัลชนะเลิศการประกวดสื่อสร้างสรรค์ภาพยนตร์สั้น รายวิชาสังคม “ No offside in life ”" ],
+                username: "iam.me.tim",
+                instagram: "https://www.instagram.com/iam.me.tim"
+            },
+            {
+                id: 7,
+                name: "เขมิกา ศักดิ์เสรีกุล",
+                nickname: "คิมมี่",
+                role: "กรรมการ คนที่ 4",
+                img: "images/รูปรวมมีพื้นหลัง/Committee 4.png",
+                age: 16,
+                class: "ม.4/2",
+                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
+                gpa: "3.64",
+                quote: "ความตั้งใจจริง คือจุดเริ่มต้นของสิ่งดี ๆ",
+                vision: "เชื่อมความสัมพันธ์ พี่น้องและครู ให้เป็นหนึ่งเดียว" ,
+                achievements: [ "(ปัจจุบัน) หัวหน้าห้องระดับชั้นมัธยมศึกษา ปีที่4/2", "ผู้ถือป้ายขบวนสีเหลือง" ],
+                username: "khemika_q",
+                instagram: "https://www.instagram.com/khemika_q"
+            },
+            {
+                id: 8,
+                name: "อารีรัตน์ บัวทอง",
+                nickname: "ฟ้า",
+                role: "กรรมการ คนที่ 5",
+                img: "images/รูปรวมมีพื้นหลัง/Committee 5.png",
+                age: 16,
+                class: "ม.4/2",
+                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
+                gpa: "3.20",
+                quote: "ทำหน้าที่ของตัวเองให้ดีที่สุด เพื่อส่วนรวม",
+                vision: "ดูแลสวัสดิการ สุขอนามัย และความสะดวกสบายอย่างทั่วถึง" ,
+                achievements: [ "รางวัลรองชนะเลิศอันดับ 2 Lylics Hunter","รางวัลชนะเลิศการจัดบอร์ดความรู้"],
+                username: "axry_.fxh",
+                instagram: "https://www.instagram.com/axry_.fxh"
+            },
+            {
+                id: 9,
+                name: "สิทธิโชค แสงสว่าง",
+                nickname: "โฟม",
+                role: "กรรมการ คนที่ 6",
+                img: "images/รูปรวมมีพื้นหลัง/Committee 6.png",
+                age: 15,
+                class: "ม.4/2",
+                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
+                gpa: "3.97",
+                quote: "คิดเป็นระบบ ทำเป็นทีม และรับผิดชอบทุกหน้าที่",
+                vision: "เปิดกว้างทุกความหลากหลาย ให้ทุกคนเป็นตัวของตัวเองได้เต็มที่" ,
+                achievements: ["รางวัลรองชนะเลิศอันดับ 1 แข่งขันอัจฉริยภาพทางคณิตศาสตร์","รางวัลรองชนะเลิศอันดับ 1 แข่งขันต่อสมการคณิตศาสตร์ A-MATH "],
+                username: "foxm_sx",
+                instagram: "https://www.instagram.com/foxm_sx"
             }
         ];
-
-        // --- Render Policies ---
-        function renderPolicies(data, containerId) {
-            const container = document.getElementById(containerId);
-            data.forEach((policy, index) => {
-                const card = document.createElement('div');
-                card.className = "group bg-white border-4 border-partyBlue shadow-pop hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all cursor-pointer reveal-on-scroll relative overflow-hidden";
-                card.onclick = () => openModal(policy);
-                
-                card.innerHTML = `
-                    <div class="h-48 overflow-hidden relative border-b-4 border-partyBlue">
-                        <div class="absolute top-2 right-2 bg-partyYellow text-3xl p-2 rounded-full border-2 border-black z-10 shadow-sm">${policy.icon}</div>
-                        <img src="${policy.image}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-partyBlue/10 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-black text-partyBlue mb-2 uppercase">${policy.title}</h3>
-                        <p class="text-gray-600 line-clamp-2 font-medium">${policy.concept}</p>
-                        <div class="mt-4 flex justify-between items-center">
-                            <span class="text-partyBlue text-sm font-bold bg-partyYellow/20 px-2 py-1 border border-partyYellow">อ่านรายละเอียด +</span>
-                            <span class="text-partyBlue font-black text-4xl opacity-10 group-hover:opacity-20 transition-opacity absolute bottom-2 right-4 pointer-events-none">${policy.id > 100 ? '' : '#' + policy.id}</span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        renderPolicies(policies, 'policy-container');
-        renderPolicies(secondaryPolicies, 'secondary-policy-container');
-
-        // --- Modal Logic ---
-        function openModal(policy) {
-            const modal = document.getElementById('policy-modal');
-            const modalBody = document.getElementById('modal-body');
-            
-            // Build Extra Content HTML
-            let extraHTML = '';
-            if (policy.extra) {
-                if (policy.extra.type === 'list') {
-                    extraHTML = `
-                        <div class="bg-offWhite p-6 rounded-lg border-2 border-dashed border-partyBlue/30 mt-6">
-                            <h4 class="font-black text-xl text-partyBlue mb-4 flex items-center gap-2">${policy.extra.title}</h4>
-                            <div class="flex flex-wrap gap-2">
-                                ${policy.extra.data.map(item => `<span class="bg-white border border-gray-300 px-3 py-1 text-sm font-bold text-gray-700 shadow-sm">${item}</span>`).join('')}
-                            </div>
-                        </div>`;
-                } else if (policy.extra.type === 'rules') {
-                    extraHTML = `
-                        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 mt-6">
-                            <h4 class="font-black text-xl text-red-600 mb-4">${policy.extra.title}</h4>
-                            <ul class="list-disc pl-5 space-y-1 text-gray-700 mb-4 text-sm">
-                                ${policy.extra.rules.map(r => `<li>${r}</li>`).join('')}
-                            </ul>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                                <div class="bg-green-100 p-3 rounded border border-green-300">
-                                    <h5 class="font-bold text-green-700 mb-2">✅ สิ่งที่ควรทำ (Dos)</h5>
-                                    <ul class="list-none space-y-1 text-sm text-green-800">
-                                        ${policy.extra.dos.map(d => `<li>✓ ${d}</li>`).join('')}
-                                    </ul>
-                                </div>
-                                <div class="bg-red-100 p-3 rounded border border-red-300">
-                                    <h5 class="font-bold text-red-700 mb-2">❌ สิ่งที่ห้ามทำ (Don'ts)</h5>
-                                    <ul class="list-none space-y-1 text-sm text-red-800">
-                                        ${policy.extra.donts.map(d => `<li>✕ ${d}</li>`).join('')}
-                                    </ul>
-                                </div>
-                            </div>
-                            <p class="text-xs text-red-500 mt-4 font-bold italic">${policy.extra.note}</p>
-                        </div>`;
-                }
-            }
-            modalBody.innerHTML = `
-    <div class="relative">
-        <div class="h-64 md:h-80 overflow-hidden relative">
-            <img src="${policy.image}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-partyBlue via-transparent to-transparent opacity-90"></div>
-            <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-                <div class="flex items-center gap-4 mb-2">
-                    <span class="text-4xl md:text-5xl">${policy.icon}</span>
-                    <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter shadow-black drop-shadow-md">${policy.title}</h2>
-                </div>
-                <p class="text-partyYellow font-bold text-xl md:text-2xl bg-partyBlue/50 inline-block px-2 backdrop-blur-sm">"${policy.slogan}"</p>
-            </div>
-        </div>
-        
-        <div class="p-6 md:p-10 max-h-[60vh] overflow-y-auto">
-            <div class="mb-8">
-                <h3 class="text-2xl font-black text-partyBlue dark:text-yellow-400 mb-3 flex items-center gap-2">
-                    <span class="w-2 h-8 bg-partyYellow block"></span> แนวคิด (Concept)
-                </h3>
-                <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed font-medium">${policy.concept}</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div>
-                    <h3 class="text-xl font-black text-partyBlue dark:text-yellow-400 mb-3 border-b-2 border-gray-200 dark:border-gray-600 pb-1">วิธีการ (How)</h3>
-                    <ul class="space-y-3">
-                        ${policy.how.map(h => `<li class="flex items-start gap-3"><span class="bg-partyBlue dark:bg-yellow-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">step</span><span class="text-gray-700 dark:text-gray-300">${h}</span></li>`).join('')}
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-black text-partyBlue dark:text-yellow-400 mb-3 border-b-2 border-gray-200 dark:border-gray-600 pb-1">ประโยชน์ (Benefits)</h3>
-                    <ul class="space-y-2">
-                        ${policy.benefits.map(b => `<li class="flex items-start gap-2 text-green-700 dark:text-green-400 font-bold"><svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg><span>${b}</span></li>`).join('')}
-                    </ul>
-                </div>
-            </div>
-
-            ${extraHTML}
-        </div>
-    </div>
-`;
-            
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }
-
-        // Close Modal
-        document.getElementById('close-modal').onclick = () => {
-            document.getElementById('policy-modal').classList.add('hidden');
-            document.body.style.overflow = '';
-        };
-
-        // Close when clicking outside
-        document.getElementById('policy-modal').onclick = (e) => {
-            if (e.target === document.getElementById('policy-modal')) {
-                document.getElementById('policy-modal').classList.add('hidden');
-                document.body.style.overflow = '';
-            }
-        };
-
-        // Check URL for direct policy access
-        window.addEventListener('DOMContentLoaded', () => {
+        // --- 2. ฟังก์ชันแสดงผลข้อมูล (Logic) ---
+        document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const policyId = parseInt(urlParams.get('id'));
-            if (policyId) {
-                const targetPolicy = policies.find(p => p.id === policyId) || secondaryPolicies.find(p => p.id === policyId);
-                if (targetPolicy) {
-                    openModal(targetPolicy);
+            const id = parseInt(urlParams.get('id'));
+            
+            const loadingEl = document.getElementById('app-loader'); // ใช้ Loader หลัก
+            const notFoundEl = document.getElementById('not-found');
+            const profileCardEl = document.getElementById('profile-card');
+
+            // Logic เดิม: โหลดข้อมูลและแสดงผล
+            setTimeout(() => {
+                const person = candidates.find(c => c.id === id);
+
+                if (person) {
+                    // Fill Data
+                    document.getElementById('p-id').innerText = person.id < 10 ? '0' + person.id : person.id;
+                    document.getElementById('p-img').src = person.img;
+                    document.getElementById('p-name').innerText = person.name;
+                    document.getElementById('p-nickname').innerText = person.nickname;
+                    document.getElementById('p-role-badge').innerText = person.role;
+                    document.getElementById('p-quote').innerText = person.quote;
+                    document.getElementById('p-age').innerText = person.age;
+                    document.getElementById('p-class').innerText = person.class;
+                    document.getElementById('p-gpa').innerText = person.gpa;
+                    document.getElementById('p-plan').innerText = person.studyPlan; // แก้ชื่อตัวแปรให้ตรงกับ Data
+                    document.getElementById('p-vision').innerText = person.vision;
+                    
+                    // IG Link
+                    const igLink = document.getElementById('p-ig');
+                    if(person.instagram) {
+                        igLink.href = person.instagram;
+                        document.getElementById('p-ig-username').innerText = '@' + person.username;
+                        igLink.classList.remove('hidden');
+                    } else {
+                        igLink.classList.add('hidden');
+                    }
+
+                    // Achievements List
+                    const achList = document.getElementById('p-achievements');
+                    achList.innerHTML = person.achievements.map(ach => 
+                        `<li class="flex items-start gap-2 text-gray-700 dark:text-gray-300 font-medium text-base md:text-lg">
+                            <span class="text-green-500 font-bold mt-1">✓</span> ${ach}
+                        </li>`
+                    ).join('');
+
+                    // Show Profile (Loader จะถูกซ่อนโดย window 'load' event ด้านล่าง)
+                    profileCardEl.classList.remove('hidden');
+                } else {
+                    // Show Not Found
+                    notFoundEl.classList.remove('hidden');
                 }
-            }
+            }, 500);
         });
 
-        // PWA Script
-        const appVersionSpan = document.getElementById('app-version');
-        if(appVersionSpan) appVersionSpan.innerText = "1.0.5";
+        // --- 3. Script มาตรฐาน (เหมือน Index) ---
+        // Dark Mode Logic
+        const html = document.documentElement;
+        function updateIcons(isDark) {
+            const sunIcons = document.querySelectorAll('.sun-icon');
+            const moonIcons = document.querySelectorAll('.moon-icon');
+            if (isDark) {
+                sunIcons.forEach(el => el.classList.remove('hidden'));
+                moonIcons.forEach(el => el.classList.add('hidden'));
+            } else {
+                sunIcons.forEach(el => el.classList.add('hidden'));
+                moonIcons.forEach(el => el.classList.remove('hidden'));
+            }
+        }
+        function checkTheme() {
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+                updateIcons(true);
+            } else {
+                html.classList.remove('dark');
+                updateIcons(false);
+            }
+        }
+        checkTheme();
+        function toggleTheme() {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateIcons(false);
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcons(true);
+            }
+        }
 
+        // PWA Install
+        const APP_VERSION = "1.0.5";
+        document.getElementById('app-version').innerText = APP_VERSION;
         let deferredPrompt;
         const installBtn = document.getElementById('install-pwa-btn');
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -606,14 +549,38 @@
                 deferredPrompt = null;
             });
         });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+
+        // Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        const hoverTriggers = document.querySelectorAll('a, button, .hover-trigger');
+        hoverTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // Loader Control (Session Check)
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('app-loader');
+            if (!sessionStorage.getItem('visited')) {
+                setTimeout(() => {
+                    loader.classList.add('opacity-0', 'pointer-events-none');
+                    sessionStorage.setItem('visited', 'true');
+                }, 2000);
+            } else {
+                setTimeout(() => {
+                    loader.classList.add('opacity-0', 'pointer-events-none');
+                }, 500);
+            }
+        });
     </script>
-    <script>
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('app-loader');
-        setTimeout(() => {
-            loader.classList.add('opacity-0', 'pointer-events-none');
-        }, 1000);
-    });
-</script>
 </body>
 </html>

@@ -1,12 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="th" class="scroll-smooth">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ข้อมูลผู้สมัคร - Pioneer Party</title>
-    
+    <title>สรุปผลคะแนนเลือกตั้ง - Pioneer Party</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e3a8a">
     <link rel="apple-touch-icon" href="images/Pioneer logo 2.png">
@@ -14,50 +11,85 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: { 
-                        partyBlue: '#1e3a8a', 
-                        partyDarkBlue: '#172554',
-                        partyYellow: '#facc15',
-                        offWhite: '#fdfbf7' 
+    tailwind.config = {
+        darkMode: 'class', 
+        theme: {
+            extend: {
+                colors: { 
+                    partyBlue: '#1e3a8a', 
+                    partyDarkBlue: '#172554',
+                    partyYellow: '#facc15',
+                    offWhite: '#fdfbf7',
+                    darkBg: '#0f172a'
+                },
+                fontFamily: { 
+                    sans: ['Anakotmai', 'sans-serif'], 
+                    display: ['Anakotmai', 'sans-serif'],
+                },
+                boxShadow: {
+                    'pop': '6px 6px 0px 0px rgba(30, 58, 138, 1)',
+                    'pop-hover': '2px 2px 0px 0px rgba(30, 58, 138, 1)',
+                    'pop-yellow': '6px 6px 0px 0px rgba(250, 204, 21, 1)',
+                    'pop-white': '4px 4px 0px 0px #ffffff',
+                    'pop-red': '4px 4px 0px 0px #991b1b', /* เพิ่มเงาสีแดงสำหรับปุ่มปิด */
+                },
+                animation: {
+                    'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    'marquee': 'marquee 25s linear infinite',
+                    'float': 'float 6s ease-in-out infinite',
+                    'bounce-x': 'bounceX 1s infinite',
+                    'shimmer': 'shimmer 2.5s infinite',
+                    'grow-width': 'growWidth 1.5s ease-out forwards', /* เพิ่มสำหรับกราฟ */
+                    'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                },
+                keyframes: {
+                    slideUp: {
+                        '0%': { transform: 'translateY(50px)', opacity: '0' },
+                        '100%': { transform: 'translateY(0)', opacity: '1' },
                     },
-                    fontFamily: { 
-                        sans: ['Anakotmai', 'sans-serif'], 
-                        display: ['Anakotmai', 'sans-serif'],
+                    marquee: {
+                        '0%': { transform: 'translateX(0%)' },
+                        '100%': { transform: 'translateX(-100%)' },
                     },
-                    boxShadow: {
-                        'pop': '6px 6px 0px 0px rgba(30, 58, 138, 1)',
-                        'pop-hover': '2px 2px 0px 0px rgba(30, 58, 138, 1)',
-                        'pop-yellow': '6px 6px 0px 0px rgba(250, 204, 21, 1)',
+                    float: {
+                        '0%, 100%': { transform: 'translateY(0)' },
+                        '50%': { transform: 'translateY(-20px)' },
                     },
-                    animation: {
-                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    bounceX: {
+                        '0%, 100%': { transform: 'translateX(-25%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
+                        '50%': { transform: 'none', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' },
                     },
-                    keyframes: {
-                        slideUp: {
-                            '0%': { transform: 'translateY(50px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
-                    }
+                    shimmer: {
+                        '0%': { left: '-100%' },
+                        '100%': { left: '200%' }
+                    },
+                    growWidth: {
+                        '0%': { width: '0%' },
+                    },
+                    fadeInUp: {
+                        '0%': { opacity: '0', transform: 'translateY(20px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    },
+                },
+                backgroundImage: {
+                    'dot-pattern': 'radial-gradient(#1e3a8a 1px, transparent 1px)',
                 }
             }
         }
+    }
     </script>
-
     <style>
-        /* Font Setup */
-        @font-face { font-family: 'Anakotmai'; src: url('Fonts/Anakotmai-Light.ttf') format('truetype'); font-weight: 300; }
-        @font-face { font-family: 'Anakotmai'; src: url('Fonts/Anakotmai-Medium.ttf') format('truetype'); font-weight: 500; }
-        @font-face { font-family: 'Anakotmai'; src: url('Fonts/Anakotmai-Bold.ttf') format('truetype'); font-weight: 700; }
-        
-        @font-face { font-family: 'DancingScript'; src: url('Fonts/DancingScript-VariableFont_wght.ttf') format('truetype'); font-weight: 700; }
-
-        body { font-family: 'Anakotmai', sans-serif; background-color: #fdfbf7; }
-        .font-display { font-family: 'Anakotmai', sans-serif; }
+        @font-face {font-family: 'Anakotmai';src: url('Fonts/Anakotmai-Light.ttf') format('truetype');font-weight: 300;font-style: normal;}
+        @font-face {font-family: 'Anakotmai';src: url('Fonts/Anakotmai-Medium.ttf') format('truetype');font-weight: 500;font-style: normal;}
+        @font-face {font-family: 'Anakotmai';src: url('Fonts/Anakotmai-Bold.ttf') format('truetype');font-weight: 700; font-style: normal;}
+        @font-face { font-family: 'DancingScript'; src: url('Fonts/DancingScript-VariableFont_wght.ttf') format('truetype'); font-weight: 400 700; }
         .font-marker { font-family: 'DancingScript', cursive; }
+
+        .bg-noise {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 50; opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+        }
 
         /* Custom Cursor */
         @media (min-width: 768px) { body { cursor: none; } }
@@ -69,67 +101,63 @@
         }
         #cursor.hovered { width: 50px; height: 50px; background-color: transparent; border-width: 2px; }
 
-        .bg-noise {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 50; opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-        }
-
-        /* Animations for Footer Images */
-        @keyframes slideUpPerson {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .person-center { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; z-index: 20; transform: scale(1.15); }
-        .person-side { animation: slideUpPerson 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; z-index: 10; opacity: 0; filter: contrast(105%) brightness(105%); }
-        .cursor-blink { display: inline-block; width: 3px; background-color: #000000; animation: blink 1s step-end infinite; }
-        @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; }
+        ::-webkit-scrollbar-thumb:hover { background: #facc15; }
+        
+        /* Table Styles (เฉพาะหน้า Score) */
+        .score-table th { background-color: #1e3a8a; color: white; padding: 12px 16px; text-align: left; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+        .score-table td { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; font-weight: 500; }
+        .dark .score-table td { border-bottom: 1px solid #374151; }
+        .score-table tr.winner { background-color: rgba(250, 204, 21, 0.2); }
+        .dark .score-table tr.winner { background-color: rgba(250, 204, 21, 0.1); }
+        .score-table tr:hover { background-color: #f9fafb; transition: background-color 0.2s; }
+        .dark .score-table tr:hover { background-color: rgba(55, 65, 81, 0.5); }
     </style>
 </head>
-<body class="bg-offWhite dark:bg-gray-900 text-gray-900 dark:text-gray-100 relative flex flex-col min-h-screen transition-colors duration-300">
+<body class="bg-offWhite dark:bg-gray-900 text-gray-900 dark:text-gray-100 overflow-x-hidden relative transition-colors duration-300 min-h-screen flex flex-col">
 
-        <div id="profile-loader" class="fixed inset-0 z-[9999] bg-gray-900 flex flex-col items-center justify-center text-white transition-all duration-700 ease-in-out">
-    
-    <div class="relative w-24 h-24 mb-8">
-        <div class="absolute inset-0 border-4 border-partyBlue border-t-partyYellow rounded-full animate-spin"></div>
-        <img src="images/Pioneer logo 2.png" class="absolute inset-0 w-16 h-16 m-auto opacity-80">
-    </div>
+    <div id="cursor"></div>
 
-    <div class="text-center space-y-2 font-mono">
-        <h2 id="loader-status" class="text-xl md:text-2xl font-bold text-partyYellow tracking-widest uppercase">กำลังเตรียมระบบ...</h2>
-        <p id="loader-sub" class="text-sm text-gray-400">กำลังเชื่อมต่อกับฐานข้อมูล Pioneer</p>
-    </div>
-
-    <div class="w-64 h-1 bg-gray-700 rounded-full mt-6 overflow-hidden relative">
-        <div id="loader-bar" class="h-full bg-partyYellow w-0 transition-all duration-[1500ms] ease-out"></div>
-    </div>
-    
-    <div class="absolute bottom-10 right-10 text-xs text-gray-600 font-mono hidden md:block">
-        SYS_REQ: <span id="random-code">2026-X88</span>
-    </div>
+    <div id="app-loader" class="fixed inset-0 z-[9999] bg-partyBlue flex flex-col items-center justify-center transition-opacity duration-500">
+        <img src="images/Pioneer logo 1.png" alt="Logo" class="w-24 h-24 mb-6 animate-pulse drop-shadow-2xl">
+        <div class="flex flex-col items-center space-y-2">
+            <div class="flex space-x-1">
+                <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                <div class="w-3 h-3 bg-partyYellow rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+            </div>
+            <p class="text-white font-mono text-sm tracking-widest mt-2 opacity-80">กำลังโหลดผลคะแนน...</p>
+        </div>
     </div>
 
     <div class="bg-noise"></div>
-    <div id="cursor" class="hidden md:block"></div>
 
-    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white dark:bg-gray-900 border-b-4 border-partyBlue dark:border-partyYellow shadow-pop transition-all duration-300 h-[68px] md:h-[76px]" id="navbar">
+    <nav class="fixed top-0 left-0 right-0 z-[60] bg-white dark:bg-gray-900 border-b-4 border-partyBlue dark:border-gray-800 shadow-pop transition-transform duration-300 h-[68px] md:h-[76px]" id="navbar">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative z-20 bg-white dark:bg-gray-900 h-full">
             <a href="index.html" class="flex items-center gap-3 group hover-trigger z-20">
                 <div class="rounded-none p-1 bg-partyBlue group-hover:bg-partyYellow transition-colors duration-300">
                     <img src="images/Pioneer logo 2.png" alt="Pioneer Logo" class="h-8 w-8 md:h-10 md:w-10 object-contain bg-white">
                 </div>
                 <div class="flex flex-col leading-none">
-                    <span class="text-xl md:text-2xl font-black text-partyBlue dark:text-partyYellow uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Pioneer</span>
-                    <span class="text-[10px] md:text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max transform -rotate-2 group-hover:rotate-0 transition-transform">PARTY</span>
+                    <span class="text-xl md:text-2xl font-black text-partyBlue dark:text-partyYellow uppercase tracking-tighter group-hover:translate-x-1 transition-transform">Election</span>
+                    <span class="text-[10px] md:text-xs font-bold text-partyYellow bg-partyBlue px-1 inline-block w-max transform -rotate-2 group-hover:rotate-0 transition-transform">RESULTS</span>
                 </div>
             </a>
-            <ul class="hidden md:flex space-x-6 items-center">
-                <li><a href="index.html" class="text-partyBlue dark:text-white hover:dark:bg-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">หน้าหลัก</a></li>
-                <li><a href="index.html#candidates" class="text-partyBlue dark:text-white hover:dark:bg-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">ผู้สมัคร</a></li>
-                <li><a href="council-committee.html" class="text-partyBlue dark:text-white hover:dark:bg-partyBlue font-bold hover:bg-partyYellow hover:text-partyBlue px-3 py-1 transition-colors hover-trigger">คณะสภานักเรียน</a></li>
-                <li><a href="policy.html" class="hover-trigger bg-partyBlue text-white border-2 border-partyBlue px-6 py-2 font-bold shadow-[4px_4px_0px_0px_#facc15] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">อ่านนโยบาย</a></li>
-            <li>
-                    <button onclick="toggleTheme()" class="bg-gray-100 dark:bg-gray-800 p-2 rounded-full border-2 border-gray-300 dark:border-gray-600 hover:border-partyYellow transition-all group">
+
+            <ul class="hidden md:flex space-x-4 items-center">
+                <li>
+                    <a href="index.html" class="hover-trigger flex items-center gap-2 bg-red-600 text-white px-5 py-2 font-black uppercase tracking-wider border-2 border-red-800 shadow-pop-red hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all rounded-md">
+                        <span>ปิดหน้านี้</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <button onclick="toggleTheme()" class="bg-gray-100 dark:bg-gray-800 p-2 rounded-full border-2 border-gray-300 dark:border-gray-600 hover:border-partyYellow transition-all group hover-trigger">
                         <svg class="sun-icon w-5 h-5 text-gray-500 dark:text-yellow-400 hidden group-hover:rotate-45 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                         <svg class="moon-icon w-5 h-5 text-partyBlue group-hover:-rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     </button>
@@ -142,10 +170,9 @@
         </div>
 
         <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-partyBlue dark:bg-gray-800 border-t-2 border-partyYellow shadow-xl z-10 flex flex-col p-4 space-y-3">
-            <a href="index.html" class="block text-white font-bold text-xl py-2 border-b border-white/20">หน้าหลัก</a>
-            <a href="index.html#candidates" class="block text-white font-bold text-xl py-2 border-b border-white/20">ผู้สมัคร</a>
-            <a href="council-committee.html" class="block text-white font-bold text-xl py-2 border-b border-white/20">คณะสภานักเรียน</a>
-            <a href="policy.html" class="block bg-partyYellow text-partyBlue font-black text-center text-xl py-3 border-2 border-white shadow-[4px_4px_0px_0px_#ffffff]">อ่านนโยบาย</a>
+            <a href="index.html" class="block bg-red-600 text-white font-black text-center text-xl py-3 border-2 border-red-800 shadow-[4px_4px_0px_0px_#7f1d1d] hover:translate-y-1 hover:shadow-none transition-all">
+                ปิดหน้านี้ (กลับหน้าหลัก)
+            </a>
             
             <button onclick="toggleTheme()" class="flex items-center justify-between w-full text-white font-bold text-xl py-2 border-b border-white/20 hover:text-partyYellow transition-colors group">
                 <span>โหมดมืด / สว่าง</span>
@@ -157,141 +184,244 @@
         </div>
     </nav>
 
-    <main class="flex-grow pt-28 pb-12 px-4 relative z-10 flex items-center justify-center">
+    <main class="pt-28 pb-12 px-4 relative z-10 container mx-auto flex-grow">
         
-        <div id="loading" class="text-center">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-4 border-partyBlue mx-auto mb-4"></div>
-            <p class="text-partyBlue font-bold text-xl animate-pulse">กำลังโหลดข้อมูล...</p>
+        <div class="text-center mb-12 animate-fade-in-up">
+            <span class="bg-partyYellow text-partyBlue px-4 py-1 text-sm font-black uppercase inline-block mb-4 rotate-2 border-2 border-black shadow-pop">
+                Official Report
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black text-partyBlue dark:text-white tracking-tighter hover-trigger">
+                ELECTION <span class="text-transparent bg-clip-text bg-gradient-to-r from-partyBlue to-partyYellow dark:from-white dark:to-partyYellow">RESULTS</span>
+            </h1>
+            <p class="mt-4 text-xl text-gray-600 dark:text-gray-300">รายงานผลการเลือกตั้งสภานักเรียน อย่างเป็นทางการ</p>
         </div>
 
-        <div id="not-found" class="hidden text-center max-w-lg bg-white p-10 border-4 border-partyBlue shadow-pop relative">
-            <div class="text-6xl mb-4">❌</div>
-            <h2 class="text-3xl font-black text-partyBlue mb-4">ไม่พบข้อมูลผู้สมัคร</h2>
-            <p class="text-gray-600 mb-8 text-lg">รหัสผู้สมัครไม่ถูกต้อง หรือไม่มีอยู่ในระบบ</p>
-            <a href="index.html#candidates" class="hover-trigger inline-block bg-partyBlue text-white px-8 py-3 font-bold text-xl border-2 border-partyBlue hover:bg-partyYellow hover:text-partyBlue transition-colors shadow-pop-yellow">
-                กลับไปเลือกใหม่
-            </a>
-        </div>
-
-        <div id="profile-card" class="hidden w-full max-w-6xl bg-white dark:bg-gray-800 border-4 border-partyBlue dark:border-partyYellow shadow-pop relative overflow-hidden animate-fade-in-up transition-colors duration-300">
-            
-            <div class="grid grid-cols-1 md:grid-cols-12 min-h-[550px]">
+        <div class="bg-white dark:bg-gray-800 border-4 border-partyBlue dark:border-partyYellow shadow-pop p-6 md:p-8 mb-16 rounded-xl relative overflow-hidden animate-fade-in-up hover-trigger">
+            <div class="absolute inset-0 bg-dot-pattern opacity-5"></div>
+            <div class="relative z-10">
+                <h2 class="text-3xl font-black text-partyBlue dark:text-white mb-6 border-b-4 border-partyYellow pb-2 inline-block">
+                    🏆 สรุปคะแนนรวม (Total)
+                </h2>
                 
-                <div class="md:col-span-5 bg-gray-100 relative group overflow-hidden border-b-4 md:border-b-0 md:border-r-4 border-partyBlue">
-
-                   <img id="p-img" src="" alt="Candidate Image" class="w-full h-[350px] md:h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-
-                    <div class="absolute top-4 left-4 bg-partyYellow text-black font-black w-14 h-14 md:w-16 md:h-16 flex items-center justify-center border-4 border-black text-3xl md:text-4xl shadow-pop z-20 rotate-[-5deg] group-hover:rotate-0 transition-transform">
-                        <span id="p-id"></span>
-                    </div>
-        <div class="absolute bottom-4 right-4 bg-partyBlue text-white font-black px-4 py-2 text-sm md:text-base border-2 border-white shadow-lg z-20">
-            <span id="p-role-badge"></span>
-        </div>
-            </div>
-
-                <div class="md:col-span-7 p-6 md:p-10 relative flex flex-col justify-center bg-white dark:bg-gray-800">
-                    
-                    <div class="mb-4">
-                        <h1 class="text-3xl md:text-5xl font-black text-partyBlue dark:text-white leading-tight mb-1 tracking-tighter">
-                            <span id="p-name"></span>
-                        </h1>
-                        <div class="mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
-                            <span class="inline-block bg-partyYellow text-partyBlue font-black text-xl md:text-2xl px-4 py-1 rounded-full border-2 border-partyBlue shadow-pop transform -rotate-1">
-                            ชื่อเล่น: <span id="p-nickname"></span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="bg-partyBlue text-white p-5 md:p-6 mb-6 relative border-2 border-partyYellow shadow-pop-yellow transform -rotate-1 hover:rotate-0 transition-transform duration-300">
-                        <span class="absolute -top-4 -left-2 text-6xl text-partyYellow font-serif leading-none">“</span>
-                        <p id="p-quote" class="text-lg md:text-xl font-bold italic text-center relative z-10 leading-snug"></p>
-                        <span class="absolute -bottom-8 -right-2 text-6xl text-partyYellow font-serif leading-none transform rotate-180">“</span>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-6 text-base md:text-lg">
-                        <div>
-                            <p class="text-gray-500 dark:text-gray-400 font-bold text-xs md:text-sm uppercase mb-0">ระดับชั้น / อายุ</p>
-                            <p class="font-black text-partyBlue dark:text-white text-lg md:text-xl"><span id="p-class"></span> <span class="text-gray-400">|</span> <span id="p-age"></span> ปี</p>
-                        </div>
-                        <div>
-                            <p class="text-gray-500 font-bold text-xs md:text-sm uppercase mb-0">เกรดเฉลี่ย (GPA)</p>
-                            <p id="p-gpa" class="font-black text-partyYellow text-lg md:text-xl bg-partyBlue inline-block px-2 transform rotate-2"></p>
-                        </div>
-                        <div class="col-span-2">
-                            <p class="text-gray-500 dark:text-gray-400 font-bold text-xs md:text-sm uppercase mb-0">แผนการเรียน</p>
-                            <p id="p-plan" class="font-bold text-partyDarkBlue dark:text-gray-200 text-lg md:text-xl"></p>
-                        </div>
-                    </div>
-
-                    <div class="mb-6">
-                        <h3 class="text-xl md:text-2xl font-black text-partyBlue dark:text-partyYellow mb-2 uppercase flex items-center gap-2">
-                            <span class="bg-partyYellow w-2 h-6 inline-block"></span> Vision
-                        </h3>
-                        <p id="p-vision" class="text-gray-700 dark:text-gray-300 font-medium text-base md:text-lg leading-normal text-justify border-l-4 border-gray-200 dark:border-gray-600 pl-4"></p>
-                    </div>
-
+                <div class="flex items-center gap-6 mb-8 bg-partyYellow/20 p-4 rounded-lg border-2 border-partyYellow">
+                    <div class="text-6xl animate-bounce">🥇</div>
                     <div>
-                        <h3 class="text-xl md:text-2xl font-black text-partyBlue dark:text-partyYellow mb-2 uppercase flex items-center gap-2">
-                            <span class="bg-partyYellow w-2 h-6 inline-block"></span> Achievements
-                        </h3>
-                        <ul id="p-achievements" class="space-y-2">
-                            </ul>
+                        <p class="text-sm font-bold text-gray-500 uppercase">Winner (อันดับ 1)</p>
+                        <h3 class="text-4xl md:text-5xl font-black text-partyBlue dark:text-white">Pioneer <span class="text-lg bg-partyBlue text-white px-2 rounded">เบอร์ 3</span></h3>
+                        <p class="text-3xl font-bold mt-1">886 <span class="text-base font-normal">คะแนน</span></p>
                     </div>
-
-                    <div class="mt-8 pt-6 border-t border-gray-200">
-                        <h3 class="text-lg font-bold text-partyBlue dark:text-white mb-4 flex items-center">
-                            ช่องทางติดต่อ
-                        </h3>
-    
-                        <a id="p-ig" href="#" target="_blank" class="group flex items-center space-x-3 bg-white dark:bg-gray-700 border-2 border-gray-100 dark:border-gray-600 hover:border-[#E1306C] rounded-xl p-3 transition-all duration-300 shadow-sm hover:shadow-md">
-                        <div class="w-10 h-10 rounded-full bg-gray-50 dark:bg-gray-600 group-hover:bg-[#E1306C]/10 flex items-center justify-center transition-colors">
-                            <svg class="w-6 h-6 text-gray-600 dark:text-white group-hover:text-[#E1306C] transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </div>
-                    <div>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 font-mono">INSTAGRAM</p>
-                    <p id="p-ig-username" class="text-sm font-bold text-partyBlue dark:text-white group-hover:text-[#E1306C] transition-colors">username</p>
                 </div>
-            </a>
-        </div>
 
+                <div class="space-y-4">
+                    <div class="hover-trigger">
+                        <div class="flex justify-between text-sm font-bold mb-1">
+                            <span>#3 Pioneer</span>
+                            <span>886 คะแนน</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 overflow-hidden">
+                            <div class="bg-partyYellow h-4 rounded-full animate-grow-width shadow-[0_0_10px_rgba(250,204,21,0.5)]" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="hover-trigger">
+                        <div class="flex justify-between text-sm font-bold mb-1">
+                            <span>#1 Next gen one</span>
+                            <span>304 คะแนน</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 overflow-hidden">
+                            <div class="bg-partyBlue h-4 rounded-full animate-grow-width" style="width: 34.3%"></div>
+                        </div>
+                    </div>
+                    <div class="hover-trigger">
+                        <div class="flex justify-between text-sm font-bold mb-1">
+                            <span>#4 PSC NEXT GEN</span>
+                            <span>254 คะแนน</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 overflow-hidden">
+                            <div class="bg-gray-400 h-4 rounded-full animate-grow-width" style="width: 28.6%"></div>
+                        </div>
+                    </div>
+                    <div class="hover-trigger">
+                        <div class="flex justify-between text-sm font-bold mb-1">
+                            <span>#2 Just for you</span>
+                            <span>251 คะแนน</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 overflow-hidden">
+                            <div class="bg-gray-400 h-4 rounded-full animate-grow-width" style="width: 28.3%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 flex gap-4 text-sm text-gray-500 justify-end font-mono">
+                    <span>ไม่ประสงค์ลงคะแนน: <b>149</b></span>
+                    <span>บัตรเสีย: <b>69</b></span>
                 </div>
             </div>
+        </div>
+
+        <h2 class="text-2xl font-black text-center mb-8 text-gray-700 dark:text-gray-300 uppercase tracking-widest">
+            — รายละเอียดรายหน่วย —
+        </h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow animate-fade-in-up hover-trigger" style="animation-delay: 0.1s">
+                <div class="bg-partyBlue text-white p-4 border-b-4 border-partyYellow">
+                    <h3 class="font-black text-xl">📍 หน่วยเลือกตั้งที่ 1</h3>
+                </div>
+                <div class="h-48 bg-gray-200 relative group overflow-hidden">
+                    <img src="images/ผลเลือกตั้ง/หน่วยที่ 1.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <button onclick="openEvidence('images/ผลเลือกตั้ง/หน่วยที่ 1.jpg')" class="cursor-pointer text-white font-bold border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-partyBlue transition-all transform hover:scale-105 active:scale-95 shadow-lg absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                    🔍 ดูหลักฐาน
+                    </button>
+                </div>
+                <div class="p-4">
+                    <table class="w-full text-sm score-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>พรรค</th>
+                                <th class="text-right">คะแนน</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="winner">
+                                <td class="font-black text-partyBlue">3</td>
+                                <td class="font-bold text-partyBlue">Pioneer 👑</td>
+                                <td class="text-right font-black text-lg">328</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Next gen one</td>
+                                <td class="text-right">145</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Just for you</td>
+                                <td class="text-right">95</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>PSC NEXT GEN</td>
+                                <td class="text-right">91</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-4 pt-4 border-t border-dashed border-gray-300 text-xs text-gray-500 flex justify-between">
+                        <span>ไม่ประสงค์ฯ: <b>38</b></span>
+                        <span>บัตรเสีย: <b>17</b></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow animate-fade-in-up hover-trigger" style="animation-delay: 0.2s">
+                <div class="bg-partyBlue text-white p-4 border-b-4 border-partyYellow">
+                    <h3 class="font-black text-xl">📍 หน่วยเลือกตั้งที่ 2</h3>
+                </div>
+                <div class="h-48 bg-gray-200 relative group overflow-hidden">
+                    <img src="images/ผลเลือกตั้ง/หน่วยที่ 2.jpg"class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                     <button onclick="openEvidence('images/ผลเลือกตั้ง/หน่วยที่ 2.jpg')" class="cursor-pointer text-white font-bold border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-partyBlue transition-all transform hover:scale-105 active:scale-95 shadow-lg absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                    🔍 ดูหลักฐาน
+                    </button>
+                </div>
+                <div class="p-4">
+                    <table class="w-full text-sm score-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>พรรค</th>
+                                <th class="text-right">คะแนน</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="winner">
+                                <td class="font-black text-partyBlue">3</td>
+                                <td class="font-bold text-partyBlue">Pioneer 👑</td>
+                                <td class="text-right font-black text-lg">319</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Next gen one</td>
+                                <td class="text-right">96</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>PSC NEXT GEN</td>
+                                <td class="text-right">88</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Just for you</td>
+                                <td class="text-right">81</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-4 pt-4 border-t border-dashed border-gray-300 text-xs text-gray-500 flex justify-between">
+                        <span>ไม่ประสงค์ฯ: <b>63</b></span>
+                        <span>บัตรเสีย: <b>25</b></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow animate-fade-in-up hover-trigger" style="animation-delay: 0.3s">
+                <div class="bg-partyBlue text-white p-4 border-b-4 border-partyYellow">
+                    <h3 class="font-black text-xl">📍 หน่วยเลือกตั้งที่ 3</h3>
+                </div>
+                <div class="h-48 bg-gray-200 relative group overflow-hidden">
+                    <img src="images/ผลเลือกตั้ง/หน่วยที่ 3.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                     <button onclick="openEvidence('images/ผลเลือกตั้ง/หน่วยที่ 3.jpg')" class="cursor-pointer text-white font-bold border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-partyBlue transition-all transform hover:scale-105 active:scale-95 shadow-lg absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                    🔍 ดูหลักฐาน
+                    </button>
+                </div>
+                <div class="p-4">
+                    <table class="w-full text-sm score-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>พรรค</th>
+                                <th class="text-right">คะแนน</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="winner">
+                                <td class="font-black text-partyBlue">3</td>
+                                <td class="font-bold text-partyBlue">Pioneer 👑</td>
+                                <td class="text-right font-black text-lg">239</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Just for you</td>
+                                <td class="text-right">75</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>PSC NEXT GEN</td>
+                                <td class="text-right">75</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Next gen one</td>
+                                <td class="text-right">63</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-4 pt-4 border-t border-dashed border-gray-300 text-xs text-gray-500 flex justify-between">
+                        <span>ไม่ประสงค์ฯ: <b>48</b></span>
+                        <span>บัตรเสีย: <b>27</b></span>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </main>
 
-    <div class="bg-white dark:bg-gray-900 overflow-hidden pt-10 border-t border-gray-200 dark:border-gray-800 w-full relative transition-colors duration-300">
-        <div class="absolute inset-0 bg-noise z-40 opacity-20"></div>
-        
-        <div class="relative h-[250px] md:h-[420px] w-full max-w-7xl mx-auto overflow-hidden group">
-            <div class="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-end justify-center w-full h-full px-4 transition-transform duration-500 group-hover:scale-105 origin-bottom">
-                
-                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 1.png" alt="Member Left" 
-                     class="person-side h-[70%] md:h-[85%] object-contain object-bottom -mr-16 md:-mr-31 translate-y-full transition-all duration-500 z-10">
-                
-                <img src="images/รูปรวมไม่มีพื้นหลัง/Student Council President.png" alt="President" 
-                     class="person-center h-[80%] md:h-[95%] object-contain object-bottom relative z-20 drop-shadow-2xl translate-y-full">
-                
-                <img src="images/รูปรวมไม่มีพื้นหลัง/Vice Student Council President 2.png" alt="Member Right" 
-                     class="person-side h-[70%] md:h-[85%] object-contain object-bottom -ml-16 md:-ml-31 translate-y-full transition-all duration-500 z-10">
-            </div>
-
-            <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 z-30 pointer-events-none bg-gradient-to-t from-white via-white/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent"></div>
-        </div>
-
-        <div class="text-center pb-12 pt-2 bg-white dark:bg-gray-900 relative z-40 px-4 min-h-[80px] md:min-h-[100px]" id="typewriter-section">
-            <h2 class="text-3xl md:text-6xl lg:text-7xl font-bold text-partyBlue dark:text-yellow-400 tracking-tighter drop-shadow-md">
-                <span id="typed-text"></span><span class="cursor-blink bg-partyBlue w-3 h-8 md:w-4 md:h-20 inline-block align-middle ml-2"></span>
-            </h2>
-        </div>
-
+    <div id="evidence-modal" class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeEvidence()">
+    <div class="relative max-w-4xl w-full max-h-screen">
+        <button class="absolute -top-12 right-0 text-white text-4xl font-bold hover:text-partyYellow transition-colors">&times;</button>
+        <img id="evidence-img" src="" class="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl border-4 border-white">
+        <p class="text-white text-center mt-2 font-mono text-sm opacity-80">คลิกที่ว่างเพื่อปิด</p>
     </div>
-
-    <button id="install-pwa-btn" class="hidden fixed bottom-4 left-4 z-50 bg-partyYellow text-partyBlue border-2 border-partyBlue dark:border-white px-4 py-2 font-black shadow-pop rounded-lg animate-bounce hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-        ⬇️ ติดตั้งแอป
-    </button>
+    </div>
 
     <footer class="bg-partyBlue dark:bg-gray-950 text-white py-12 relative shadow-[0_-10px_40px_rgba(0,0,0,0.3)] z-50 overflow-hidden transition-colors duration-300">
         <div class="absolute top-0 left-0 w-full h-2 bg-partyYellow"></div>
@@ -338,387 +468,95 @@
 
         </div>
     </footer>
-    <script>
-        // --- DATA SECTION ---
-        const candidates = [
-            { 
-                id: 1, 
-                name: "พาขวัญ นวลสำลี", 
-                nickname: "นุ้กนิ้ก",
-                role: "ประธานนักเรียน", 
-                img: "images/รูปรวมมีพื้นหลัง/Student Council President.png", 
-                age: 16, 
-                class: "ม.4/2", 
-                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
-                gpa: "4.00",
-                quote: "ฟังทุกเสียง คิดเพื่อทุกคน และลงมือทำจริง", 
-                vision: "ไม่ได้มาเพื่อสั่งการ แต่มาเพื่อประสานทุกความต้องการ" , 
-                achievements: ["เป็นคฑากรโรงเรียน", "รางวัลรองชนะเลิศอันดับที่ 1 การตอบปัญหาวิทยาศาสตร์" ],
-                username: "pxkxn_nkk",
-                instagram: "https://www.instagram.com/pxkxn_nkk" 
-            },
-            { 
-                id: 2, 
-                name: "กฤษณะกันท์ ไข่แก้ว", 
-                nickname: "ซีโฟน", 
-                role: "รองประธานนักเรียน คนที่ 1", 
-                img: "images/รูปรวมมีพื้นหลัง/Vice Student Council President 1.png", 
-                age: 17, 
-                class: "ม.4/4", 
-                studyPlan: "ภาษาอังกฤษ-ภาษาจีน", 
-                gpa: "2.83",
-                quote: "อยู่เบื้องหลังความสำเร็จ และผลักดันทีมให้ไปไกลกว่าเดิม", 
-                vision: "ทุกเสียงของเพื่อนๆ คือภารกิจของเรา" , 
-                achievements: [ "รางวัลเหรียญทองการประกวดมารยาทไทย", "รางวัลรองชนะเลิศอันดับ 2 การประกวดสื่อสร้างสรรค์ภาพยนตร์สั้น รายวิชาสังคม “ เย็บฝันกลางคำดูถูก “" ],
-                username: "z_fornn",
-                instagram: "https://www.instagram.com/z_fornn" 
-            },
-            { 
-                id: 3, 
-                name: "ธัญญรัตน์ หมื่นรัตน์", 
-                nickname: "หนุงหนิง", 
-                role: "รองประธานนักเรียน คนที่ 2", 
-                img: "images/รูปรวมมีพื้นหลัง/Vice Student Council President 2.png", 
-                age: 16, 
-                class: "ม.4/1", 
-                studyPlan: "คณิตศาสตร์-หุ่นยนต์", 
-                gpa: "3.85",
-                quote: "ประสานทุกความคิด ให้เป็นพลังเดียวกัน", 
-                vision: "สร้างโรงเรียนที่เป็นพื้นที่ปลอดภัย (Safe Zone) สำหรับทุกคน" , 
-                achievements: ["รางวัลรองชนะเลิศอันดับที่ 2 การประกวดเรียงความทางวิทยาศาสตร์","รางวัลชมเชย การเขียนเรียงความวันสุนทรภู่และวันภาษาไทยแห่งชาติ"],
-                username: "thanyaratmunrat",
-                instagram: "https://www.instagram.com/thanyaratmunrat" 
-             }, 
-            { 
-                id: 4, 
-                name: "ฐานิดา รื่นเริง",
-                nickname: "ข้าวฟ่าง",
-                role: "กรรมการ คนที่ 1",
-                img: "images/รูปรวมมีพื้นหลัง/Committee 1.png",
-                age: 16,
-                class: "ม.4/2",
-                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
-                gpa: "4.00",
-                quote: "ใส่ใจรายละเอียด เพื่อรอยยิ้มของทุกคนในโรงเรียน", 
-                vision: "ลดความตึงเครียด เพิ่มรอยยิ้มด้วยกิจกรรมที่ผ่อนคลาย" , 
-                achievements: [ "รางวัลรองชนะเลิศอันดับที่ 2 การตอบปัญหาวิทยาศาสตร์", "รางวัลเหรียญทองอัจฉริยภาพทางวิทยาศาสตร์" ],
-                username: "tha1daa",
-                instagram: "https://www.instagram.com/tha1daa" 
-            },
-            { 
-                id: 5, 
-                name: "วาศิณี ปู่ไข่",
-                nickname: "เนย",
-                role: "กรรมการ คนที่ 2",
-                img: "images/รูปรวมมีพื้นหลัง/Committee 2.png",
-                age: 16,
-                class: "ม.4/2",
-                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
-                gpa: "3.92",
-                quote: "พร้อมรับฟัง พร้อมพัฒนา พร้อมเดินไปด้วยกัน", 
-                vision: "ใส่ใจสิทธิขั้นพื้นฐาน ที่นักเรียนทุกคนต้องได้รับ" ,
-                achievements: [ "รางวัลรองชนะเลิศอันดับที่ 2 การตอบปัญหาวิทยาศาสตร์", "ตัวแทนการแข่งขัน Crossword ณ โรงเรียนเตรียมอุดมศึกษา" ],
-                username: "buttermilk_0",
-                instagram: "https://www.instagram.com/buttermilk_0"
-            },
-            { 
-                id: 6,
-                name: "ปรียากาญจน์ ใจกล้า",
-                nickname: "ไอติม",
-                role: "กรรมการ คนที่ 3",
-                img: "images/รูปรวมมีพื้นหลัง/Committee 3.png",
-                age: 16,
-                class: "ม.4/2",
-                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
-                gpa: "3.92",
-                quote: "พลังเล็ก ๆ ที่อยากสร้างการเปลี่ยนแปลงที่ยิ่งใหญ่", 
-                vision: "เป็นกระบอกเสียงให้คนตัวเล็กๆ ไม่ให้ใครถูกมองข้าม" ,
-                achievements: [ "รางวัลรองชนะเลิศอันดับที่ 1 การตอบปัญหาวิทยาศาสตร์", "รางวัลชนะเลิศการประกวดสื่อสร้างสรรค์ภาพยนตร์สั้น รายวิชาสังคม “ No offside in life ”" ],
-                username: "iam.me.tim",
-                instagram: "https://www.instagram.com/iam.me.tim"
-            },
-            { 
-                id: 7, 
-                name: "เขมิกา ศักดิ์เสรีกุล",
-                nickname: "คิมมี่",
-                role: "กรรมการ คนที่ 4",
-                img: "images/รูปรวมมีพื้นหลัง/Committee 4.png",
-                age: 16,
-                class: "ม.4/2",
-                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
-                gpa: "3.64",
-                quote: "ความตั้งใจจริง คือจุดเริ่มต้นของสิ่งดี ๆ", 
-                vision: "เชื่อมความสัมพันธ์ พี่น้องและครู ให้เป็นหนึ่งเดียว" ,
-                achievements: [ "(ปัจจุบัน) หัวหน้าห้องระดับชั้นมัธยมศึกษา ปีที่4/2", "ผู้ถือป้ายขบวนสีเหลือง" ],
-                username: "khemika_q",
-                instagram: "https://www.instagram.com/khemika_q" 
-            },
-            { 
-                id: 8, 
-                name: "อารีรัตน์ บัวทอง",
-                nickname: "ฟ้า",
-                role: "กรรมการ คนที่ 5",
-                img: "images/รูปรวมมีพื้นหลัง/Committee 5.png",
-                age: 16,
-                class: "ม.4/2",
-                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
-                gpa: "3.20",
-                quote: "ทำหน้าที่ของตัวเองให้ดีที่สุด เพื่อส่วนรวม", 
-                vision: "ดูแลสวัสดิการ สุขอนามัย และความสะดวกสบายอย่างทั่วถึง" ,
-                achievements: [ "รางวัลรองชนะเลิศอันดับ 2 Lylics Hunter","รางวัลชนะเลิศการจัดบอร์ดความรู้"],
-                username: "axry_.fxh",
-                instagram: "https://www.instagram.com/axry_.fxh"
-            },
-            { 
-                id: 9, 
-                name: "สิทธิโชค แสงสว่าง",
-                nickname: "โฟม",
-                role: "กรรมการ คนที่ 6",
-                img: "images/รูปรวมมีพื้นหลัง/Committee 6.png",
-                age: 15,
-                class: "ม.4/2",
-                studyPlan: "วิทยาศาสตร์-เทคโนโลยีและนวัตกรรม",
-                gpa: "3.97",
-                quote: "คิดเป็นระบบ ทำเป็นทีม และรับผิดชอบทุกหน้าที่", 
-                vision: "เปิดกว้างทุกความหลากหลาย ให้ทุกคนเป็นตัวของตัวเองได้เต็มที่" ,
-                achievements: ["รางวัลรองชนะเลิศอันดับ 1 แข่งขันอัจฉริยภาพทางคณิตศาสตร์","รางวัลรองชนะเลิศอันดับ 1 แข่งขันต่อสมการคณิตศาสตร์ A-MATH "],
-                username: "foxm_sx",
-                instagram: "https://www.instagram.com/foxm_sx" 
-            }
-        ];
 
-        // --- SCRIPT ---
-        const cursor = document.getElementById('cursor');
-        if (window.matchMedia("(min-width: 768px)").matches) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-            const hoverTriggers = document.querySelectorAll('a, button, .hover-trigger');
-            hoverTriggers.forEach(trigger => {
-                trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-                trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-            });
+    <script>
+        // --- Dark Mode Logic ---
+        const html = document.documentElement;
+        
+        function updateIcons(isDark) {
+            const sunIcons = document.querySelectorAll('.sun-icon');
+            const moonIcons = document.querySelectorAll('.moon-icon');
+            if (isDark) {
+                sunIcons.forEach(el => el.classList.remove('hidden'));
+                moonIcons.forEach(el => el.classList.add('hidden'));
+            } else {
+                sunIcons.forEach(el => el.classList.add('hidden'));
+                moonIcons.forEach(el => el.classList.remove('hidden'));
+            }
         }
 
+        function checkTheme() {
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+                updateIcons(true);
+            } else {
+                html.classList.remove('dark');
+                updateIcons(false);
+            }
+        }
+        checkTheme();
+
+        function toggleTheme() {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateIcons(false);
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcons(true);
+            }
+        }
+
+        // --- Custom Cursor Logic ---
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const hoverTriggers = document.querySelectorAll('a, button, .hover-trigger');
+        hoverTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // --- Mobile Menu Toggle ---
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-
-        // Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = parseInt(urlParams.get('id'));
-
-            const loadingEl = document.getElementById('loading');
-            const cardEl = document.getElementById('profile-card');
-            const notFoundEl = document.getElementById('not-found');
-
-            if (!id) {
-                loadingEl.classList.add('hidden');
-                notFoundEl.classList.remove('hidden');
-                return;
-            }
-
-            const candidate = candidates.find(c => c.id === id);
-
-            if (candidate) {
-                document.getElementById('p-id').innerText = candidate.id;
-                document.getElementById('p-img').src = candidate.img;
-                document.getElementById('p-name').innerText = candidate.name;
-                document.getElementById('p-nickname').innerText = candidate.nickname;
-                document.getElementById('p-role-badge').innerText = candidate.role;
-                document.getElementById('p-quote').innerText = candidate.quote;
-                document.getElementById('p-age').innerText = candidate.age;
-                document.getElementById('p-class').innerText = candidate.class;
-                document.getElementById('p-plan').innerText = candidate.studyPlan;
-                document.getElementById('p-gpa').innerText = candidate.gpa;
-                document.getElementById('p-vision').innerText = candidate.vision;
-                const igBtn = document.getElementById("p-ig");
-                    if (candidate.instagram) {
-                        igBtn.href = candidate.instagram;
-                        igBtn.classList.remove('hidden');
-                    } else {
-                        igBtn.classList.add('hidden');
-                    }
-                document.getElementById('p-ig-username').innerText = candidate.username;
-
-                const listContainer = document.getElementById('p-achievements');
-                listContainer.innerHTML = ''; 
-                candidate.achievements.forEach(ach => {
-                    const li = document.createElement('li');
-                    li.className = "flex items-start text-gray-700 dark:text-gray-300 font-medium text-base md:text-lg"; 
-                    li.innerHTML = `<span class="mr-3 text-partyYellow font-black text-xl">✓</span> ${ach}`;
-                    listContainer.appendChild(li);
-                });
-
-                setTimeout(() => {
-                    loadingEl.classList.add('hidden');
-                    cardEl.classList.remove('hidden');
-                }, 300);
-            } else {
-                loadingEl.classList.add('hidden');
-                notFoundEl.classList.remove('hidden');
-            }
-
-            // Image Animation on Load
-            document.querySelectorAll('.person-center, .person-side').forEach(el => {
-                el.classList.remove('translate-y-full');
-            });
-
-            // Typewriter Effect
-            const textToType = "เข้าคูหา . . . กาเบอร์ <span class='font-bold text-partyYellow bg-partyBlue px-2'>3</span> พรรค <span class='font-bold text-partyYellow'>Pioneer</span> ! ";
-            const typedTextElement = document.getElementById('typed-text');
-            const typeSection = document.getElementById('typewriter-section');
-            let hasStarted = false;
-
-            function typeWriter(text, i) {
-                if (i < text.length) {
-                    if (text.charAt(i) === '<') {
-                        let tagEnd = text.indexOf('>', i);
-                        if (tagEnd !== -1) i = tagEnd; 
-                    }
-                    typedTextElement.innerHTML = text.substring(0, i + 1);
-                    setTimeout(function() { typeWriter(text, i + 1) }, 80); 
-                }
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !hasStarted) {
-                        hasStarted = true;
-                        setTimeout(() => { typeWriter(textToType, 0); }, 500); 
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            if(typeSection) observer.observe(typeSection);
+        if(mobileBtn) mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
 
-        // PWA Script
-        const appVersionSpan = document.getElementById('app-version');
-        if(appVersionSpan) appVersionSpan.innerText = "1.0.5";
-
-        let deferredPrompt;
-        const installBtn = document.getElementById('install-pwa-btn');
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBtn.classList.remove('hidden');
-        });
-        installBtn.addEventListener('click', (e) => {
-            installBtn.classList.add('hidden');
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                deferredPrompt = null;
-            });
-        });
-
-
-    // --- Dark Mode Logic (Updated) ---
-    const html = document.documentElement;
-    
-    // ฟังก์ชันสำหรับอัปเดตไอคอนทุกจุดในหน้าเว็บ
-    function updateIcons(isDark) {
-        const sunIcons = document.querySelectorAll('.sun-icon');
-        const moonIcons = document.querySelectorAll('.moon-icon');
-        
-        if (isDark) {
-            sunIcons.forEach(el => el.classList.remove('hidden'));
-            moonIcons.forEach(el => el.classList.add('hidden'));
-        } else {
-            sunIcons.forEach(el => el.classList.add('hidden'));
-            moonIcons.forEach(el => el.classList.remove('hidden'));
-        }
-    }
-
-    function checkTheme() {
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            html.classList.add('dark');
-            updateIcons(true);
-        } else {
-            html.classList.remove('dark');
-            updateIcons(false);
-        }
-    }
-    checkTheme();
-
-    function toggleTheme() {
-        if (html.classList.contains('dark')) {
-            html.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-            updateIcons(false);
-        } else {
-            html.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-            updateIcons(true);
-        }
-    }
-</script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // 1. ดึง ID ผู้สมัครจาก URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const candidateId = urlParams.get('id') || 'Unknown';
-        
-        // ตัวแปรของ Loader
-        const loader = document.getElementById('profile-loader');
-        const statusText = document.getElementById('loader-status');
-        const subText = document.getElementById('loader-sub');
-        const bar = document.getElementById('loader-bar');
-        const randomCode = document.getElementById('random-code');
-
-        // เริ่มอนิเมชั่นทันทีที่เข้าหน้า
-        setTimeout(() => {
-            // สเต็ป 1: หลอดโหลดเริ่มวิ่ง
-            bar.style.width = "40%";
-            
-            // สเต็ป 2: ทำตัวเลขสุ่มวิ่งๆ (เพื่อความเท่)
-            const interval = setInterval(() => {
-                randomCode.innerText = 'DATA_' + Math.floor(Math.random() * 9999);
-            }, 50);
-
-            // สเต็ป 3: เจอข้อมูล (จำลองเวลา 0.5 วิ)
+        // --- Loader Logic ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('app-loader');
+            // หน้า score ไม่ต้องเช็ค session ก็ได้ ให้โหลดแป๊บเดียวพอให้เห็น
             setTimeout(() => {
-                statusText.innerText = `ได้รับอนุญาตให้เข้าถึง`;
-                statusText.classList.remove('text-partyYellow');
-                statusText.classList.add('text-green-400'); // เปลี่ยนสีเป็นเขียว
-                
-                subText.innerText = `ดึงข้อมูลสำหรับผู้สมัครหมายเลข. ${candidateId}`;
-                bar.style.width = "100%"; // หลอดเต็ม
-                
-                clearInterval(interval);
-                randomCode.innerText = "COMPLETE";
+                loader.classList.add('opacity-0', 'pointer-events-none');
+            }, 800);
+        });
+   // --- Evidence Modal Logic ---
+    function openEvidence(imgSrc) {
+        const modal = document.getElementById('evidence-modal');
+        const modalImg = document.getElementById('evidence-img');
+        
+        modalImg.src = imgSrc;
+        modal.classList.remove('hidden');
+        // เพิ่ม Animation เล็กน้อย
+        modalImg.classList.add('animate-fade-in-up');
+    }
 
-                // สเต็ป 4: ปิดหน้าโหลด (Slide Up)
-                setTimeout(() => {
-                    // เลื่อนหน้าโหลดขึ้นข้างบน
-                    loader.style.transform = "translateY(-100%)";
-                    
-                    // (Optional) สั่งให้การ์ดผู้สมัครเด้งขึ้นมา
-                    const card = document.querySelector('.container'); // หรือ class หลักของคุณ
-                    if(card) {
-                        card.classList.add('animate-fade-in-up');
-                    }
-                }, 800); // รอหลอดเต็มแป๊บนึงค่อยเปิด
+    function closeEvidence() {
+        const modal = document.getElementById('evidence-modal');
+        modal.classList.add('hidden');
+    }
 
-            }, 600); // ดีเลย์จำลองการค้นหา
-        }, 100);
+    // ปิดด้วยปุ่ม ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeEvidence();
     });
-</script>
+    </script>
 
-<style>
-    /* แถม Animation ให้ตอนเปิดหน้า */
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in-up {
-        animation: fadeInUp 0.8s ease-out forwards;
-    }
-</style>
 </body>
 </html>
-
-
